@@ -1,0 +1,7 @@
+# Deployment list consists lines in following format
+# SERVER [GROUP]
+# where:
+# - SERVER: hostname of the server where project will be deployed;
+# - GROUP: group name for filtering during install;
+# Server must be added in girar, in specified location.
+# To see server list use girar command "servers".
