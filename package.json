@@ -23,6 +23,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.5.0",
     "classnames": "^2.2.5",
+    "clone": "^2.1.1",
     "compression": "^1.7.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
@@ -37,6 +38,7 @@
     "moment": "^2.19.1",
     "morgan": "^1.9.0",
     "qs": "^6.5.1",
+    "query-string": "^5.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-input-mask": "^1.0.7",
@@ -48,7 +50,8 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "transit-immutable-js": "^0.7.0",
-    "transit-js": "^0.8.846"
+    "transit-js": "^0.8.846",
+    "url-parse": "^1.2.0"
   },
   "devDependencies": {
     "babel-loader": "^7.1.2",

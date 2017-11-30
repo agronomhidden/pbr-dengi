@@ -1,4 +1,7 @@
 import {OrderedMap, Map} from 'immutable'
+import parse from 'url-parse'
+import queryString from 'query-string'
+import clone from 'clone';
 
 export function arrToMap(arr) {
     return arr.reduce((acc, item) =>
@@ -17,7 +20,6 @@ export function prepareParams(params) {
     for (let i in params) {
         params[i] = params[i] ? decodeURIComponent(params[i]) : params[i];
     }
-
     return params;
 }
 
@@ -57,4 +59,32 @@ export function setFieldError(props, field, text) {
     !props.errors.fields && (props.errors.fields = {[field]: text});
     !props.errors.fields[field] && (props.errors.fields[field] = text);
     return props;
+}
+
+export const setQueryStringToRoute = (routes, reqUrl) => {
+
+    const changeRouter = clone(routes);
+    const url = parse(reqUrl);
+    let paramsToRouter = '';
+
+    if (url.query) {
+        const queryObject = queryString.parse(url.query);
+        paramsToRouter = '?';
+
+        Object.keys(queryObject).forEach(item => {
+            paramsToRouter += queryObject[item] ? `${item}=:${item}` : `${item}=`
+        })
+    }
+
+    return changeRouter.map(route => {
+        let anyParams = '(/?/*)?';
+        let path = route.path
+        if(route.path.includes(anyParams)){
+            route.path = path.replace(anyParams, '');
+        }
+        if (paramsToRouter && route.path === url.pathname) {
+            route.path += paramsToRouter;
+        }
+        return route;
+    })
 }

@@ -5,11 +5,13 @@ class RightAside extends Component {
 
     render = () =>
         <aside className="left-aside">
-            Контент справа
+            {this.props.message && this.props.message}
         </aside>
 
 }
 
 export default connect(
-    null
+    (s => ({
+        message: s.messenger.get('message'),
+    }))
 )(RightAside);

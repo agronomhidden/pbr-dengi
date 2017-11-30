@@ -66,7 +66,6 @@ export default class FormGroup extends Component {
             'form-group_label': true
         };
         labelClass[labelModifier] = !!labelModifier;
-
         return (
             <div className={classNames(formGroupClasses)}>
                 <label htmlFor={name} className={classNames(labelClass)}>{label}</label>

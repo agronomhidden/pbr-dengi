@@ -7,15 +7,7 @@ import {LeftAside , RightAside} from '../Aside'
 
 class Home extends PageComponent {
 
-    state = {
-        inp: ''
-    }
-
-    _onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
-
-    render = () => <div>Hello new Up! <input onChange={this._onChange} name='inp' type="text"/>{this.state.inp}</div>
+    render = () => <h1>This is Home Page</h1>
 
 }
 

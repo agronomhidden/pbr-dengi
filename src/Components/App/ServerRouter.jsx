@@ -4,48 +4,63 @@ import express from 'express'
 import StaticRouter from 'react-router-dom/StaticRouter'
 import {renderRoutes, matchRoutes} from 'react-router-config'
 import {Provider} from 'react-redux'
-import {store} from './serverStore';
+import {store} from './serverStore'
 import Layout from '../../layout'
 import routes from './routes'
-import {prepareParams} from '../../Utils/helper'
+import {prepareParams, setQueryStringToRoute} from '../../Utils/helper'
 import {TOKEN} from '../../CONSTANTS'
-import {getUserByToken} from "../../Reducers/Requests/loginCurrentUserRequest"
-
+import {getUserByToken} from '../../Reducers/Requests/loginCurrentUserRequest'
+import {instance} from '../../Utils/ajaxWraper'
 
 const router = express.Router();
 
 router.get('*', (req, res) => {
 
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
     Layout.setStore(store);
 
-    const branch = matchRoutes(routes, req.url);
-    const promises = branch.map(({route: {fetchData}, match: {params}}) => {
-        return fetchData instanceof Function ? store.dispatch(fetchData(prepareParams(params))) : Promise.resolve(null)
-    });
+    const branch = matchRoutes(setQueryStringToRoute(routes, req.url), req.url);
 
+    const token = req.cookies[TOKEN];
 
-    req.cookies[TOKEN] && promises.push(store.dispatch(getUserByToken(req.cookies[TOKEN])));
+    const userData = {
+        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    }
 
-    Promise.all(promises).then(() => {
+    store.dispatch(getUserByToken(token, userData)).then(() => {
 
-        const context = {
-            pageTitleSetter: (title) => {
-                Layout.setTitle(title)
-            }, setNotFound: () => {
-                res.status(404)
+        const user = store.getState().auth.user
+        const promises = branch.map(({route: {fetchData, needAuth}, match: {params}}) => {
+            if (needAuth && !user) {
+                res.redirect('/');
+                return Promise.resolve(null);
             }
-        };
-        const content = renderToString(
-            <Provider store={store}>
-                <StaticRouter location={req.url} context={context}>
-                    {renderRoutes(routes)}
-                </StaticRouter>
-            </Provider>
-        );
-        res.end(Layout.render(content));
-    }).catch(err => {
-        console.log('error on PromiseAll');
-        console.log(err)
+            return fetchData instanceof Array ? fetchData.map(func => store.dispatch(func(prepareParams(params)))) : Promise.resolve(null);
+        });
+
+        Promise.all(promises).then(() => {
+
+            const context = {
+                pageTitleSetter: (title) => {
+                    Layout.setTitle(title)
+                }, setNotFound: () => {
+                    console.log(404);
+                    res.status(404)
+                }
+            };
+            const content = renderToString(
+                <Provider store={store}>
+                    <StaticRouter location={req.url} context={context}>
+                        {renderRoutes(routes)}
+                    </StaticRouter>
+                </Provider>
+            );
+            res.end(Layout.render(content));
+        }).catch(err => {
+            console.log('error on PromiseAll');
+            console.log(err)
+        });
     });
 });
 

@@ -1,21 +1,22 @@
 import axios from 'axios';
 import qs from 'qs';
-import {store as serverStore} from '../Components/App/serverStore';
 import {TOKEN} from '../CONSTANTS'
 import cookies from 'js-cookie';
 
-const onError = (err, errAC) => {
+const onError = (err, errAC, dispatch) => {
     switch (err.response.status) {
         case 403:
-            errAC && serverStore.dispatch(errAC());
+            errAC && dispatch(errAC());
             return;
         case 400:
+            throw err;
+            return;
         case 406:
             break;
         case 500:
             break;
         case 499:
-            errAC && serverStore.dispatch(errAC(err));
+            errAC && dispatch(errAC(err.response.data));
             return;
         default:
             break;
@@ -23,11 +24,24 @@ const onError = (err, errAC) => {
     throw err;
 };
 
-export const get = (url, params = {}, success, errActionCreator) => {
+
+export const get = (url, params = {}, success, errActionCreator, dispatch) => {
+
     params[TOKEN] = params[TOKEN] ? params[TOKEN] : cookies.get(TOKEN)
+
+    axios.defaults.baseURL = process.env.TEST_API_URL;
+
+     if(params.ip) {
+         axios.defaults.headers.common['IP'] = params.ip;
+     }
+         delete params.ip;
+
+
+     console.log(axios.defaults.headers.common);
+
     return axios.get(url, {params})
         .then(success)
-        .catch((err => onError(err, errActionCreator)));
+        .catch((err => onError(err, errActionCreator, dispatch)));
 }
 
 

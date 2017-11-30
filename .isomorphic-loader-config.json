@@ -1,7 +1,7 @@
 {
   "valid": true,
   "version": "1.6.4",
-  "timestamp": 1511861847690,
+  "timestamp": 1512053446705,
   "context": "",
   "output": {
     "path": "public/assets/",
@@ -16,6 +16,7 @@
     "chunks": {
       "main": [
         "bundle.js",
+        "0.a9ba4c3c22b293f24ea2.hot-update.js",
         "styles.css"
       ]
     }

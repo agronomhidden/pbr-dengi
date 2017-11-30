@@ -15,6 +15,7 @@ class Login extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.errors);
         nextProps.errors && this.setState({errors: nextProps.errors});
     }
 
@@ -67,8 +68,8 @@ class Login extends Component {
 
 export default connect(
     (s => ({
-        loading: s.auth.loading,
-        errors: s.auth.errors,
+        loading: s.auth.get('loading'),
+        errors: s.auth.get('errors'),
     })),
     {userLogin}
 )(Login);
