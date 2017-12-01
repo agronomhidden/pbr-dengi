@@ -10,13 +10,15 @@ import routes from './routes'
 import {prepareParams, setQueryStringToRoute} from '../../Utils/helper'
 import {TOKEN} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/Requests/loginCurrentUserRequest'
-import {instance} from '../../Utils/ajaxWraper'
-
+import requestIp from 'request-ip';
+import axios from 'axios'
+import MobileDetect  from 'mobile-detect'
+    
 const router = express.Router();
 
 router.get('*', (req, res) => {
 
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    axios.defaults.headers.common['X-Real-IP'] = requestIp.getClientIp(req)
 
     Layout.setStore(store);
 
@@ -24,11 +26,11 @@ router.get('*', (req, res) => {
 
     const token = req.cookies[TOKEN];
 
-    const userData = {
-        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress
-    }
+    const md = new MobileDetect(req.headers['user-agent']);
 
-    store.dispatch(getUserByToken(token, userData)).then(() => {
+    const version = md.mobile() ? 'mobile' : 'browser';
+
+    store.dispatch(getUserByToken(token)).then(() => {
 
         const user = store.getState().auth.user
         const promises = branch.map(({route: {fetchData, needAuth}, match: {params}}) => {

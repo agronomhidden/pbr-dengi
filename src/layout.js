@@ -1,5 +1,4 @@
 import {toJSON} from 'transit-immutable-js';
-
 const DEV_WEBPACK_SERVER = 'http://localhost:8050';
 
 class Layout {

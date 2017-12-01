@@ -3,6 +3,7 @@ import qs from 'qs';
 import {TOKEN} from '../CONSTANTS'
 import cookies from 'js-cookie';
 
+
 const onError = (err, errAC, dispatch) => {
     switch (err.response.status) {
         case 403:
@@ -30,14 +31,6 @@ export const get = (url, params = {}, success, errActionCreator, dispatch) => {
     params[TOKEN] = params[TOKEN] ? params[TOKEN] : cookies.get(TOKEN)
 
     axios.defaults.baseURL = process.env.TEST_API_URL;
-
-     if(params.ip) {
-         axios.defaults.headers.common['IP'] = params.ip;
-     }
-         delete params.ip;
-
-
-     console.log(axios.defaults.headers.common);
 
     return axios.get(url, {params})
         .then(success)
