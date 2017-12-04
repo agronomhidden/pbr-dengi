@@ -1,7 +1,14 @@
+//APP entry point
+const extendRequire = require("isomorphic-loader/lib/extend-require");
+require('babel-register');
 
-var http = require('http');
+['.css', '.styl', '.ttf', '.woff', '.woff2','.ico'].forEach((ext) => require.extensions[ext] = () => {});
 
-http.createServer(function (request, response) {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Hello World');
-}).listen(8080);
+require('babel-polyfill');
+
+extendRequire().then(()=> {
+    require("./src/server");
+}).catch((err)=> {
+    console.log(err);
+});
+
