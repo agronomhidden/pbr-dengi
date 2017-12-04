@@ -1,4 +1,5 @@
 import Home from '../Pages/Home';
+import Second from '../Pages/SecondPage';
 import {RightAside} from '../Pages/Aside';
 import Error from './Error';
 import {setMess, loadMess} from '../../Reducers/Requests/loadMessage'
@@ -13,8 +14,8 @@ export default [
     {
         path: '/home(/?/*)?',
         exact: true,
-        component: Home,
-        title: 'Главная страница',
+        component: Second,
+        title: 'Добро пожаловать!',
         needAuth:true,
         fetchData: [loadMess, setMess],
     },
@@ -23,12 +24,10 @@ export default [
         exact: true,
         component: RightAside,
         title: 'Правая часть',
-        fetchData: [setMess],
     },
     {
         path: '*',
         component: Error,
-        needAuth: true,
         title: 'Ошибка 404. Страница не найдена',
     },
 ];

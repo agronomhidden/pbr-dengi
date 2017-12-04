@@ -3,6 +3,10 @@ export const SUCCESS = '_SUCCESS';
 export const FAIL = '_FAIL';
 
 export const TOKEN = 'access_token';
+export const REAL_IP = 'X-Real-IP';
+export const MOBILE = 'mobile';
+export const BROWSER = 'browser';
+
 
 /** Вход пользователя*/
 export const  SET_CURRENT_USER = 'SET_CURRENT_USER';

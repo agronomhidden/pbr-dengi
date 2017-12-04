@@ -20,6 +20,7 @@ export function prepareParams(params) {
     for (let i in params) {
         params[i] = params[i] ? decodeURIComponent(params[i]) : params[i];
     }
+    console.log(params);
     return params;
 }
 

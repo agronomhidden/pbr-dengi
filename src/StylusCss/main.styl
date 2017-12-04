@@ -1,17 +1,27 @@
 @import "pallete.styl"
 @import "login.styl"
 @import "loading.styl"
+@import "fonts.styl"
+
+
 
 body
-  font-size 14px
+  font-size 28px
+  font-family MyFont
   margin 0
   box-sizing border-box
+  background-image url("../../public/img/imore-background.jpg");
+  background-attachment fixed
+  background-size cover
+
+
 
 
 .main_wrap
   display flex
   margin 40px auto 0
   width 1280px
+  height 900px
   justify-content space-between
 
 .left-aside,
@@ -19,4 +29,14 @@ body
   width 400px
   height 600px
   min-width 350px
-  border: 1px solid $color-blue
+  box-shadow  7px 6px 12px -1px rgba(8,16,29,1)
+  border-radius 5px
+  background-color: #ebebeb
+  text-align center
+  margin 0 auto
+
+.header
+  color #ebebeb
+  text-shadow 2px 2px rgba(8,16,29,1)
+
+

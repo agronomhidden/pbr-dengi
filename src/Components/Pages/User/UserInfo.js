@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import propTypes from 'prop-types';
 
 
+
 export default class UserInfo extends Component {
 
     static propTypes = {

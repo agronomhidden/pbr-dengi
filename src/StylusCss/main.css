@@ -46,15 +46,26 @@
   display: inline-block;
   padding: 0 15px;
 }
+@font-face {
+  font-family: MyFont;
+  src: url("../../public/fonts/11050.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
-  font-size: 14px;
+  font-size: 28px;
+  font-family: MyFont;
   margin: 0;
   box-sizing: border-box;
+  background-image: url("../../public/img/imore-background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
 }
 .main_wrap {
   display: flex;
   margin: 40px auto 0;
   width: 1280px;
+  height: 900px;
   justify-content: space-between;
 }
 .left-aside,
@@ -62,5 +73,13 @@ body {
   width: 400px;
   height: 600px;
   min-width: 350px;
-  border: 1px solid #234a80;
+  box-shadow: 7px 6px 12px -1px #08101d;
+  border-radius: 5px;
+  background-color: #ebebeb;
+  text-align: center;
+  margin: 0 auto;
+}
+.header {
+  color: #ebebeb;
+  text-shadow: 2px 2px #08101d;
 }

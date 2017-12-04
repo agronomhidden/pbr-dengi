@@ -7,7 +7,7 @@ import {LeftAside , RightAside} from '../Aside'
 
 class Home extends PageComponent {
 
-    render = () => <h1>This is Home Page</h1>
+    render = () => <h1 className="header">This is Home Page</h1>
 
 }
 

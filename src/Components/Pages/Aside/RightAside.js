@@ -5,7 +5,7 @@ class RightAside extends Component {
 
     render = () =>
         <aside className="left-aside">
-            {this.props.message && this.props.message}
+            <h2 style={{color:'#223144'}}>{this.props.message && this.props.message}</h2>
         </aside>
 
 }

@@ -8,17 +8,17 @@ import {store} from './serverStore'
 import Layout from '../../layout'
 import routes from './routes'
 import {prepareParams, setQueryStringToRoute} from '../../Utils/helper'
-import {TOKEN} from '../../CONSTANTS'
+import {TOKEN, REAL_IP, MOBILE, BROWSER} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/Requests/loginCurrentUserRequest'
 import requestIp from 'request-ip';
 import axios from 'axios'
-import MobileDetect  from 'mobile-detect'
-    
+import MobileDetect from 'mobile-detect'
+
 const router = express.Router();
 
 router.get('*', (req, res) => {
 
-    axios.defaults.headers.common['X-Real-IP'] = requestIp.getClientIp(req)
+    axios.defaults.headers.common[REAL_IP] = requestIp.getClientIp(req)
 
     Layout.setStore(store);
 
@@ -28,7 +28,7 @@ router.get('*', (req, res) => {
 
     const md = new MobileDetect(req.headers['user-agent']);
 
-    const version = md.mobile() ? 'mobile' : 'browser';
+    const version = md.mobile() ? MOBILE : BROWSER;
 
     store.dispatch(getUserByToken(token)).then(() => {
 

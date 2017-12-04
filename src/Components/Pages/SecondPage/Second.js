@@ -5,10 +5,10 @@ import {LeftAside , RightAside} from '../Aside'
 
 
 
-class Home extends PageComponent {
+class Second extends PageComponent {
 
-    render = () => <h1 className="header">This is Home Page</h1>
+    render = () => <h1 className="header">Welcome!</h1>
 
 }
 
-export default PageLayout(LeftAside, Home, RightAside);
+export default PageLayout(LeftAside, Second, RightAside);

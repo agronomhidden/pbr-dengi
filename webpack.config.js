@@ -75,7 +75,7 @@ module.exports = {
                 })
             },
             {
-                test: /\.(otf|eot|svg|ttf|woff|woff2|jpe?g|png|gif|svg|ico|svg+xml)$/i,
+                test: /\.(otf|eot|svg|ttf|woff|woff2|jpe?g|png|gif|ico|svg+xml)$/i,
                 loader: "file-loader!isomorphic-loader"
             },
             {test: /\.jsx?$/, loader: 'babel-loader', exclude: [/node_modules/, /public/]},
