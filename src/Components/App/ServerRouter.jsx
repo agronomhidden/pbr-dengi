@@ -38,7 +38,7 @@ router.get('*', (req, res) => {
                 res.redirect('/');
                 return Promise.resolve(null);
             }
-            return fetchData instanceof Array ? fetchData.map(func => store.dispatch(func(prepareParams(params)))) : Promise.resolve(null);
+            return fetchData instanceof Array ? fetchData.map(fetchFunction => store.dispatch(fetchFunction(prepareParams(params)))) : Promise.resolve(null);
         });
 
         Promise.all(promises).then(() => {
