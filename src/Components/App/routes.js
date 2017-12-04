@@ -8,7 +8,6 @@ export default [
         path: '/(/?/*)?',
         exact: true,
         component: Home,
-        componentMobile: HomeMobile,
         title: 'Главная страница'
     },
     {
