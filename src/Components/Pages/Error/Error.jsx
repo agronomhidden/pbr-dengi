@@ -1,7 +1,7 @@
-import React from 'react';
-import PageComponent from './PageComponent';
+import React , {Component} from 'react';
+import PageLayout from '../../Decorators/PageLayout';
 
-class Error extends PageComponent {
+class Error extends Component {
 
     constructor(props) {
         super(props);
@@ -17,4 +17,4 @@ class Error extends PageComponent {
     }
 }
 
-export default Error;
+export default PageLayout(Error);

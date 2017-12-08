@@ -1,7 +1,8 @@
 import {OrderedMap, Map} from 'immutable'
 import parse from 'url-parse'
-import queryString from 'query-string'
+import qs from 'qs';
 import clone from 'clone';
+
 
 export function arrToMap(arr) {
     return arr.reduce((acc, item) =>
@@ -15,12 +16,13 @@ export function mapToArr(obj, DataRecord) {
 
 
 export function prepareParams(params) {
-    let url = params[0];
-    delete params[0];
+
     for (let i in params) {
         params[i] = params[i] ? decodeURIComponent(params[i]) : params[i];
+        if (params[i].includes('?')) {
+            params[i] = params[i].substr(0, params[i].indexOf('?'));
+        }
     }
-    console.log(params);
     return params;
 }
 
@@ -67,25 +69,34 @@ export const setQueryStringToRoute = (routes, reqUrl) => {
     const changeRouter = clone(routes);
     const url = parse(reqUrl);
     let paramsToRouter = '';
-
     if (url.query) {
-        const queryObject = queryString.parse(url.query);
-        paramsToRouter = '?';
-
-        Object.keys(queryObject).forEach(item => {
-            paramsToRouter += queryObject[item] ? `${item}=:${item}` : `${item}=`
-        })
-    }
-
-    return changeRouter.map(route => {
-        let anyParams = '(/?/*)?';
-        let path = route.path
-        if(route.path.includes(anyParams)){
-            route.path = path.replace(anyParams, '');
+        const queryObject = qs.parse(url.query, {ignoreQueryPrefix: true});
+        for (let key in queryObject) {
+            queryObject[key] = queryObject[key] && `:${key}`
         }
+        paramsToRouter = qs.stringify(queryObject, {encode: false, addQueryPrefix: true, skipNulls: true})
+    }
+    return changeRouter.map(route => {
         if (paramsToRouter && route.path === url.pathname) {
             route.path += paramsToRouter;
         }
         return route;
     })
+}
+
+export function queryStringToState() {
+    return qs.parse(location.search, {ignoreQueryPrefix: true}) || {}
+}
+
+export function stateToQueryString(state = {}) {
+    let queryStringArr = {};
+    for (let key in state) {
+        if (state[key]) {
+            queryStringArr[key] = state[key];
+            if (state[key] instanceof Array && !!state[key].length) {
+                queryStringArr[key] = state[key].join(',');
+            }
+        }
+    }
+    return qs.stringify(queryStringArr);
 }

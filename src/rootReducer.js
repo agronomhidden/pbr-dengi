@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux'
 import auth from './Reducers/auth'
-import messenger from './Reducers/messenger'
+import categories from './Reducers/categories'
+
 
 export default combineReducers({
     auth,
-    messenger
+    categories
 });

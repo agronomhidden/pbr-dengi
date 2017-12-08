@@ -4,6 +4,12 @@ export const UserRecord = Record({
     first_name: null,
     last_name: null,
     phone: null,
-    ip: null,
-    device: null
 });
+
+export const CategoriesRecord = Record({
+    id: null,
+    name: null,
+    is_category: false,
+    img: null
+
+})

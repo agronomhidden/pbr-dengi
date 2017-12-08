@@ -29,8 +29,7 @@ const onError = (err, errAC, dispatch) => {
 export const get = (url, params = {}, success, errActionCreator, dispatch) => {
 
     params[TOKEN] = params[TOKEN] ? params[TOKEN] : cookies.get(TOKEN)
-
-    axios.defaults.baseURL = process.env.TEST_API_URL;
+    axios.defaults.baseURL = process.env.API_URL
 
     return axios.get(url, {params})
         .then(success)

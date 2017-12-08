@@ -7,9 +7,10 @@ export const REAL_IP = 'X-Real-IP';
 export const MOBILE = 'mobile';
 export const BROWSER = 'browser';
 
-
+/** Поиск */
+export const SEARCH_EVENT = 'SEARCH_EVENT';
 /** Вход пользователя*/
-export const  SET_CURRENT_USER = 'SET_CURRENT_USER';
-export const  LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
-/* Тестирование роутера */
-export const SET_MESSAGE = 'SET_MESSAGE';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
+/** Категории */
+export const SET_CATEGORIES = 'SET_CATEGORIES';

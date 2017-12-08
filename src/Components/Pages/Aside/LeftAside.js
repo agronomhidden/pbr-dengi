@@ -4,7 +4,6 @@ import Login from '../Login';
 import {UserInfo} from '../User';
 
 class LeftAside extends Component {
-    
 
     render = () =>
         <aside className="left-aside">

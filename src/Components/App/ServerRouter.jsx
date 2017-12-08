@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import {store} from './serverStore'
 import Layout from '../../layout'
 import routes from './routes'
-import {prepareParams, setQueryStringToRoute} from '../../Utils/helper'
+import {prepareParams} from '../../Utils/helper'
 import {TOKEN, REAL_IP, MOBILE, BROWSER} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/Requests/loginCurrentUserRequest'
 import requestIp from 'request-ip';
@@ -22,7 +22,7 @@ router.get('*', (req, res) => {
 
     Layout.setStore(store);
 
-    const branch = matchRoutes(setQueryStringToRoute(routes, req.url), req.url);
+    const branch = matchRoutes(routes, req.url);
 
     const token = req.cookies[TOKEN];
 
@@ -33,13 +33,25 @@ router.get('*', (req, res) => {
     store.dispatch(getUserByToken(token)).then(() => {
 
         const user = store.getState().auth.user
-        const promises = branch.map(({route: {fetchData, needAuth}, match: {params}}) => {
+        const promises = [];
+
+        branch.some(({route,route: {fetchData, needAuth}, match: {params}}) => {
             if (needAuth && !user) {
-                res.redirect('/');
-                return Promise.resolve(null);
+                res.redirect('/')
+                return true;
             }
-            return fetchData instanceof Array ? fetchData.map(fetchFunction => store.dispatch(fetchFunction(prepareParams(params)))) : Promise.resolve(null);
-        });
+            console.log(route);
+            if (fetchData instanceof Function) {
+                promises.push(store.dispatch(fetchData(prepareParams(params))))
+            }
+            if (fetchData instanceof Array) {
+                fetchData.forEach(fetchFunction => {
+                    if (fetchFunction instanceof Function) {
+                        promises.push(store.dispatch(fetchFunction(prepareParams(params))));
+                    }
+                })
+            }
+        })
 
         Promise.all(promises).then(() => {
 
@@ -51,6 +63,7 @@ router.get('*', (req, res) => {
                     res.status(404)
                 }
             };
+
             const content = renderToString(
                 <Provider store={store}>
                     <StaticRouter location={req.url} context={context}>
@@ -62,6 +75,9 @@ router.get('*', (req, res) => {
         }).catch(err => {
             console.log('error on PromiseAll');
             console.log(err)
+            if(err && err.response.status === 404){
+                res.redirect('/not-found');
+            }
         });
     });
 });

@@ -7,24 +7,35 @@ import {getFieldError} from '../../../Utils/helper'
 export default class FormGroup extends Component {
 
     static propTypes = {
+        /** Input */
         type: PropTypes.string,
         name: PropTypes.string,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        label: PropTypes.string,
-        modifier: PropTypes.string,
-        labelModifier: PropTypes.string,
-        placeholder: PropTypes.string,
-        mask: PropTypes.string,
-        onChange: PropTypes.func,
         checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-        error: PropTypes.object,
+        placeholder: PropTypes.string,
         disabled: PropTypes.bool,
+        onChange: PropTypes.func,
+        inputModifier: PropTypes.string,
+        /** Mask*/
+        mask: PropTypes.string,
+        maskChar: PropTypes.string,
+        alwaysShowMask: PropTypes.bool,
+        /** Label */
+        label: PropTypes.string,
+        labelModifier: PropTypes.string,
+        /** Wrapper */
+        wrapperModifier: PropTypes.string,
+        /** General */
+        error: PropTypes.object,
         isNotForm: PropTypes.bool,
-        inputModifier: PropTypes.string
     };
 
     getInput() {
-        const {mask, name, value, onChange, placeholder, type = 'text', checked, disabled, isNotForm, inputModifier} = this.props;
+        const {
+            mask, name, value, onChange, placeholder, type = 'text',
+            checked, disabled, isNotForm, inputModifier, maskChar, alwaysShowMask
+        } = this.props;
+
         const inputClass = {
             'form-group_control': !isNotForm,
             'danger': getFieldError(name, this.props)
@@ -34,10 +45,10 @@ export default class FormGroup extends Component {
         return mask ?
             <InputMask id={name}
                        mask={mask}
+                       maskChar={maskChar}
+                       alwaysShowMask={alwaysShowMask}
                        className={classNames(inputClass)}
                        name={name}
-                       type={type}
-                       placeholder={placeholder || mask.replace(/\*/g, '*')}
                        value={value}
                        disabled={disabled}
                        onChange={onChange}/>
@@ -54,24 +65,27 @@ export default class FormGroup extends Component {
     }
 
     render() {
-        const {name, label, modifier, labelModifier, isNotForm} = this.props;
+        const {name, label, wrapperModifier, labelModifier, isNotForm} = this.props;
+
         const errorText = getFieldError(name, this.props);
-        const formGroupClasses = {
+
+        const wrapperClass = {
             'form-group -form-simple': !isNotForm,
             '-has-error': !!errorText,
         };
-        formGroupClasses[modifier] = !!modifier;
+        wrapperClass[wrapperModifier] = !!wrapperModifier;
 
         const labelClass = {
-            'form-group_label': true
+            'form-group_label': !isNotForm
         };
         labelClass[labelModifier] = !!labelModifier;
+
         return (
-            <div className={classNames(formGroupClasses)}>
-                <label htmlFor={name} className={classNames(labelClass)}>{label}</label>
+            <section className={classNames(wrapperClass)}>
+                {label && <label htmlFor={name} className={classNames(labelClass)}>{label}</label>}
                 {this.getInput()}
                 {errorText && <div className="form-group_help">{errorText}</div>}
-            </div>
-        );
+            </section>
+        )
     }
 }

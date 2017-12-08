@@ -15,7 +15,6 @@ class Login extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.errors);
         nextProps.errors && this.setState({errors: nextProps.errors});
     }
 
@@ -46,8 +45,9 @@ class Login extends Component {
                 <header className="admin-login_header">Авт{<img src={favicon} alt="МТС"/>}ризуйся же!</header>
                 <form className="form-group -form-simple" method="POST" onSubmit={this.onSubmit}>
                     <fieldset disabled={loading}>
-                        <FormGroup name="phone" label="Номер телефона" value={this.state.phone}
-                                   mask="(375) ** - *** - ****" onChange={this.onChange} error={errors}/>
+                        <FormGroup name="phone" label="Номер телефона" value={this.state.phone} maskChar='*'
+                                   alwaysShowMask={true} mask="+375\ (99) 999 - 9999"
+                                   onChange={this.onChange} error={errors}/>
                         <FormGroup name="password" type="password" label="Пароль" value={this.state.password}
                                    onChange={this.onChange} error={errors}/>
                         <div className="admin-login-buttons">

@@ -1,4 +1,5 @@
 import express from 'express'
+import fs from 'fs'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import compress from 'compression'
@@ -13,7 +14,9 @@ const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
 const PORT = process.env.PORT || (mode === 'production' ? 3333 : 3003);
 
-dotenv.config({path:`./config/${mode}/.env`});
+const path = `./config/${mode}/.env` + (fs.existsSync(`./config/${mode}/.env.local`) && '.local');
+
+dotenv.config({path});
 
 Layout.setManifest(manifest);
 if (mode === 'production') {
