@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {FormGroup} from '../Partials'
 import {Roller} from '../../Loading'
-import {categoriesSearch} from "../../../Reducers/AC/categoriesAC"
+import PropTypes from 'prop-types';
 
+export default class Search extends Component {
 
-class Search extends Component {
+    static propTypes = {
+        loading: PropTypes.bool.isRequired,
+        searchValue: PropTypes.string.isRequired,
+        searchFunc: PropTypes.func.isRequired
+    }
 
     state = {
         searchQuery: '',
     };
-
-    componentWillMount(){
-
-    }
 
     onChange = e => {
         this.setState({
@@ -21,14 +21,27 @@ class Search extends Component {
         });
     };
 
+    componentWillMount() {
+        this._setSearchField(this.props)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this._setSearchField(nextProps)
+    }
+
+    _setSearchField(props) {
+        this.setState({searchQuery: props.searchValue});
+    }
+
+
     onSubmit = e => {
         e.preventDefault();
-        this.props.categoriesSearch(this.state);
+        this.props.searchFunc(this.state);
     };
 
     render() {
         const {props: {loading}, state: {searchQuery}} = this;
-        console.log(loading);
+
         return (
             <section className="search">
                 <form className="search-form" onSubmit={this.onSubmit}>
@@ -44,11 +57,4 @@ class Search extends Component {
         );
     }
 }
-
-export default connect(
-    (s => ({
-        loading: s.categories.get('loading'),
-    })),
-    {categoriesSearch}
-)(Search);
 

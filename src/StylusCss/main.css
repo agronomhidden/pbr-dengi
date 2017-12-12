@@ -114,9 +114,13 @@ body {
 }
 .category_wrap {
   margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .category {
-  margin: 30px 0px;
+  margin: 10px 0;
+  width: 270px;
+  height: 90px;
   display: flex;
   justify-content: space-evenly;
 }

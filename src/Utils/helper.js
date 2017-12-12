@@ -100,3 +100,7 @@ export function stateToQueryString(state = {}) {
     }
     return qs.stringify(queryStringArr);
 }
+
+export function setSearchValue(state, key) {
+    return (state[key] && state[key]) || '';
+}

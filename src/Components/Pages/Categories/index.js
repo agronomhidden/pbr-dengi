@@ -1,2 +1,4 @@
 import Categories from './Categories';
-export {Categories};
+import CurrentCategories from './CurrentCategories';
+
+export {Categories, CurrentCategories};

@@ -1,8 +1,7 @@
 import Error from '../Pages/Error/Error';
-import {getCategories} from '../../Reducers/Requests/categoriesRequest'
-import {Categories} from "../Pages/Categories"
-import {Main} from "../Pages/Main"
-import {loadCategories} from "../../Reducers/AC/categoriesAC"
+//import {getCategories} from '../../Reducers/Requests/categoriesRequest'
+import {Categories,CurrentCategories} from "../Pages/Categories"
+
 
 export default [
     {
@@ -14,9 +13,8 @@ export default [
     {
         path: '/categories/:id',
         exact: true,
-        component: Categories,
+        component: CurrentCategories,
         title: 'Категории',
-        fetchData: getCategories
     },
     {
         path: '*',

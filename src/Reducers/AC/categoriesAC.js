@@ -14,7 +14,6 @@ export const categoriesLoaded = response => ({
 
 export const categoriesSearch = data => dispatch => {
     dispatch(search(data));
-    dispatch(getCategories(queryStringToState()));
 }
 
 export const setCategoriesErrors = _ => ({

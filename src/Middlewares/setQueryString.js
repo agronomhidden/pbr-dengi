@@ -1,12 +1,8 @@
 import {stateToQueryString} from '../Utils/helper'
 
 export default history => store => next => action => {
-
-    console.log(history);
-    
     if (action.toQueryString) {
-
-        history.replace({
+        history.push({
             search: stateToQueryString(action.payload)
         });
     }

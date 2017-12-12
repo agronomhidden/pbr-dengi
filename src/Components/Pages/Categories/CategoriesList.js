@@ -17,7 +17,7 @@ export default class CategoriesList extends Component {
                         <div key={item.id} className='category'>
                             <img src={item.img} alt="Лого"/>
                             <Link to={`/categories/${item.id}`}>
-                                <h3>{item.name}</h3>
+                                {item.name}
                             </Link>
                         </div>
                     )
