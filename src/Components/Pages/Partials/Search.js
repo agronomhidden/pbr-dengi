@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormGroup} from '../Partials'
+import {AutoComplete} from '../Partials'
 import {Roller} from '../../Loading'
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,7 @@ export default class Search extends Component {
     static propTypes = {
         loading: PropTypes.bool.isRequired,
         searchValue: PropTypes.string.isRequired,
-        searchFunc: PropTypes.func.isRequired
+        setSearch: PropTypes.func.isRequired
     }
 
     state = {
@@ -36,22 +36,29 @@ export default class Search extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        this.props.searchFunc(this.state);
+        this.props.setSearch(this.state);
     };
 
     render() {
         const {props: {loading}, state: {searchQuery}} = this;
-
         return (
             <section className="search">
                 <form className="search-form" onSubmit={this.onSubmit}>
-                    <FormGroup name="searchQuery" placeholder="Поиск предприятий и услуг" value={searchQuery}
-                               onChange={this.onChange} isNotForm={true}
-                               wrapperModifier='search-form_group' inputModifier='search-form_input'/>
-                    <section className="search-form_button-wrap">
-                        {loading && <Roller width="38px" parentClass={'search-form_button-wrap_load'}/>}
+                    <AutoComplete
+                        name="searchQuery"
+                        placeholder="Поиск предприятий и услуг"
+                        value={searchQuery}
+                        onChange={this.onChange}
+                        wrapperModifier="search-form_group"
+                        inputModifier="search-form_input"
+                        disabled={loading}
+                    />
+                    <div className="search-form_loader-wrap">
+                        {loading && <Roller width="38px"/>}
+                    </div>
+                    <div className="search-form_button-wrap">
                         <button className="search-form_button-wrap_button">Найти</button>
-                    </section>
+                    </div>
                 </form>
             </section>
         );

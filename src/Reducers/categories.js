@@ -22,7 +22,6 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('loading', true)
                 .set('searchValue',setSearchValue(queryStringToState(),'searchQuery'))
         case SET_CATEGORIES + SUCCESS:
-            console.log(action.payload.data);
             return state
                 .set('categories', arrToMap(action.payload.data))
                 .set('loading', false);

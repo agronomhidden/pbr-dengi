@@ -12,7 +12,7 @@ export const categoriesLoaded = response => ({
     payload:  response.data.result,
 })
 
-export const categoriesSearch = data => dispatch => {
+export const categoriesSetSearch = data => dispatch => {
     dispatch(search(data));
 }
 

@@ -6,7 +6,8 @@ export const TOKEN = 'access_token';
 export const REAL_IP = 'X-Real-IP';
 export const MOBILE = 'mobile';
 export const BROWSER = 'browser';
-
+/** Роутер */
+export const CHANGE_LOCATION = '@@router/LOCATION_CHANGE';
 /** Поиск */
 export const SEARCH_EVENT = 'SEARCH_EVENT';
 /** Вход пользователя*/

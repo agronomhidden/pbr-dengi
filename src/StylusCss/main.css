@@ -1,6 +1,6 @@
 .admin-login {
   width: 350px;
-  margin: 200px auto 0;
+  margin: 275px auto 0;
   padding: 30px 20px 10px;
   box-shadow: 0 0 1px #000;
   background: #fff;
@@ -67,6 +67,9 @@
   display: block;
   font: 25px MyFont;
 }
+.search-form_loader-wrap {
+  width: 4%;
+}
 .search-form_button-wrap {
   width: 25%;
 }
@@ -75,6 +78,9 @@
   border-radius: 5px;
   background-color: #7bb738;
   font: 25px MyFont;
+}
+.react-autocomplete-input {
+  font-size: 25px !important;
 }
 body {
   font-size: 28px;
@@ -89,12 +95,11 @@ body {
   display: flex;
   margin: 40px auto 0;
   width: 100%;
-  height: 900px;
   justify-content: space-around;
+  min-height: 825px;
 }
 .left-aside,
 .right-aside {
-  height: 600px;
   min-width: 350px;
   box-shadow: 7px 6px 12px -1px #08101d;
   border-radius: 5px;
@@ -108,6 +113,7 @@ body {
 }
 .left-aside {
   width: 400px;
+  max-height: 900px;
 }
 .right-aside {
   width: 40%;

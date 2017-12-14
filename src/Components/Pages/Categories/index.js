@@ -1,4 +1,6 @@
 import Categories from './Categories';
-import CurrentCategories from './CurrentCategories';
+import CurrentCategories from './CurrentCategory';
+import ServicesList from './ServicesList';
+import CategoriesList from './CategoriesList';
 
-export {Categories, CurrentCategories};
+export {Categories, CurrentCategories, ServicesList, CategoriesList};
