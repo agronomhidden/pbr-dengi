@@ -17,5 +17,6 @@ export const CategoriesRecord = Record({
     location: null,
     path: null,
     u_key: null,
-    top: null
+    top: null,
+    is_service: false
 })

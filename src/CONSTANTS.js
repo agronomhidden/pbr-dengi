@@ -1,6 +1,7 @@
 export const START = '_START';
 export const SUCCESS = '_SUCCESS';
 export const FAIL = '_FAIL';
+export const RESET = '_RESET';
 
 export const TOKEN = 'access_token';
 export const REAL_IP = 'X-Real-IP';
@@ -15,3 +16,4 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 /** Категории */
 export const SET_CATEGORIES = 'SET_CATEGORIES';
+export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE';

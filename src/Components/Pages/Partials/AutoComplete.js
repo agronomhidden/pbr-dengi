@@ -1,7 +1,8 @@
-import React from 'react';
-import Autocomplete from 'react-autocomplete';
-import {Link} from 'react-router-dom';
-import propTypes from 'prop-types';
+import React from 'react'
+import {Link} from 'react-router-dom'
+import propTypes from 'prop-types'
+import classNames from 'classnames'
+import Autosuggest from 'react-autosuggest'
 
 
 export default class AutoComplete extends React.Component {
@@ -9,10 +10,12 @@ export default class AutoComplete extends React.Component {
     static propTypes = {
         /** Input */
         name: propTypes.string,
+        type: propTypes.string,
         value: propTypes.string,
         placeholder: propTypes.string,
         disabled: propTypes.bool,
         onChange: propTypes.func.isRequired,
+        onSelect: propTypes.func,
         inputModifier: propTypes.string,
         /** Label */
         label: propTypes.string,
@@ -21,46 +24,81 @@ export default class AutoComplete extends React.Component {
         wrapperModifier: propTypes.string,
         /** General */
         error: propTypes.object,
+        multiSection: propTypes.bool,
+        autoCompleteLoading: propTypes.bool,
+        autoCompleteDetected: propTypes.array,
+        autoCompleteFunc: propTypes.func,
+        resetAutoComplete: propTypes.func
     };
 
+    _getInputProps = () => {
 
+        const {
+            name, placeholder, type = 'text',
+            disabled, inputModifier, onChange,
+            value
+        } = this.props;
 
-    state = {
-        search: ''
+        const inputClass = {
+            'search-form_input': !inputModifier,
+        };
+        inputClass[inputModifier] = !!inputModifier;
+
+        return {
+            className: classNames(inputClass),
+            name,
+            type,
+            placeholder,
+            disabled,
+            onChange,
+            value
+        };
     }
 
-    _onChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    };
+    _getSuggestionValue = suggestion => suggestion.name
 
 
-    render() {
-        return <Autocomplete
+    _getSectionSuggestions = (section) => section.suggestions
 
-            getItemValue={(item) => item.label}
 
-            open={this.state.search.length > 3}
-            items={[
-                {label: 'apple'},
-                {label: 'banana'},
-                {label: 'pear'}
-            ]}
-            renderItem={(item, isHighlighted) =>
-                <div key={item.label} style={{background: isHighlighted ? 'lightgray' : 'white'}}>
-                    <Link to='/categories/1'>{item.label}</Link>
-                </div>
-            }
-            renderInput={
-                props => {
-                    console.log(this.props);
-                    return <input name='search' {...props} className='search-form_input' type="text"/>
-                }
-            }
-            value={this.state.search}
-            onChange={this._onChange}
-            onSelect={(val) => this.setState({search: val})}
-        />
+    _minCountValue = val => val.trim().length > 2
+
+    _renderSuggestion = ({isService, id, name}) =>
+        <div key={id}>
+            <Link to={`/${isService ? 'services' : 'categories'}/${id}`}>{name}</Link>
+        </div>
+
+
+    _onSuggestionsFetchRequested = ({value}) => {
+        const {props: {match: {params}, autoCompleteFunc, resetAutoComplete}} = this;
+
+        if (this._minCountValue(value)) {
+            const id = params ? params.id : null;
+            autoCompleteFunc(value, id)
+        } else {
+            resetAutoComplete()
+        }
     }
+
+
+    _onSuggestionSelected = (event, {suggestionValue}) => suggestionValue = '';
+
+    renderSectionTitle = section =>
+        !!section.suggestions.length && <strong>{section.title}</strong>
+
+
+    render = () => <Autosuggest multiSection={this.props.multiSection}
+                                renderSectionTitle={this.renderSectionTitle}
+                                getSectionSuggestions={this._getSectionSuggestions}
+                                suggestions={this.props.autoCompleteDetected}
+                                onSuggestionsFetchRequested={this._onSuggestionsFetchRequested}
+                                onSuggestionsClearRequested={() => {
+                                }}
+                                getSuggestionValue={this._getSuggestionValue}
+                                renderSuggestion={this._renderSuggestion}
+                                shouldRenderSuggestions={this._minCountValue}
+                                onSuggestionSelected={this._onSuggestionSelected}
+                                inputProps={this._getInputProps()}/>
+
+
 }

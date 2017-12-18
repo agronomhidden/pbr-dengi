@@ -5,6 +5,7 @@ import cookies from 'js-cookie';
 
 
 const onError = (err, errAC, dispatch) => {
+    console.log(err);
     switch (err.response.status) {
         case 403:
             errAC && dispatch(errAC());

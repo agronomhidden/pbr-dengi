@@ -1,7 +1,5 @@
-import {SET_CATEGORIES, SUCCESS, START,FAIL} from "../../CONSTANTS"
+import {SET_CATEGORIES, SET_AUTO_COMPLETE, SUCCESS, START, FAIL, RESET} from "../../CONSTANTS"
 import {search} from './searchAC';
-import {getCategories} from '../Requests/categoriesRequest';
-import {queryStringToState} from "../../Utils/helper"
 
 export const loadCategories = () => ({
     type: SET_CATEGORIES + START
@@ -9,7 +7,7 @@ export const loadCategories = () => ({
 
 export const categoriesLoaded = response => ({
     type: SET_CATEGORIES + SUCCESS,
-    payload:  response.data.result,
+    payload: response.data.result,
 })
 
 export const categoriesSetSearch = data => dispatch => {
@@ -19,3 +17,17 @@ export const categoriesSetSearch = data => dispatch => {
 export const setCategoriesErrors = _ => ({
     type: SET_CATEGORIES + FAIL,
 })
+
+export const loadAutoComplete = _ => ({
+    type: SET_AUTO_COMPLETE + START,
+})
+
+export const autoCompleteLoaded = response => ({
+    type: SET_AUTO_COMPLETE + SUCCESS,
+    payload: response.data.result,
+})
+
+export const resetAutoComplete = _ => ({
+    type: SET_AUTO_COMPLETE + RESET,
+})
+

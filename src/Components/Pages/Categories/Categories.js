@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import PageLayout from '../../Decorators/PageLayout';
-import {Search, AutoComplete} from "../Partials"
-import {mapToArr} from '../../../Utils/helper';
-import {CategoriesRecord} from '../../../Reducers/entities';
-import {getCategories, categoriesSearch} from "../../../Reducers/Requests/categoriesRequest"
-import PageDataLoader from '../../Decorators/PageDataLoader';
-import {categoriesSetSearch} from "../../../Reducers/AC/categoriesAC"
-import {ServicesList, CategoriesList} from "./"
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import PageLayout from '../../Decorators/PageLayout'
+import {Search} from '../Partials'
+import {mapToArr} from '../../../Utils/helper'
+import {CategoriesRecord} from '../../../Reducers/entities'
+import {getCategories, categoriesSearch, autoCompleteSearch} from '../../../Reducers/Requests/categoriesRequest'
+import PageDataLoader from '../../Decorators/PageDataLoader'
+import {categoriesSetSearch,resetAutoComplete} from '../../../Reducers/AC/categoriesAC'
+import {ServicesList, CategoriesList} from './'
 
 class Categories extends Component {
 
@@ -22,13 +22,18 @@ class Categories extends Component {
 
 export default connect(
     (s => ({
-        categories: (s.categories.get('categories') && mapToArr(s.categories.get('categories'), CategoriesRecord)) || [],
+        categories:  mapToArr(s.categories.get('categories'), CategoriesRecord),
         loading: s.categories.get('loading'),
-        searchValue: s.categories.get('searchValue')
+        searchValue: s.categories.get('searchValue'),
+        autoCompleteWorks: s.categories.get('autoCompleteWorks'),
+        autoCompleteLoading: s.categories.get('autoCompleteLoading'),
+        autoCompleteDetected:  s.categories.get('autoCompleteDetected'),
     })),
     {
         entitiesLoader: getCategories,
         setSearch: categoriesSetSearch,
         searchFunc: categoriesSearch,
+        autoCompleteFunc: autoCompleteSearch,
+        resetAutoComplete: resetAutoComplete
     }
-)(PageDataLoader(PageLayout(Categories)));
+)(PageDataLoader(PageLayout(Categories)))

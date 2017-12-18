@@ -30,7 +30,6 @@ export default (Component) => class PageDataLoader extends PageComponent {
         if (this.isBrowser()) {
             const {entitiesLoader, searchFunc, history: {push}, match: {params}} = props;
             const search = queryStringToState()
-            console.log(params);
             const id = params ? params.id : null;
             if (Object.keys(search).length) {
                 search.searchQuery ? searchFunc(search.searchQuery, id) : push('/not-found')
