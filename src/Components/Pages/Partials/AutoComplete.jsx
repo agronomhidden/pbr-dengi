@@ -55,47 +55,46 @@ export default class AutoComplete extends React.Component {
         };
     }
 
-    _getSuggestionValue = suggestion => suggestion.name
+    _getValue = suggestion => suggestion.name
 
-
-    _getSectionSuggestions = (section) => section.suggestions
-
+    _getSection = section => section.suggestions
 
     _minCountValue = val => val.trim().length > 2
 
-    _renderSuggestion = ({isService, id, name}) =>
+    _renderBlock = ({isService, id, name}) =>
         <div key={id}>
             <Link to={`/${isService ? 'services' : 'categories'}/${id}`}>{name}</Link>
         </div>
 
-
-    _onSuggestionsFetchRequested = ({value}) => {
-        const {props: {match: {params}, autoCompleteFunc, resetAutoComplete}} = this;
+    _fetchRequested = ({value}) => {
+        const {props: {match: {params}, autoCompleteFunc}} = this;
 
         if (this._minCountValue(value)) {
             const id = params ? params.id : null;
             autoCompleteFunc(value, id)
-        } else {
-            resetAutoComplete()
         }
     }
 
+    _clearResult = () => {
+        const {value, resetAutoComplete} = this.props;
+        if (this._minCountValue(value)) {
+            resetAutoComplete()
+        }
+    }
 
     _onSuggestionSelected = (event, {suggestionValue}) => suggestionValue = '';
 
     renderSectionTitle = section =>
         !!section.suggestions.length && <strong>{section.title}</strong>
 
-
     render = () => <Autosuggest multiSection={this.props.multiSection}
                                 renderSectionTitle={this.renderSectionTitle}
-                                getSectionSuggestions={this._getSectionSuggestions}
+                                getSectionSuggestions={this._getSection}
                                 suggestions={this.props.autoCompleteDetected}
-                                onSuggestionsFetchRequested={this._onSuggestionsFetchRequested}
-                                onSuggestionsClearRequested={() => {
-                                }}
-                                getSuggestionValue={this._getSuggestionValue}
-                                renderSuggestion={this._renderSuggestion}
+                                onSuggestionsFetchRequested={this._fetchRequested}
+                                onSuggestionsClearRequested={this._clearResult}
+                                getSuggestionValue={this._getValue}
+                                renderSuggestion={this._renderBlock}
                                 shouldRenderSuggestions={this._minCountValue}
                                 onSuggestionSelected={this._onSuggestionSelected}
                                 inputProps={this._getInputProps()}/>

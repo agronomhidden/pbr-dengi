@@ -11,9 +11,9 @@ export default (Component) => class PageDataLoader extends PageComponent {
         loading: PropTypes.bool
     }
 
-
     componentWillMount() {
-        if (!this.props.loading) {
+        // console.log(this.props.entitiesLoader);
+        if (!this.props.loading && this.props.history.location.state) {
             this.props.history.location.state = '';
             this._getEntities(this.props)
         }
@@ -29,12 +29,14 @@ export default (Component) => class PageDataLoader extends PageComponent {
     _getEntities(props) {
         if (this.isBrowser()) {
             const {entitiesLoader, searchFunc, history: {push}, match: {params}} = props;
-            const search = queryStringToState()
-            const id = params ? params.id : null;
+
+            const search = queryStringToState(this.props.history.location)
+
             if (Object.keys(search).length) {
-                search.searchQuery ? searchFunc(search.searchQuery, id) : push('/not-found')
+                params['searchQuery'] = search.searchQuery
+                search.searchQuery ? searchFunc(params) : push('/not-found')
             } else {
-                entitiesLoader(id);
+                entitiesLoader(params);
             }
         }
     }

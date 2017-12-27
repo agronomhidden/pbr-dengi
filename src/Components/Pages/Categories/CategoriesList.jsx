@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 
 export default class CategoriesList extends Component {
 
-
     static propTypes = {
         categories: PropTypes.array.isRequired,
     }
@@ -18,12 +17,9 @@ export default class CategoriesList extends Component {
             </div>
         )
 
-
-
-
     render = () =>
         <section className='category_wrap'>
-            <h5>Категории</h5>
+            <h5 style={{width:'100%'}}>Категории</h5>
             {this._getList()}
         </section>
 }

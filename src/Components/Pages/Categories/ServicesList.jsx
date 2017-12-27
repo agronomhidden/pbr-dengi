@@ -12,7 +12,7 @@ export default class ServicesList extends Component {
     _getList = () =>  this.props.categories.map((item) =>
         !item.is_category && <div key={item.id} className="category">
             <img src={item.img} alt="Лого"/>
-            <Link to={`/service/${item.id}`}>
+            <Link to={`/payments/${item.id}`}>
                 {item.name}
             </Link>
         </div>

@@ -1,13 +1,14 @@
 import {SET_CATEGORIES, SET_AUTO_COMPLETE, SUCCESS, START, FAIL, RESET} from "../../CONSTANTS"
 import {search} from './searchAC';
 
-export const loadCategories = () => ({
-    type: SET_CATEGORIES + START
+export const loadCategories = (searchQuery = '') => ({
+    type: SET_CATEGORIES + START,
+    searchQuery
 })
 
 export const categoriesLoaded = response => ({
     type: SET_CATEGORIES + SUCCESS,
-    payload: response.data.result,
+    payload: response.data.result
 })
 
 export const categoriesSetSearch = data => dispatch => {

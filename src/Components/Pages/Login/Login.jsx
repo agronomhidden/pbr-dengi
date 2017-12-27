@@ -56,7 +56,7 @@ class Login extends Component {
                             </div>
                             <div className="admin-login-buttons-right">
                                 {loading && <Roller width="38px" parentClass={'login-loading'}/>}
-                                <button color="danger">Войти</button>
+                                <button className="danger">Войти</button>
                             </div>
                         </div>
                     </fieldset>

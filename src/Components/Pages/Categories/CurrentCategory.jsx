@@ -6,28 +6,39 @@ import {mapToArr} from '../../../Utils/helper'
 import {CategoriesRecord} from '../../../Reducers/entities'
 import {getCategories, categoriesSearch, autoCompleteSearch} from '../../../Reducers/Requests/categoriesRequest'
 import PageDataLoader from '../../Decorators/PageDataLoader'
-import {categoriesSetSearch,resetAutoComplete} from '../../../Reducers/AC/categoriesAC'
+import {categoriesSetSearch, resetAutoComplete} from '../../../Reducers/AC/categoriesAC'
 import {ServicesList, CategoriesList} from './'
 
-class Categories extends Component {
+
+class CurrentCategory extends Component {
+
+
+    _issetCategories = () => this.props.categories.find(({is_category}) => is_category)
+
+    _issetServices = () => this.props.categories.find(({is_category}) => !is_category)
+
+    getName = (categories) => {
+        const record = categories.find(({is_category}) => !is_category)
+        return record && record.path
+    }
 
     render = () =>
         <div>
-            <h3>Платежи</h3>
+            <h3>Категория {this.getName(this.props.categories)}</h3>
             <Search {...this.props}/>
-            <CategoriesList categories={this.props.categories}/>
-            <ServicesList categories={this.props.categories}/>
+            {this._issetCategories() && <CategoriesList categories={this.props.categories}/>}
+            {this._issetServices() && <ServicesList categories={this.props.categories}/>}
         </div>
 }
 
 export default connect(
     (s => ({
-        categories:  mapToArr(s.categories.get('categories'), CategoriesRecord),
+        categories: mapToArr(s.categories.get('categories'), CategoriesRecord),
         loading: s.categories.get('loading'),
         searchValue: s.categories.get('searchValue'),
-        autoCompleteWorks: s.categories.get('autoCompleteWorks'),
         autoCompleteLoading: s.categories.get('autoCompleteLoading'),
-        autoCompleteDetected:  s.categories.get('autoCompleteDetected'),
+        autoCompleteWorks: s.categories.get('autoCompleteWorks'),
+        autoCompleteDetected: s.categories.get('autoCompleteDetected'),
     })),
     {
         entitiesLoader: getCategories,
@@ -36,4 +47,4 @@ export default connect(
         autoCompleteFunc: autoCompleteSearch,
         resetAutoComplete: resetAutoComplete
     }
-)(PageDataLoader(PageLayout(Categories)))
+)(PageDataLoader(PageLayout(CurrentCategory)));

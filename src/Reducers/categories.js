@@ -4,8 +4,9 @@ import {
     SET_AUTO_COMPLETE
 } from "../CONSTANTS"
 
-import {Record, OrderedMap, List} from 'immutable'
-import {arrToMap, setSearchValue, queryStringToState} from '../Utils/helper';
+import {Record, OrderedMap} from 'immutable'
+import {arrToMap, setSearchValue} from '../Utils/helper';
+
 
 const ReducerState = Record({
     count_categories: null,
@@ -23,7 +24,7 @@ export default (state = new ReducerState(), action = {}) => {
         case SET_CATEGORIES + START:
             return state
                 .set('loading', true)
-                .set('searchValue', setSearchValue(queryStringToState(), 'searchQuery'))
+                .set('searchValue', action.searchQuery)
                 .set('autoCompleteDetected', [])
                 .set('autoCompleteWorks', false)
         case SET_CATEGORIES + SUCCESS:
@@ -41,17 +42,16 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('autoCompleteLoading', false)
                 .set('autoCompleteDetected', [
                     {
-                        title: 'категории',
+                        title: 'Категории',
                         suggestions: action.payload.categories,
                     },
                     {
-                        title: 'сервисы',
+                        title: 'Сервисы',
                         suggestions: action.payload.services,
                     }])
         case SET_AUTO_COMPLETE + RESET:
             return state
-                .set('autoCompleteDetected', new OrderedMap({}))
-                .set('autoCompleteWorks', false)
+                .set('autoCompleteDetected', [])
         default:
             return state;
     }

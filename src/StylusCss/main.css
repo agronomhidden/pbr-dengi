@@ -79,6 +79,10 @@
   background-color: #7bb738;
   font: 25px MyFont;
 }
+.form-group,
+.help {
+  text-align: left;
+}
 body {
   font-family: Helvetica, sans-serif;
 }

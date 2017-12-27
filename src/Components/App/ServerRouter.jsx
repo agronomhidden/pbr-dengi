@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import {store} from './serverStore'
 import Layout from '../../layout'
 import routes from './routes'
-import {prepareParams} from '../../Utils/helper'
+import {prepareParams, setQueryStringToRoute} from '../../Utils/helper'
 import {TOKEN, REAL_IP, MOBILE, BROWSER} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/Requests/loginCurrentUserRequest'
 import requestIp from 'request-ip';
@@ -18,32 +18,37 @@ const router = express.Router();
 
 router.get('*', (req, res) => {
 
+    const {url, cookies, headers} = req;
+
     axios.defaults.headers.common[REAL_IP] = requestIp.getClientIp(req)
 
     Layout.setStore(store);
 
-    const branch = matchRoutes(routes, req.url);
 
-    const token = req.cookies[TOKEN];
+    const branch = matchRoutes(routes, url);
 
-    const md = new MobileDetect(req.headers['user-agent']);
+    const token = cookies[TOKEN];
+
+    const md = new MobileDetect(headers['user-agent']);
 
     const version = md.mobile() ? MOBILE : BROWSER;
+
 
     store.dispatch(getUserByToken(token)).then(() => {
 
         const user = store.getState().auth.user
         const promises = [];
 
-        branch.some(({route,route: {fetchData, needAuth}, match: {params}}) => {
+        branch.some(({route: {fetchData, needAuth},match, match: {params}}) => {
             if (needAuth && !user) {
                 res.redirect('/')
                 return true;
             }
-            console.log(route);
+
             if (fetchData instanceof Function) {
                 promises.push(store.dispatch(fetchData(prepareParams(params))))
             }
+
             if (fetchData instanceof Array) {
                 fetchData.forEach(fetchFunction => {
                     if (fetchFunction instanceof Function) {
@@ -54,7 +59,6 @@ router.get('*', (req, res) => {
         })
 
         Promise.all(promises).then(() => {
-
             const context = {
                 pageTitleSetter: (title) => {
                     Layout.setTitle(title)
@@ -66,16 +70,17 @@ router.get('*', (req, res) => {
 
             const content = renderToString(
                 <Provider store={store}>
-                    <StaticRouter location={req.url} context={context}>
+                    <StaticRouter location={url} context={context}>
                         {renderRoutes(routes)}
                     </StaticRouter>
                 </Provider>
             );
+
             res.end(Layout.render(content));
         }).catch(err => {
             console.log('error on PromiseAll');
             console.log(err)
-            if(err && err.response.status === 404){
+            if (err && err.response.status === 404) {
                 res.redirect('/not-found');
             }
         });

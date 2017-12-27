@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 
 
 export default class Search extends Component {
+    
+    constructor(props){
+        super(props)
+        this.state.searchQuery =  props.searchValue;
+    }
 
     static propTypes = {
         loading: PropTypes.bool.isRequired,
-        searchValue: PropTypes.string.isRequired,
+        searchValue: PropTypes.string,
     }
 
     state = {

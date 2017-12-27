@@ -1,12 +1,13 @@
-import {OrderedMap, Map} from 'immutable'
+import {OrderedMap} from 'immutable'
 import parse from 'url-parse'
-import qs from 'qs';
+
 import clone from 'clone';
+import qs from "qs"
 
 
-export function arrToMap(arr) {
+export function arrToMap(arr, setKey = null) {
     return arr.reduce((acc, item) =>
-            acc.set(item.id, item)
+            acc.set(setKey ? setKey(item) : item.id, item)
         , new OrderedMap({}))
 }
 
@@ -14,16 +15,16 @@ export function mapToArr(obj, DataRecord) {
     return obj.valueSeq().toArray().map((value) => new DataRecord(value));
 }
 
-
 export function prepareParams(params) {
 
-    for (let i in params) {
-        params[i] = params[i] ? decodeURIComponent(params[i]) : params[i];
-        if (params[i].includes('?')) {
-            params[i] = params[i].substr(0, params[i].indexOf('?'));
+    let queryObject = {}
+    for (let key in params) {
+        params[key] = params[key] ? decodeURIComponent(params[key]) : params[key]
+        if (key === '0') {
+            queryObject = qs.parse(params[key], {ignoreQueryPrefix: true}) || {}
         }
     }
-    return params;
+    return Object.assign(params, queryObject);
 }
 
 /**
@@ -33,13 +34,23 @@ export function prepareParams(params) {
  * @return object
  */
 export function setState(props, state) {
-
     for (let key in state) {
         if (props[key]) {
             state[key] = props[key];
-            if (typeof state[key] === "number") {
-                state[key] = Number(props[key]);
-            }
+        }
+    }
+    return state;
+}
+
+export function setStateOfProps(props, fieldName) {
+    const state = {};
+    for (let k in props) {
+        const value = props[k].value ? props[k].value : '';
+        if (fieldName) {
+            console.log('state:',props[k][fieldName],'value:',value);
+            state[props[k][fieldName]] = value
+        } else {
+            state[k] = value
         }
     }
     return state;
@@ -64,29 +75,25 @@ export function setFieldError(props, field, text) {
     return props;
 }
 
-export const setQueryStringToRoute = (routes, reqUrl) => {
+// export const setQueryStringToRoute = (routes, reqUrl) => {
+//
+//     const changeRouter = clone(routes);
+//     const url = parse(reqUrl);
+//     const searchInRout = '(/?)?';
+//    
+//     return changeRouter.map(route => {
+//
+//         const {path} = route;
+//         if (path.includes(searchInRout)) {
+//             route.path = path.replace(searchInRout, '');
+//             if (url.query && (route.path === url.pathname)) {
+//                 route.path += '/:searchParams';
+//             }
+//         }
+//         return route;
+//     })
+// }
 
-    const changeRouter = clone(routes);
-    const url = parse(reqUrl);
-    let paramsToRouter = '';
-    if (url.query) {
-        const queryObject = qs.parse(url.query, {ignoreQueryPrefix: true});
-        for (let key in queryObject) {
-            queryObject[key] = queryObject[key] && `:${key}`
-        }
-        paramsToRouter = qs.stringify(queryObject, {encode: false, addQueryPrefix: true, skipNulls: true})
-    }
-    return changeRouter.map(route => {
-        if (paramsToRouter && route.path === url.pathname) {
-            route.path += paramsToRouter;
-        }
-        return route;
-    })
-}
-
-export function queryStringToState() {
-    return qs.parse(location.search, {ignoreQueryPrefix: true}) || {}
-}
 
 export function stateToQueryString(state = {}) {
     let queryStringArr = {};
@@ -101,6 +108,18 @@ export function stateToQueryString(state = {}) {
     return qs.stringify(queryStringArr);
 }
 
+export function queryStringToState(location = null) {
+    return qs.parse(location && location.search, {ignoreQueryPrefix: true}) || {}
+}
+
 export function setSearchValue(state, key) {
-    return (state[key] && state[key]) || '';
+    return state[key] ? state[key] : '';
+}
+
+export function prepareRequestDialogFields(state){
+    const requestObject = {}
+    for (let name in state) {
+        requestObject['fields[' + name + ']'] = state[name]
+    }
+    return requestObject;
 }

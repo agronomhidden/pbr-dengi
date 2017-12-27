@@ -1,19 +1,21 @@
-export const START = '_START';
-export const SUCCESS = '_SUCCESS';
-export const FAIL = '_FAIL';
-export const RESET = '_RESET';
+export const START = '_START'
+export const SUCCESS = '_SUCCESS'
+export const FAIL = '_FAIL'
+export const RESET = '_RESET'
 
-export const TOKEN = 'access_token';
-export const REAL_IP = 'X-Real-IP';
-export const MOBILE = 'mobile';
-export const BROWSER = 'browser';
+export const TOKEN = 'access_token'
+export const REAL_IP = 'X-Real-IP'
+export const MOBILE = 'mobile'
+export const BROWSER = 'browser'
 /** Роутер */
-export const CHANGE_LOCATION = '@@router/LOCATION_CHANGE';
+export const CHANGE_LOCATION = '@@router/LOCATION_CHANGE'
 /** Поиск */
-export const SEARCH_EVENT = 'SEARCH_EVENT';
+export const SEARCH_EVENT = 'SEARCH_EVENT'
 /** Вход пользователя*/
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER'
 /** Категории */
-export const SET_CATEGORIES = 'SET_CATEGORIES';
-export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE';
+export const SET_CATEGORIES = 'SET_CATEGORIES'
+export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'
+/** Диалог c ЕРИП*/
+export const DIALOG = 'DIALOG'

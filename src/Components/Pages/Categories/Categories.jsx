@@ -10,20 +10,18 @@ import {categoriesSetSearch, resetAutoComplete} from '../../../Reducers/AC/categ
 import {ServicesList, CategoriesList} from './'
 
 
-class CurrentCategory extends Component {
+class Categories extends Component {
 
+    _issetCategories = () => this.props.categories.find(({is_category}) => is_category)
 
-    getName = (categories) => {
-        const record = categories.find(({is_category}) => !is_category)
-        return record && record.path
-    }
+    _issetServices = () =>  this.props.categories.find(({is_category}) => !is_category)
 
     render = () =>
         <div>
-            <h3>Категория {this.getName(this.props.categories)}</h3>
+            <h3>Платежи</h3>
             <Search {...this.props}/>
-            <CategoriesList categories={this.props.categories}/>
-            <ServicesList categories={this.props.categories}/>
+            {this._issetCategories() && <CategoriesList categories={this.props.categories}/>}
+            {this._issetServices() && <ServicesList categories={this.props.categories}/>}
         </div>
 }
 
@@ -43,4 +41,6 @@ export default connect(
         autoCompleteFunc: autoCompleteSearch,
         resetAutoComplete: resetAutoComplete
     }
-)(PageDataLoader(PageLayout(CurrentCategory)));
+)(PageDataLoader(PageLayout(Categories)));
+
+

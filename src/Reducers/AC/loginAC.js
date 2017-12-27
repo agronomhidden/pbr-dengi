@@ -4,10 +4,9 @@ export const loginCurrentUser = () => ({
     type: SET_CURRENT_USER + START
 })
 
-export const setCurrentUser = (response,userData) => ({
+export const setCurrentUser = response => ({
     type: SET_CURRENT_USER + SUCCESS,
-    payload: response,
-    userData
+    payload: response
 })
 
 export const setLoginErrors = response => ({

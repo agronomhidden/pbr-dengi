@@ -20,3 +20,20 @@ export const CategoriesRecord = Record({
     top: null,
     is_service: false
 })
+
+export const DialogFieldsRecord = Record({
+    description: null,
+    name: null,
+    type: null,
+    maxLength: null,
+    min: null,
+    max: null,
+    hint: null,
+    format: null,
+    value: null,
+    originalFields: null,
+    isSum: false,
+    nominal: null,
+    editable: false,
+    mask: {}
+})

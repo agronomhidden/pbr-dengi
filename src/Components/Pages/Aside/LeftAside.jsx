@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Login from '../Login';
-import {UserInfo} from '../User';
+import {UserUnit} from '../User';
 
 class LeftAside extends Component {
 
     render = () =>
         <aside className="left-aside">
-            {!this.props.user ? <Login/> : <UserInfo user={this.props.user}/>}
+            {!this.props.user ? <Login/> : <UserUnit user={this.props.user}/>}
         </aside>
 
 }
