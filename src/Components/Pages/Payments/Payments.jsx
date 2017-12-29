@@ -6,20 +6,22 @@ import PageDataLoader from '../../Decorators/PageDataLoader'
 import {DialogFieldsRecord} from "../../../Reducers/entities"
 import {mapToArr, prepareRequestDialogFields} from "../../../Utils/helper"
 import {DialogBlock} from "./index"
+import {Roller} from "../../Loading"
 
 class Payments extends Component {
 
-    _setFieldsState = (fieldState) =>  {
-        console.log(fieldState);
-        this.setState(fieldState)
+    fieldState = {}
+
+    _setFieldsState = (fieldState) => {
+        this.fieldState = fieldState
     }
 
     _onSubmit = (e) => {
         e.preventDefault();
-        const {props: {mts_session, requestInDialog, match: {params: {id}}}, state} = this
-        console.log(state);
+        console.log(this.props);
+        const {props: {mts_session, requestInDialog, match: {params: {id}}}, fieldState} = this
         const requestObject = Object.assign(
-            prepareRequestDialogFields(state),
+            prepareRequestDialogFields(fieldState),
             {
                 serviceCode: id,
                 mts_session: mts_session
@@ -28,15 +30,14 @@ class Payments extends Component {
         requestInDialog(requestObject)
     }
 
-    _getDialogMap = () =>
-        this.props.dialogBlocks.map((record, i) =>
-            <DialogBlock
-                key={i}
+    _getDialogMap() {
+        return this.props.dialogBlocks.map((record, i) =>
+            <DialogBlock key={i}
                 fields={mapToArr(record.get('fields'), DialogFieldsRecord)}
                 summary={record.get('summary')}
                 _setFieldsState={this._setFieldsState}
-                loading={this.props.loading}
-            />)
+                loading={this.props.loading}/>)
+    }
 
     render = () =>
         <div>
@@ -44,6 +45,7 @@ class Payments extends Component {
             <form method="POST" onSubmit={this._onSubmit}>
                 {this._getDialogMap()}
                 <button>Отправить</button>
+                {this.props.loading && <Roller parentClass="form-group_field-loading" width={'15px'}/>}
             </form>
         </div>
 }

@@ -26,14 +26,17 @@ export const DialogFieldsRecord = Record({
     name: null,
     type: null,
     maxLength: null,
+    minLength: null,
     min: null,
     max: null,
     hint: null,
     format: null,
     value: null,
     originalFields: null,
-    isSum: false,
+    isSum: null,
     nominal: null,
-    editable: false,
-    mask: {}
+    editable: null,
+    placeholder: null,
+    mask: null,
+    required: null
 })

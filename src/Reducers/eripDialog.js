@@ -30,12 +30,14 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('loading', true)
                 .set('errors', null)
         case DIALOG + SUCCESS:
+            const {mts_session, fields, summary} = action.payload;
+            console.log(action.payload);
             return state
+                .set('mts_session', mts_session)
                 .set('loading', false)
-                .set('mts_session', action.payload.mts_session)
                 .updateIn(['dialogBlocks'], list => list.push(Map({
-                    fields: arrToMap(action.payload.fields, (item) => item.name),
-                    summary: action.payload.summary
+                    fields: arrToMap(fields, (item) => item.name),
+                    summary: summary
                 })))
         case DIALOG + FAIL:
             return state

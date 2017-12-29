@@ -13,20 +13,24 @@ export default class DialogBlock extends Component {
     }
 
     componentWillMount() {
-        this.setState(setStateOfProps(this.props.fields, 'name'))
+        const state = setStateOfProps(this.props.fields, 'name')
+        this.setState(state)
+        this.props._setFieldsState(state)
+    }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        this.props._setFieldsState(nextState);
+        return true;
     }
 
     _onChange = ({target: {name, value}}) => {
         this.setState({[name]: value})
-        this.props._setFieldsState(this.state);
     }
 
     _onCheck = ({target: {name, checked}}) => {
         this.setState({
             [name]: Number(checked)
         });
-        this.props._setFieldsState(this.state);
     };
 
     render = () => (
@@ -37,7 +41,7 @@ export default class DialogBlock extends Component {
                                         {...fields}
                                         onChange={this._onChange}
                                         onCheck={this._onCheck}
-                                        value={this.state[fields.name]}
+                                        editValue={this.state[fields.name]}
                                         loading={this.props.loading}/>
             })}
             <div className='help'>{this.props.summary}</div>

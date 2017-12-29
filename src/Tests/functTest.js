@@ -1,67 +1,69 @@
 import expect from 'expect';
 import ReactTestUtils from 'react-dom/test-utils';
-import {formatPhone, setStateOfProps} from '../Utils/helper';
+import {formatPhone, prepareRequestDialogFields, setStateOfProps} from '../Utils/helper';
 import assert from 'assert';
 
-describe('formatPhone', () => {
+describe('new helper function tests', () => {
 
-    it('telefon is true', () => {
+    it('prepare Dialog state', () => {
 
-        const phone = formatPhone('123456789013')
-        const newPhone = '+123 (45)-678-9013';
-        expect(phone).toEqual(newPhone);
+        const dialogFieldState = {
+            'Дата выставления': '20.12.2017',
+            'Период': '11.2017',
+            'Счётчик 1-предыдущ. знач.': '63',
+            'Счётчик 1-текущее знач.': '66',
+            'Счётчик 2-предыдущ. знач.': '32',
+            'Счётчик 2-текущее знач.': '34.5'
+        }
+
+        const resultDialogFieldState =
+            {
+                'fields[Дата выставления]': '20.12.2017',
+                'fields[Период]': '11.2017',
+                'fields[Счётчик 1-предыдущ. знач.]': '63',
+                'fields[Счётчик 1-текущее знач.]': '66',
+                'fields[Счётчик 2-предыдущ. знач.]': '32',
+                'fields[Счётчик 2-текущее знач.]': '34.5'
+            }
+        expect(prepareRequestDialogFields(dialogFieldState)).toEqual(resultDialogFieldState)
     })
-
-});
-
-describe('setState', () => {
 
     it('set empty state of props with key', () => {
 
-        const props = {
-            "name": "Абонентский номер телефона",
-            "type": "S",
-            "editable": true,
-            "minLength": 9,
-            "maxLength": 9,
-            "originalField": true,
-            "mask": null,
-            "description": "Абонентский номер телефона",
-            "required": true
-        }
+        const props = [{
+            'name': 'Абонентский телефона',
+            'type': 'S',
+            'description': 'Абонентский номер телефона',
+            'value': null,
+            'editable': true,
+        }, {
+            'name': 'Абонентский номер ',
+            'type': 'S',
+            'description': 'Абонентский номер телефона',
+            'required': true,
+            'value': 19,
+            'editable': true,
+        }, {
+            'name': 'номер телефона',
+            'type': 'S',
+            'editable': true,
+            'value': 'string',
+            'required': true
+        }, {
+            'name': 'Абонентский номер телефона',
+            'type': 'S',
+            'mask': null,
+            'value': false,
+            'editable': true,
+        }]
 
-        const state = setStateOfProps(props, 'name')
-        const newState = {'Абонентский номер телефона': ''};
-        expect(state).toEqual(newState);
-    })
-
-    it('set empty state of props', () => {
-
-        const props = {
-            "name": "Абонентский номер телефона",
-            "type": "S",
-            "editable": true,
-            "minLength": 9,
-            "maxLength": 9,
-            "originalField": true,
-            "mask": null,
-            "description": "Абонентский номер телефона",
-            "required": true
-        }
-
-        const state = setStateOfProps(props)
         const newState = {
-            "name": "",
-            "type": "",
-            "editable": "",
-            "minLength": "",
-            "maxLength": "",
-            "originalField": "",
-            "mask": "",
-            "description": "",
-            "required": ""
+            'Абонентский телефона': '',
+            "Абонентский номер ": 19,
+            "номер телефона": 'string',
+            "Абонентский номер телефона": '',
         };
-        expect(state).toEqual(newState);
+        expect(setStateOfProps(props, 'name')).toEqual(newState);
     })
 
 })

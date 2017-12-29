@@ -42,20 +42,17 @@ export function setState(props, state) {
     return state;
 }
 
-export function setStateOfProps(props, fieldName) {
+export function setStateOfProps(props, key) {
     const state = {};
-    for (let k in props) {
-        const value = props[k].value ? props[k].value : '';
-        if (fieldName) {
-            console.log('state:',props[k][fieldName],'value:',value);
-            state[props[k][fieldName]] = value
-        } else {
-            state[k] = value
+    for (let i in props) {
+        const value = props[i].value || '';
+        if (props[i].editable) {
+            console.log('state:', props[i][key], 'value:', value);
+            state[props[i][key]] = value
         }
     }
     return state;
 }
-
 
 export function formatPhone(phone) {
     if (phone.length !== 12) {
@@ -74,26 +71,6 @@ export function setFieldError(props, field, text) {
     !props.errors.fields[field] && (props.errors.fields[field] = text);
     return props;
 }
-
-// export const setQueryStringToRoute = (routes, reqUrl) => {
-//
-//     const changeRouter = clone(routes);
-//     const url = parse(reqUrl);
-//     const searchInRout = '(/?)?';
-//    
-//     return changeRouter.map(route => {
-//
-//         const {path} = route;
-//         if (path.includes(searchInRout)) {
-//             route.path = path.replace(searchInRout, '');
-//             if (url.query && (route.path === url.pathname)) {
-//                 route.path += '/:searchParams';
-//             }
-//         }
-//         return route;
-//     })
-// }
-
 
 export function stateToQueryString(state = {}) {
     let queryStringArr = {};
@@ -116,10 +93,34 @@ export function setSearchValue(state, key) {
     return state[key] ? state[key] : '';
 }
 
-export function prepareRequestDialogFields(state){
+export function prepareRequestDialogFields(state) {
     const requestObject = {}
     for (let name in state) {
-        requestObject['fields[' + name + ']'] = state[name]
+        if (name === 'sum') {
+            requestObject[name] = state[name]
+        } else {
+            requestObject['fields[' + name + ']'] = state[name]
+        }
+
     }
     return requestObject;
 }
+
+// export const setQueryStringToRoute = (routes, reqUrl) => {
+//
+//     const changeRouter = clone(routes);
+//     const url = parse(reqUrl);
+//     const searchInRout = '(/?)?';
+//
+//     return changeRouter.map(route => {
+//
+//         const {path} = route;
+//         if (path.includes(searchInRout)) {
+//             route.path = path.replace(searchInRout, '');
+//             if (url.query && (route.path === url.pathname)) {
+//                 route.path += '/:searchParams';
+//             }
+//         }
+//         return route;
+//     })
+// }

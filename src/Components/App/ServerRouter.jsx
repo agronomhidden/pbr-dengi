@@ -39,7 +39,7 @@ router.get('*', (req, res) => {
         const user = store.getState().auth.user
         const promises = [];
 
-        branch.some(({route: {fetchData, needAuth},match, match: {params}}) => {
+        branch.some(({route: {fetchData, needAuth}, match: {params}}) => {
             if (needAuth && !user) {
                 res.redirect('/')
                 return true;
