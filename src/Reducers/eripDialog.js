@@ -1,6 +1,6 @@
 import {
     START, SUCCESS, FAIL, RESET,
-    DIALOG,
+    DIALOG, FAILED,
 } from "../CONSTANTS"
 
 
@@ -11,9 +11,10 @@ import {arrToMap} from "../Utils/helper"
 const ReducerState = Record({
     errors: null,
     loading: false,
-    dialogBlocks: List([]),
+    dialogBlocks: [],
     summary: null,
-    mts_session: null
+    mts_session: null,
+    fault: null
 })
 
 
@@ -31,18 +32,22 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('errors', null)
         case DIALOG + SUCCESS:
             const {mts_session, fields, summary} = action.payload;
-            console.log(action.payload);
             return state
                 .set('mts_session', mts_session)
                 .set('loading', false)
-                .updateIn(['dialogBlocks'], list => list.push(Map({
-                    fields: arrToMap(fields, (item) => item.name),
-                    summary: summary
-                })))
+                .updateIn(['dialogBlocks'],list =>
+                    list.push(Map({
+                        fields: arrToMap(fields, item => item.name),
+                        summary: summary
+                    })))
         case DIALOG + FAIL:
             return state
                 .set('loading', false)
                 .set('errors', action.payload)
+        case DIALOG + FAILED:
+            return state
+                .set('loading', false)
+                .set('fault', action.payload)
         default:
             return state;
     }

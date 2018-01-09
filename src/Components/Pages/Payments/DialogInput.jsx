@@ -25,8 +25,6 @@ class DialogInput extends Component {
             return <h3>{value}</h3>
         }
 
-        console.log(attributes);
-        
         if (attributes.type === 'mask' || mask) {
             return <InputMask {...maskAttributes}/>
         }

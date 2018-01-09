@@ -5,30 +5,32 @@ import cookies from 'js-cookie';
 
 
 const onError = (err, errAC, dispatch) => {
-    switch (err.response.status) {
-        case 403:
-            errAC && dispatch(errAC());
-            return;
-        case 400:
-            break;
-        case 406:
-            break;
-        case 500:
-            break;
-        case 499:
-            errAC && dispatch(errAC(err.response.data));
-            return;
-        default:
-            break;
+
+    if (err.response) {
+        switch (err.response.status) {
+            case 403:
+                errAC && dispatch(errAC());
+                return;
+            case 400:
+                break;
+            case 406:
+                break;
+            case 500:
+                break;
+            case 499:
+                errAC && dispatch(errAC(err.response.data));
+                return;
+            default:
+                break;
+        }
     }
-    console.log(err);
     throw err;
 };
 
 
 export const get = (url, params = {}, success, errActionCreator, dispatch, withToken = true) => {
 
-    if(withToken) {
+    if (withToken) {
         params[TOKEN] = params[TOKEN] ? params[TOKEN] : cookies.get(TOKEN)
     }
     axios.defaults.baseURL = process.env.API_URL

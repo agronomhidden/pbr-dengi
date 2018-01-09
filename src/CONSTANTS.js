@@ -2,6 +2,7 @@ export const START = '_START'
 export const SUCCESS = '_SUCCESS'
 export const FAIL = '_FAIL'
 export const RESET = '_RESET'
+export const FAILED = '_FAILED'
 
 export const TOKEN = 'access_token'
 export const REAL_IP = 'X-Real-IP'

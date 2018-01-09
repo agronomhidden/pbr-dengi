@@ -1,4 +1,4 @@
-import {DIALOG, SUCCESS, START, FAIL, RESET} from "../../CONSTANTS"
+import {DIALOG, SUCCESS, START, FAIL, RESET,FAILED} from "../../CONSTANTS"
 
 export const initDialogStart = () => ({
     type: DIALOG + START
@@ -16,4 +16,9 @@ export const dialogErrors = response => ({
 
 export const dialogContinue = () => ({
     type: DIALOG + RESET
+})
+
+export const dialogFailed = response => ({
+    type: DIALOG + FAILED,
+    payload: response
 })

@@ -13,9 +13,9 @@ import {ServicesList, CategoriesList} from './'
 class CurrentCategory extends Component {
 
 
-    _issetCategories = () => this.props.categories.find(({is_category}) => is_category)
+    _issetCategories = () => this.props.entities.find(({is_category}) => is_category)
 
-    _issetServices = () => this.props.categories.find(({is_category}) => !is_category)
+    _issetServices = () => this.props.entities.find(({is_category}) => !is_category)
 
     getName = (categories) => {
         const record = categories.find(({is_category}) => !is_category)
@@ -24,16 +24,16 @@ class CurrentCategory extends Component {
 
     render = () =>
         <div>
-            <h3>Категория {this.getName(this.props.categories)}</h3>
+            <h3>Категория {this.getName(this.props.entities)}</h3>
             <Search {...this.props}/>
-            {this._issetCategories() && <CategoriesList categories={this.props.categories}/>}
-            {this._issetServices() && <ServicesList categories={this.props.categories}/>}
+            {this._issetCategories() && <CategoriesList categories={this.props.entities}/>}
+            {this._issetServices() && <ServicesList categories={this.props.entities}/>}
         </div>
 }
 
 export default connect(
     (s => ({
-        categories: mapToArr(s.categories.get('categories'), CategoriesRecord),
+        entities: mapToArr(s.categories.get('categories'), CategoriesRecord),
         loading: s.categories.get('loading'),
         searchValue: s.categories.get('searchValue'),
         autoCompleteLoading: s.categories.get('autoCompleteLoading'),

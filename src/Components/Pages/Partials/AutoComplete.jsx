@@ -63,7 +63,7 @@ export default class AutoComplete extends React.Component {
 
     _renderBlock = ({isService, id, name}) =>
         <div key={id}>
-            <Link to={`/${isService ? 'services' : 'categories'}/${id}`}>{name}</Link>
+            <Link to={`/${isService ? 'payments' : 'categories'}/${id}`}>{name}</Link>
         </div>
 
     _fetchRequested = ({value}) => {

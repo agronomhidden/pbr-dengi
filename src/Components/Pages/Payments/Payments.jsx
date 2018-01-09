@@ -19,42 +19,62 @@ class Payments extends Component {
     _onSubmit = (e) => {
         e.preventDefault();
         console.log(this.props);
-        const {props: {mts_session, requestInDialog, match: {params: {id}}}, fieldState} = this
-        const requestObject = Object.assign(
-            prepareRequestDialogFields(fieldState),
-            {
-                serviceCode: id,
-                mts_session: mts_session
+        const {props: {mts_session, requestInDialog, entities, match: {params: {id}}}, fieldState} = this
+
+        let requestObj = {}
+        for (let name in fieldState) {
+            const fieldProps = entities.find(record => {
+                console.log(record.get('fields').get('name'));
+                return record.get('fields')[name] || false;
             })
 
-        requestInDialog(requestObject)
+            if (fieldProps.originalField) {
+                requestObj['fields[' + name + ']'] = fieldState[name]
+            }
+            requestObj[name] = fieldState[name]
+        }
+        // const requestObject = Object.assign(
+        //     prepareRequestDialogFields(fieldState),
+        //     {
+        //         serviceCode: id,
+        //         mts_session: mts_session
+        //     })
+
+        //  requestInDialog(requestObject)
     }
 
-    _getDialogMap() {
-        return this.props.dialogBlocks.map((record, i) =>
+    _getDialogMap = () =>
+        this.props.entities.map((record, i) =>
             <DialogBlock key={i}
-                fields={mapToArr(record.get('fields'), DialogFieldsRecord)}
-                summary={record.get('summary')}
-                _setFieldsState={this._setFieldsState}
-                loading={this.props.loading}/>)
-    }
+                         fields={mapToArr(record.get('fields'), DialogFieldsRecord)}
+                         summary={record.get('summary')}
+                         _setFieldsState={this._setFieldsState}
+                         loading={this.props.loading}/>)
 
     render = () =>
+
         <div>
             <h3>Заголовок платежа</h3>
-            <form method="POST" onSubmit={this._onSubmit}>
-                {this._getDialogMap()}
-                <button>Отправить</button>
-                {this.props.loading && <Roller parentClass="form-group_field-loading" width={'15px'}/>}
-            </form>
+            {this.props.fault ?
+                <h3 style={{backgroundColor: 'red'}}>{this.props.fault}</h3>
+                :
+                <form method="POST" onSubmit={this._onSubmit}>
+                    {this._getDialogMap()}
+                    {this.props.loading ?
+                        <Roller parentClass="form-group_field-loading" width={'15px'}/> :
+                        <button>Отправить</button>
+                    }
+                </form>
+            }
         </div>
 }
 
 export default connect(
     (s => ({
-        dialogBlocks: s.eripDialog.get('dialogBlocks'),
+        entities: s.eripDialog.get('dialogBlocks'),
         loading: s.eripDialog.get('loading'),
-        mts_session: s.eripDialog.get('mts_session')
+        mts_session: s.eripDialog.get('mts_session'),
+        fault: s.eripDialog.get('fault')
     })),
     {
         entitiesLoader: initDialog,

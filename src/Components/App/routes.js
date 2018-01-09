@@ -38,8 +38,7 @@ export default [
         path: '/payments/:id(\\d+)',
         exact: true,
         component: Payments,
-        title: 'Платежи',
-        fetchData: initDialog
+        title: 'Платежи'
     },
     {
         path: '*',

@@ -90,17 +90,17 @@ export default (Component) => class attributesForDialogInput extends Component {
 
     _getMaskAttributes() {
 
-        const {name, onChange, required, mask, placeholder, value} = this.props;
+        const {name, onChange, required, mask, placeholder, editValue} = this.props;
 
         return {
             type: 'mask',
             id: name,
-            mask: mask ? (mask.prefix + mask.mask + mask.postfix) : placeholder,
+            mask: mask ? (mask.prefix + ' ' + mask.mask + ' ' + mask.postfix) : placeholder,
             maskChar: '*',
             alwaysShowMask: true,
             className: this._getInputClasses(),
             name,
-            value,
+            value: editValue,
             required,
             onChange
         }

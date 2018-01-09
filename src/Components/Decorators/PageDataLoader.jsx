@@ -7,13 +7,14 @@ export default (Component) => class PageDataLoader extends PageComponent {
 
     static propTypes = {
         entitiesLoader: PropTypes.func.isRequired,
+        entities: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
         searchFunc: PropTypes.func,
         loading: PropTypes.bool
     }
 
     componentWillMount() {
-        // console.log(this.props.entitiesLoader);
-        if (!this.props.loading && this.props.history.location.state) {
+        const {loading, history, entities} = this.props;
+        if (!loading && (history.location.state || !entities.length)) {
             this.props.history.location.state = '';
             this._getEntities(this.props)
         }
