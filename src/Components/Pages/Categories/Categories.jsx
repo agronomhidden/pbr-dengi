@@ -7,7 +7,7 @@ import {CategoriesRecord} from '../../../Reducers/entities'
 import {getCategories, categoriesSearch, autoCompleteSearch} from '../../../Reducers/Requests/categoriesRequest'
 import PageDataLoader from '../../Decorators/PageDataLoader'
 import {categoriesSetSearch, resetAutoComplete} from '../../../Reducers/AC/categoriesAC'
-import {ServicesList, CategoriesList} from './'
+import {ServicesList, CategoriesList} from './index'
 
 
 class Categories extends Component {
@@ -33,6 +33,8 @@ export default connect(
         autoCompleteLoading: s.categories.get('autoCompleteLoading'),
         autoCompleteWorks: s.categories.get('autoCompleteWorks'),
         autoCompleteDetected: s.categories.get('autoCompleteDetected'),
+        count_services: s.categories.get('count_services'),
+        count_categories: s.categories.get('count_categories')
     })),
     {
         entitiesLoader: getCategories,
