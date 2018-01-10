@@ -20,6 +20,7 @@ const ReducerState = Record({
 })
 
 export default (state = new ReducerState(), action = {}) => {
+
     switch (action.type) {
         case SET_CATEGORIES + START:
             return state
@@ -27,10 +28,15 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('searchValue', action.searchQuery)
                 .set('autoCompleteDetected', [])
                 .set('autoCompleteWorks', false)
+                .set('count_categories', null)
+                .set('count_services', null)
         case SET_CATEGORIES + SUCCESS:
+            const {data, count_categories, count_services} = action.payload
             return state
                 .set('loading', false)
-                .set('categories', arrToMap(action.payload.data))
+                .set('categories', arrToMap(data))
+                .set('count_categories', count_categories)
+                .set('count_services', count_services)
         case SET_AUTO_COMPLETE + START:
             return state
                 .set('autoCompleteLoading', true)

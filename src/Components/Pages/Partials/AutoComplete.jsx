@@ -59,17 +59,18 @@ export default class AutoComplete extends React.Component {
 
     _getSection = section => section.suggestions
 
-    _minCountValue = val => val.trim().length > 2
+    _minCountValue = val => val.length > 2
 
     _renderBlock = ({isService, id, name}) =>
         <div key={id}>
             <Link to={`/${isService ? 'payments' : 'categories'}/${id}`}>{name}</Link>
         </div>
 
-    _fetchRequested = ({value}) => {
+    _fetchRequested = ({value, reason}) => {
+        value = value.trim()
+        console.log(value !== this.props.value);
         const {props: {match: {params}, autoCompleteFunc}} = this;
-
-        if (this._minCountValue(value)) {
+        if (reason === 'input-changed' && this._minCountValue(value) && value !== this.props.value.trim()) {
             const id = params ? params.id : null;
             autoCompleteFunc(value, id)
         }
