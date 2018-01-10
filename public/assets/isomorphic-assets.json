@@ -1,12 +1,13 @@
 {
   "marked": {
     "public\\img\\roller.gif": "1e4a752488cf96e496df4f35a54845f2.gif",
-    "public\\favicon.ico": "fd73a6eb26a08ee46e7fd3cc34e7f6bf.ico"
+    "public\\favicon.ico": "fd73a6eb26a08ee46e7fd3cc34e7f6bf.ico",
+    "public\\fonts\\11050.ttf": "808f15c7bbee38a93f5d1cc57e717cc5.ttf"
   },
   "chunks": {
     "main": [
-      "bundle-38957ca06d92c88e8e22.js",
-      "styles-38957ca06d92c88e8e22.css"
+      "bundle-c9164076ae2e52c519ee.js",
+      "styles-c9164076ae2e52c519ee.css"
     ]
   }
 }

@@ -14,7 +14,7 @@ const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
 const PORT = process.env.PORT || (mode === 'production' ? 3333 : 3003);
 
-const path = `./config/${mode}/.env` + (fs.existsSync(`./config/${mode}/.env.local`) && '.local');
+const path = `./config/${mode}/.env` + ((fs.existsSync(`./config/${mode}/.env.local`) && '.local') || '');
 
 dotenv.config({path});
 
