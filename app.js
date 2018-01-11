@@ -4,7 +4,7 @@ require('babel-core/register');
 
 ['.css', '.styl', '.ttf', '.woff', '.woff2','.ico'].forEach((ext) => require.extensions[ext] = () => {});
 
-require('babel-polyfill');git
+require('babel-polyfill');
 
 extendRequire().then(()=> {
     require("./src/server");

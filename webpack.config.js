@@ -43,6 +43,11 @@ if (mode === 'production') {
         })
     );
     plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
+    plugins.push(new IsomorphicLoaderPlugin({
+        webpackDev: {
+            url: false,
+        }
+    }));
 }
 
 module.exports = {
