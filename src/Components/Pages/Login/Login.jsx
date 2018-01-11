@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {FormGroup} from '../Partials'
 import {Roller} from '../../Loading'
-import {setFieldError} from "../../../Utils/helper"
+import {setFieldError} from 'pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper'
 import {userLogin} from "../../../Reducers/Requests/loginCurrentUserRequest"
 import favicon from '../../../../public/favicon.ico';
 

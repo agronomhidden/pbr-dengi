@@ -4,7 +4,8 @@ import PageLayout from '../../Decorators/PageLayout'
 import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialogRequest'
 import PageDataLoader from '../../Decorators/PageDataLoader'
 import {DialogFieldsRecord} from "../../../Reducers/entities"
-import {mapToArr, prepareRequestDialogFields} from "../../../Utils/helper"
+import {prepareRequestDialogFields} from "../../../Utils/helper"
+import {mapToArr} from 'pbr-lib-front-utils/dateManipulation'
 import {DialogBlock} from "./index"
 import {Roller} from "../../Loading"
 

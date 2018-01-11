@@ -4,17 +4,6 @@ import parse from 'url-parse'
 import clone from 'clone';
 import qs from "qs"
 
-
-export function arrToMap(arr, setKey = null) {
-    return arr.reduce((acc, item) =>
-            acc.set(setKey ? setKey(item) : item.id, item)
-        , new OrderedMap({}))
-}
-
-export function mapToArr(obj, DataRecord) {
-    return obj.valueSeq().toArray().map((value) => new DataRecord(value));
-}
-
 export function prepareParams(params) {
 
     let queryObject = {}
@@ -60,17 +49,11 @@ export function formatPhone(phone) {
     }
     return '+' + phone.slice(0, 3) + ' (' + phone.slice(3, 5) + ')-' + phone.slice(-7, -4) + '-' + phone.slice(-4)
 }
-
+/** @deprecated */
 export function getFieldError(field, props) {
     return props.error && props.error.fields ? props.error.fields[field] : null
 }
 
-export function setFieldError(props, field, text) {
-    !props.errors && (props.errors = {fields: {[field]: text}});
-    !props.errors.fields && (props.errors.fields = {[field]: text});
-    !props.errors.fields[field] && (props.errors.fields[field] = text);
-    return props;
-}
 
 export function stateToQueryString(state = {}) {
     let queryStringArr = {};

@@ -5,8 +5,7 @@ import {
 } from "../CONSTANTS"
 
 import {Record, OrderedMap} from 'immutable'
-import {arrToMap, setSearchValue} from '../Utils/helper';
-
+import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
 
 const ReducerState = Record({
     count_categories: null,
