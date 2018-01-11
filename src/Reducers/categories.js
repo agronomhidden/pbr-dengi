@@ -41,7 +41,6 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('autoCompleteLoading', true)
                 .set('autoCompleteWorks', true)
-                .set('autoCompleteDetected', [])
         case SET_AUTO_COMPLETE + SUCCESS:
 
             return state
@@ -58,6 +57,7 @@ export default (state = new ReducerState(), action = {}) => {
         case SET_AUTO_COMPLETE + RESET:
             return state
                 .set('autoCompleteDetected', [])
+                .set('searchValue', action.searchQuery)
         default:
             return state;
     }

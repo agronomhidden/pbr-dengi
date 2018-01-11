@@ -26,7 +26,7 @@ export default class FormGroup extends Component {
         /** Wrapper */
         wrapperModifier: PropTypes.string,
         /** General */
-        error: PropTypes.object,
+        errors: PropTypes.object,
         isNotForm: PropTypes.bool,
     };
 

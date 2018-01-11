@@ -15,7 +15,8 @@ export default class Search extends Component {
         loading: PropTypes.bool.isRequired,
         searchValue: PropTypes.string,
         count_categories: PropTypes.number,
-        count_services: PropTypes.number
+        count_services: PropTypes.number,
+        resetAutoComplete: PropTypes.func.isRequired
     }
 
     state = {
@@ -23,8 +24,14 @@ export default class Search extends Component {
         hint: ''
     }
 
-    _onChange = ({target: {name, value}}) => {
-        this.setState({[name]: value});
+    _onChange = ({target: {name, value}}, aCEvent) => {
+        if (aCEvent && ['up', 'down'].includes(aCEvent.method)) {
+            value = aCEvent.newValue;
+        }
+        name && this.setState({[name]: value});
+        if (name === 'searchQuery' && value.length < 3) {
+            this.props.resetAutoComplete(value)
+        }
     }
 
     componentWillMount() {
@@ -40,7 +47,7 @@ export default class Search extends Component {
 
     _setHint = (props) => {
         const {count_categories, count_services} = props;
-        if (count_categories > -1 && count_categories) {
+        if (count_categories > -1 && (count_categories || count_services)) {
             this.setState(
                 {hint: `Найдено категорий: ${count_categories}, услуг: ${count_services}`})
             return
@@ -52,7 +59,7 @@ export default class Search extends Component {
         e.preventDefault();
         if (this._validateSearchString()) {
             this.setState({hint: ''})
-            this.props.setSearch(this.state);
+            this.props.setSearch({'searchQuery': this.state.searchQuery});
         }
     }
 
@@ -64,7 +71,7 @@ export default class Search extends Component {
         return true;
     }
 
-    render() {
+    render = () => {
         const {props: {loading}, state: {searchQuery, hint}} = this;
         return (
             <section className="search">
@@ -73,6 +80,7 @@ export default class Search extends Component {
                                   placeholder="Поиск предприятий и услуг"
                                   value={searchQuery}
                                   onChange={this._onChange}
+                                  onSubmit={this._onSubmit}
                                   disabled={loading}
                                   multiSection={true}
                                   {...this.props}/>

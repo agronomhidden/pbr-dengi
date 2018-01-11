@@ -47,9 +47,9 @@ class Login extends Component {
                     <fieldset disabled={loading}>
                         <FormGroup name="phone" label="Номер телефона" value={this.state.phone} maskChar='*'
                                    alwaysShowMask={true} mask="+375\ (99) 999 - 9999"
-                                   onChange={this.onChange} error={errors}/>
+                                   onChange={this.onChange} errors={errors}/>
                         <FormGroup name="password" type="password" label="Пароль" value={this.state.password}
-                                   onChange={this.onChange} error={errors}/>
+                                   onChange={this.onChange} errors={errors}/>
                         <div className="admin-login-buttons">
                             <div className="admin-login-buttons-left">
                                 <a href="/">На главную</a>

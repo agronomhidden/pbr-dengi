@@ -28,7 +28,8 @@ export const autoCompleteLoaded = response => ({
     payload: response.data.result,
 })
 
-export const resetAutoComplete = _ => ({
+export const resetAutoComplete = searchQuery => ({
     type: SET_AUTO_COMPLETE + RESET,
+    searchQuery
 })
 

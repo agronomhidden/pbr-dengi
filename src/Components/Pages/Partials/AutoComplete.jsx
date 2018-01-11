@@ -7,6 +7,11 @@ import Autosuggest from 'react-autosuggest'
 
 export default class AutoComplete extends React.Component {
 
+    /** @var number таймаут для запроса */
+    timeout;
+    /** @var string строка запроса */
+    searchValue;
+
     static propTypes = {
         /** Input */
         name: propTypes.string,
@@ -15,20 +20,13 @@ export default class AutoComplete extends React.Component {
         placeholder: propTypes.string,
         disabled: propTypes.bool,
         onChange: propTypes.func.isRequired,
-        onSelect: propTypes.func,
+        onSubmit: propTypes.func.isRequired,
         inputModifier: propTypes.string,
-        /** Label */
-        label: propTypes.string,
-        labelModifier: propTypes.string,
-        /** Wrapper */
-        wrapperModifier: propTypes.string,
-        /** General */
-        error: propTypes.object,
+        /** AutoComplete */
         multiSection: propTypes.bool,
         autoCompleteLoading: propTypes.bool,
         autoCompleteDetected: propTypes.array,
         autoCompleteFunc: propTypes.func,
-        resetAutoComplete: propTypes.func
     };
 
     _getInputProps = () => {
@@ -55,11 +53,16 @@ export default class AutoComplete extends React.Component {
         };
     }
 
-    _getValue = suggestion => suggestion.name
+    _getValue = suggestion => suggestion && suggestion.name
 
     _getSection = section => section.suggestions
 
     _minCountValue = val => val.length > 2
+
+    _clearResult = () => {
+    }
+
+    renderSectionTitle = section => !!section.suggestions.length && <strong>{section.title}</strong>
 
     _renderBlock = ({isService, id, name}) =>
         <div key={id}>
@@ -67,26 +70,24 @@ export default class AutoComplete extends React.Component {
         </div>
 
     _fetchRequested = ({value, reason}) => {
-        value = value.trim()
-        console.log(value !== this.props.value);
-        const {props: {match: {params}, autoCompleteFunc}} = this;
-        if (reason === 'input-changed' && this._minCountValue(value) && value !== this.props.value.trim()) {
-            const id = params ? params.id : null;
-            autoCompleteFunc(value, id)
-        }
-    }
-
-    _clearResult = () => {
-        const {value, resetAutoComplete} = this.props;
+        this.searchValue = value.trim();
+        const {props: {match: {params}, autoCompleteFunc}, searchValue} = this;
+        const id = params ? params.id : null;
+        clearTimeout(this.timeout);
         if (this._minCountValue(value)) {
-            resetAutoComplete()
+            reason === 'input-focused' && autoCompleteFunc(searchValue, id)
+            if (reason === 'input-changed' && this.searchValue !== this.props.value.trim()) {
+                this.timeout = setTimeout(() => {
+                    autoCompleteFunc(searchValue, id)
+                }, 1000)
+            }
         }
     }
 
-    _onSuggestionSelected = (event, {suggestionValue}) => suggestionValue = '';
-
-    renderSectionTitle = section =>
-        !!section.suggestions.length && <strong>{section.title}</strong>
+    _selected = (event, {suggestionValue}) => {
+        this.props.onChange({target: {name: 'searchQuery', value: suggestionValue}})
+        this.props.onSubmit(event);
+    }
 
     render = () => <Autosuggest multiSection={this.props.multiSection}
                                 renderSectionTitle={this.renderSectionTitle}
@@ -97,7 +98,7 @@ export default class AutoComplete extends React.Component {
                                 getSuggestionValue={this._getValue}
                                 renderSuggestion={this._renderBlock}
                                 shouldRenderSuggestions={this._minCountValue}
-                                onSuggestionSelected={this._onSuggestionSelected}
+                                onSuggestionSelected={this._selected}
                                 inputProps={this._getInputProps()}/>
 
 

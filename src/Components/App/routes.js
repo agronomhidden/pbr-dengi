@@ -2,8 +2,6 @@ import Error from '../Pages/Error/Error';
 import {Categories, CurrentCategories} from "../Pages/Categories"
 import {Payments} from "../Pages/Payments"
 import {categoriesSearch, getCategories} from "../../Reducers/Requests/categoriesRequest"
-import {initDialog} from "../../Reducers/Requests/eripDialogRequest"
-
 
 export default [
     {

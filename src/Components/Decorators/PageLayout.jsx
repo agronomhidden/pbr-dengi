@@ -1,4 +1,4 @@
-import React ,{Component} from 'react';
+import React, {Component} from 'react';
 import {LeftAside, RightAside} from '../Pages/Aside'
 
 export default (Component) => class PageLayout extends Component {
