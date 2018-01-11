@@ -5,8 +5,7 @@ import {
 
 
 import {Record, List, Map} from 'immutable'
-import {arrToMap} from "../Utils/helper"
-
+import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
 
 const ReducerState = Record({
     errors: null,
