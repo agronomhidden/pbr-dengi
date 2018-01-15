@@ -35,7 +35,7 @@ class DialogInput extends Component {
 
         return (
             <div>
-                <input {...attributes}/>
+                <input ref="name" {...attributes}/>
                 {hint && ' ' + hint}
             </div>)
     }

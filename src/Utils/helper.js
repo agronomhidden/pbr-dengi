@@ -43,17 +43,22 @@ export function setStateOfProps(props, key) {
     return state;
 }
 
+export function prepareOriginFieldPhone(phone, prefix) {
+    return phone.substr(prefix.length).replace(new RegExp('[^0-9]', 'g'), '')
+}
+
+
 export function formatPhone(phone) {
     if (phone.length !== 12) {
         return phone
     }
     return '+' + phone.slice(0, 3) + ' (' + phone.slice(3, 5) + ')-' + phone.slice(-7, -4) + '-' + phone.slice(-4)
 }
+
 /** @deprecated */
 export function getFieldError(field, props) {
-    return props.error && props.error.fields ? props.error.fields[field] : null
+    return props.errors && props.errors.fields ? props.errors.fields[field] : null
 }
-
 
 export function stateToQueryString(state = {}) {
     let queryStringArr = {};
@@ -88,22 +93,3 @@ export function prepareRequestDialogFields(state) {
     }
     return requestObject;
 }
-
-// export const setQueryStringToRoute = (routes, reqUrl) => {
-//
-//     const changeRouter = clone(routes);
-//     const url = parse(reqUrl);
-//     const searchInRout = '(/?)?';
-//
-//     return changeRouter.map(route => {
-//
-//         const {path} = route;
-//         if (path.includes(searchInRout)) {
-//             route.path = path.replace(searchInRout, '');
-//             if (url.query && (route.path === url.pathname)) {
-//                 route.path += '/:searchParams';
-//             }
-//         }
-//         return route;
-//     })
-// }

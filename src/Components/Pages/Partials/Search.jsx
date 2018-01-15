@@ -6,10 +6,6 @@ import PropTypes from 'prop-types';
 
 export default class Search extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state.searchQuery = props.searchValue;
-    }
 
     static propTypes = {
         loading: PropTypes.bool.isRequired,
@@ -35,31 +31,34 @@ export default class Search extends Component {
     }
 
     componentWillMount() {
-        this._setHint(this.props)
+        this._setState(this.props)
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.autoCompleteWorks) {
-            this.setState({searchQuery: nextProps.searchValue});
-        }
-        this._setHint(nextProps)
+        this._setState(nextProps)
     }
 
-    _setHint = (props) => {
-        const {count_categories, count_services} = props;
-        if (count_categories > -1 && (count_categories || count_services)) {
-            this.setState(
-                {hint: `Найдено категорий: ${count_categories}, услуг: ${count_services}`})
-            return
-        }
-        this.setState({hint: ''})
+    _setState = (props) => {
+        this.setState(() => {
+            const {count_categories, count_services, autoCompleteWorks, searchValue} = props;
+            const newState = {}
+            if (!autoCompleteWorks) {
+                newState['searchQuery'] = searchValue;
+            }
+            newState['hint'] = '';
+            if (count_categories > -1 && (count_categories || count_services)) {
+                newState['hint'] = `Найдено категорий: ${count_categories}, услуг: ${count_services}`
+
+            }
+            return newState;
+        })
     }
 
-    _onSubmit = e => {
+    _onSubmit = (e, searchQuery) => {
         e.preventDefault();
         if (this._validateSearchString()) {
             this.setState({hint: ''})
-            this.props.setSearch({'searchQuery': this.state.searchQuery});
+            this.props.setSearch({'searchQuery': searchQuery || this.state.searchQuery});
         }
     }
 

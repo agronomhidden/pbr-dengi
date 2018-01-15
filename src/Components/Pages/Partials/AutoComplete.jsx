@@ -85,8 +85,7 @@ export default class AutoComplete extends React.Component {
     }
 
     _selected = (event, {suggestionValue}) => {
-        this.props.onChange({target: {name: 'searchQuery', value: suggestionValue}})
-        this.props.onSubmit(event);
+        !event.target.href && this.props.onSubmit(event, suggestionValue)
     }
 
     render = () => <Autosuggest multiSection={this.props.multiSection}

@@ -1,11 +1,12 @@
 import {
     START, SUCCESS, FAIL, RESET,
-    DIALOG, FAILED,
+    DIALOG, FAILED, OVER
 } from "../CONSTANTS"
 
 
 import {Record, List, Map} from 'immutable'
 import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
+import {DialogFieldsRecord} from "./entities"
 
 const ReducerState = Record({
     errors: null,
@@ -13,7 +14,8 @@ const ReducerState = Record({
     dialogBlocks: [],
     summary: null,
     mts_session: null,
-    fault: null
+    fault: null,
+    success: false
 })
 
 
@@ -34,11 +36,15 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('mts_session', mts_session)
                 .set('loading', false)
-                .updateIn(['dialogBlocks'],list =>
+                .updateIn(['dialogBlocks'], list =>
                     list.push(Map({
-                        fields: arrToMap(fields, item => item.name),
+                        fields: arrToMap(fields, DialogFieldsRecord, item => item.name),
                         summary: summary
                     })))
+        case DIALOG + OVER:
+            return state
+                .set('success', false)
+                .set('success', action.payload.success)
         case DIALOG + FAIL:
             return state
                 .set('loading', false)

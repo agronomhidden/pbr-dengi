@@ -84,6 +84,7 @@
 }
 .search-form_loader-wrap {
   width: 4%;
+  margin-left: 8px;
 }
 .search-form_button-wrap {
   width: 25%;
@@ -91,8 +92,10 @@
 .search-form_button-wrap_button {
   width: 84%;
   border-radius: 5px;
-  background-color: #7bb738;
-  font: 25px MyFont;
+  background-color: #2e3661;
+  font: 24px MyFont;
+  margin-top: 1px;
+  color: #fff;
 }
 .form-group {
   margin: 0;
@@ -124,6 +127,9 @@
   display: inline;
   margin-left: 10px;
   margin-top: 22px;
+}
+.form-group_help {
+  color: #f00;
 }
 body {
   font-family: Helvetica, sans-serif;

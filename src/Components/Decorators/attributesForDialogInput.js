@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classNames from "classnames"
-import {getFieldError} from "../../Utils/helper"
+import {getFieldError, setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
 import PropTypes from "prop-types"
 
 
@@ -11,23 +11,23 @@ export default (Component) => class attributesForDialogInput extends Component {
         description: PropTypes.string,
         name: PropTypes.string.isRequired,
         type: PropTypes.string,
-        maxLength: PropTypes.number,
-        minLength: PropTypes.number,
         min: PropTypes.number,
         max: PropTypes.number,
+        required: PropTypes.bool,
         hint: PropTypes.string,
         format: PropTypes.string,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
         editValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
         originalFields: PropTypes.string,
         isSum: PropTypes.bool,
-        nominal: PropTypes.string,
         mask: PropTypes.object,
         placeholder: PropTypes.string,
-        required: PropTypes.bool,
+        disabled: PropTypes.bool.isRequired,
+        checked: PropTypes.number,
         /**Внешние свойства*/
         onChange: PropTypes.func.isRequired,
         onCheck: PropTypes.func.isRequired,
+        onSubmit: PropTypes.func.isRequired
     }
 
     _getInputClasses() {
@@ -37,29 +37,23 @@ export default (Component) => class attributesForDialogInput extends Component {
             'danger': getFieldError(name, this.props)
         }
         inputClass[inputModifier] = !!inputModifier;
-
         return classNames(inputClass);
     }
 
     _getAttributes() {
 
-        const {
-            name, onChange, type, maxLength, minLength,
-            min, max, onCheck, required, checked,
-            editValue,
-        } = this.props;
+        const {name, onChange, type, min, max, onCheck, required, checked, editValue, disabled} = this.props;
 
         let attributes = {
             id: name,
             name,
             min,
             max,
-            maxLength,
-            'data-minlength': minLength,
             value: editValue,
             step: min,
             required,
             onChange,
+            disabled,
             className: this._getInputClasses(),
         }
 
@@ -90,7 +84,7 @@ export default (Component) => class attributesForDialogInput extends Component {
 
     _getMaskAttributes() {
 
-        const {name, onChange, required, mask, placeholder, editValue} = this.props;
+        const {name, onChange, mask, placeholder, editValue, disabled} = this.props;
 
         return {
             type: 'mask',
@@ -100,8 +94,8 @@ export default (Component) => class attributesForDialogInput extends Component {
             alwaysShowMask: true,
             className: this._getInputClasses(),
             name,
+            disabled,
             value: editValue,
-            required,
             onChange
         }
     }

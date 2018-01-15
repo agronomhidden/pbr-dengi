@@ -1,0 +1,12 @@
+{
+  "valid": true,
+  "version": "1.6.4",
+  "timestamp": 1515676553594,
+  "context": "",
+  "output": {
+    "path": "public/assets/",
+    "filename": "bundle-[hash].js",
+    "publicPath": "/assets/"
+  },
+  "assetsFile": "public\\assets\\isomorphic-assets.json"
+}

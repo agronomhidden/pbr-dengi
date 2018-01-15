@@ -7,24 +7,27 @@ export default class DialogBlock extends Component {
 
 
     static propTypes = {
-        _setFieldsState: PropTypes.func.isRequired,
+        setFieldsState: PropTypes.func.isRequired,
         loading: PropTypes.bool.isRequired,
-        fields: PropTypes.array.isRequired
+        fields: PropTypes.array.isRequired,
+        clearErrors: PropTypes.func.isRequired
     }
 
     componentWillMount() {
         const state = setStateOfProps(this.props.fields, 'name')
         this.setState(state)
-        this.props._setFieldsState(state)
+        this.props.setFieldsState(state)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        this.props._setFieldsState(nextState);
+        this.props.setFieldsState(nextState);
         return true;
     }
 
     _onChange = ({target: {name, value}}) => {
+        this.props.clearErrors();
         this.setState({[name]: value})
+
     }
 
     _onCheck = ({target: {name, checked}}) => {
@@ -41,6 +44,9 @@ export default class DialogBlock extends Component {
                                         {...fields}
                                         onChange={this._onChange}
                                         onCheck={this._onCheck}
+                                        onSubmit={this.props.onSubmit}
+                                        errors={this.props.errors}
+                                        disabled={this.props.disabled}
                                         editValue={this.state[fields.name]}
                                         loading={this.props.loading}/>
             })}

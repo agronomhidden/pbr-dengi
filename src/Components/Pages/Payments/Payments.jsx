@@ -1,65 +1,117 @@
-import React, {Component} from 'react'
+import React, {Component,} from 'react'
 import {connect} from 'react-redux'
 import PageLayout from '../../Decorators/PageLayout'
 import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialogRequest'
 import PageDataLoader from '../../Decorators/PageDataLoader'
-import {DialogFieldsRecord} from "../../../Reducers/entities"
-import {prepareRequestDialogFields} from "../../../Utils/helper"
+
 import {mapToArr} from 'pbr-lib-front-utils/dateManipulation'
 import {DialogBlock} from "./index"
 import {Roller} from "../../Loading"
+import {setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
+import {prepareOriginFieldPhone} from "../../../Utils/helper"
 
 class Payments extends Component {
 
+    /**@var Object конченое состояние перед полготовкой к отправке */
     fieldState = {}
+
+    state = {
+        errors: {}
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({errors: nextProps.errors});
+        }
+    }
 
     _setFieldsState = (fieldState) => {
         this.fieldState = fieldState
     }
 
-    _onSubmit = (e) => {
-        e.preventDefault();
-        console.log(this.props);
-        const {props: {mts_session, requestInDialog, entities, match: {params: {id}}}, fieldState} = this
-
-        let requestObj = {}
-        for (let name in fieldState) {
-            const fieldProps = entities.find(record => {
-                console.log(record.get('fields').get('name'));
-                return record.get('fields')[name] || false;
-            })
-
-            if (fieldProps.originalField) {
-                requestObj['fields[' + name + ']'] = fieldState[name]
-            }
-            requestObj[name] = fieldState[name]
-        }
-        // const requestObject = Object.assign(
-        //     prepareRequestDialogFields(fieldState),
-        //     {
-        //         serviceCode: id,
-        //         mts_session: mts_session
-        //     })
-
-        //  requestInDialog(requestObject)
+    _clearErrors = () => {
+        this.setState({errors: {}})
     }
 
-    _getDialogMap = () =>
-        this.props.entities.map((record, i) =>
-            <DialogBlock key={i}
-                         fields={mapToArr(record.get('fields'), DialogFieldsRecord)}
-                         summary={record.get('summary')}
-                         _setFieldsState={this._setFieldsState}
-                         loading={this.props.loading}/>)
+    _onSubmit = (e) => {
+        e.preventDefault();
+        const {mts_session, requestInDialog, entities, match: {params: {id}}} = this.props
+        const prepareFields = this._prepareRequestDialogFields(this.fieldState, entities)
+        prepareFields && requestInDialog(Object.assign(prepareFields, {serviceCode: id, mts_session: mts_session}))
+    }
+
+    _prepareRequestDialogFields = (fieldState, entities) => {
+
+        let preparedParams = {}
+
+        for (let name in fieldState) {
+            let fieldProps = {};
+            entities.forEach(record => {
+                if (record.get('fields').get(name)) {
+                    fieldProps = record.get('fields').get(name)
+                    return false;
+                }
+            })
+            if (fieldProps) {
+                let fieldValue = fieldState[name]
+                const {originalField, mask} = fieldProps
+                if (!this._validateFields(fieldValue, name, fieldProps)) {
+                    return false
+                }
+                if (originalField) {
+                    preparedParams['fields[' + name + ']'] = mask ? prepareOriginFieldPhone(fieldValue, mask.prefix) : fieldValue
+                } else {
+                    preparedParams[name] = fieldValue
+                }
+            }
+        }
+        return preparedParams;
+    }
+
+    _validateFields = (fieldValue, name, {minLength, maxLength}) => {
+        let text = '';
+
+        if (minLength && fieldValue.length < minLength) {
+            text = `длина значения поля должна быть не менеее ${minLength}`
+        }
+        if (maxLength && fieldValue.length > maxLength) {
+            text = `длина значения поля должна быть не более ${maxLength}`
+        }
+        if (text) {
+            this.setState(setFieldError(this.state, name, text))
+            return false
+        }
+        return true
+    }
+
+    _onInValid = (e) => {
+        e.preventDefault()
+        const elements = e.target.form.elements;
+        for(let i in elements){
+            if(elements[i].validationMessage){
+                this.setState(setFieldError(this.state, elements[i].name, elements[i].validationMessage))
+            }
+        }
+    }
+
+    _getDialogMap = () => this.props.entities.map((record, i) =>
+        <DialogBlock key={i}
+                     fields={mapToArr(record.get('fields'))}
+                     summary={record.get('summary')}
+                     setFieldsState={this._setFieldsState}
+                     errors={this.state.errors}
+                     clearErrors={this._clearErrors}
+                     disabled={this.props.entities.size > ++i}
+                     onSubmit={this._onSubmit}
+                     loading={this.props.loading}/>)
 
     render = () =>
-
         <div>
             <h3>Заголовок платежа</h3>
             {this.props.fault ?
                 <h3 style={{backgroundColor: 'red'}}>{this.props.fault}</h3>
                 :
-                <form method="POST" onSubmit={this._onSubmit}>
+                <form method="POST" onSubmit={this._onSubmit} onInvalid={this._onInValid}>
                     {this._getDialogMap()}
                     {this.props.loading ?
                         <Roller parentClass="form-group_field-loading" width={'15px'}/> :
@@ -67,6 +119,7 @@ class Payments extends Component {
                     }
                 </form>
             }
+            {this.props.success && <span>Диалог завершен успешно!</span>}
         </div>
 }
 
@@ -75,7 +128,9 @@ export default connect(
         entities: s.eripDialog.get('dialogBlocks'),
         loading: s.eripDialog.get('loading'),
         mts_session: s.eripDialog.get('mts_session'),
-        fault: s.eripDialog.get('fault')
+        fault: s.eripDialog.get('fault'),
+        errors: s.eripDialog.get('errors'),
+        success: s.eripDialog.get('success')
     })),
     {
         entitiesLoader: initDialog,

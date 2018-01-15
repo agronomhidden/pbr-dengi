@@ -3,6 +3,7 @@ import PageComponent from '../App/PageComponent'
 import PropTypes from 'prop-types'
 import {queryStringToState} from '../../Utils/helper'
 
+
 export default (Component) => class PageDataLoader extends PageComponent {
 
     static propTypes = {
@@ -12,7 +13,7 @@ export default (Component) => class PageDataLoader extends PageComponent {
         loading: PropTypes.bool
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const {loading, history, entities} = this.props;
         if (!loading && (history.location.state || !entities.length)) {
             this.props.history.location.state = '';

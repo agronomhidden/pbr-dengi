@@ -2,12 +2,13 @@
   "marked": {
     "public\\img\\roller.gif": "1e4a752488cf96e496df4f35a54845f2.gif",
     "public\\favicon.ico": "fd73a6eb26a08ee46e7fd3cc34e7f6bf.ico",
-    "public\\fonts\\11050.ttf": "808f15c7bbee38a93f5d1cc57e717cc5.ttf"
+    "public\\fonts\\11050.ttf": "d41d8cd98f00b204e9800998ecf8427e.ttf",
+    "public\\fonts\\Montserrat-Regular.ttf": "9c46095118380d38f12e67c916b427f9.ttf"
   },
   "chunks": {
     "main": [
-      "bundle-4edffd0dc773f46e20f1.js",
-      "styles-4edffd0dc773f46e20f1.css"
+      "bundle-ba80b6b02c2248e4ae96.js",
+      "styles-ba80b6b02c2248e4ae96.css"
     ]
   }
 }

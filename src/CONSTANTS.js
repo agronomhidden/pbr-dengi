@@ -3,6 +3,7 @@ export const SUCCESS = '_SUCCESS'
 export const FAIL = '_FAIL'
 export const RESET = '_RESET'
 export const FAILED = '_FAILED'
+export const OVER = '_OVER'
 
 export const TOKEN = 'access_token'
 export const REAL_IP = 'X-Real-IP'

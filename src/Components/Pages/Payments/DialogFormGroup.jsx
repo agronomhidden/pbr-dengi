@@ -1,16 +1,18 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import classNames from 'classnames'
-import {getFieldError} from '../../../Utils/helper'
+
 import {DialogInput} from './index'
+import {getFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
 
 export default class DialogFormGroup extends Component {
 
     static propTypes = {
         description: PropTypes.string,
         name: PropTypes.string.isRequired,
-        wrapperModifier:PropTypes.string,
-        labelModifier:PropTypes.string,
+        wrapperModifier: PropTypes.string,
+        labelModifier: PropTypes.string,
+        errors: PropTypes.object.isRequired
     }
 
     render() {
@@ -30,7 +32,7 @@ export default class DialogFormGroup extends Component {
         labelClass[labelModifier] = !!labelModifier
 
         const label = description || name
-
+        
         return (
             <section className={classNames(wrapperClass)}>
                 {label && <label htmlFor={name} className={classNames(labelClass)}>{label}</label>}

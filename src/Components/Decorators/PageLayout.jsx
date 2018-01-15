@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {LeftAside, RightAside} from '../Pages/Aside'
 
-export default (Component) => class PageLayout extends Component {
+export default (Component) => (props) =>
+    <div className="main_wrap">
+        <LeftAside/>
+        <RightAside>
+            <Component {...props} />
+        </RightAside>
+    </div>
 
-    render = () =>
-            <div className="main_wrap">
-                <LeftAside/>
-                <RightAside>
-                    <Component {...this.props} />
-                </RightAside>
-            </div>
-}
