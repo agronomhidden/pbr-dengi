@@ -1,6 +1,6 @@
 import expect from 'expect';
 import ReactTestUtils from 'react-dom/test-utils';
-import {formatPhone, prepareRequestDialogFields, setStateOfPropsForDialog} from '../Utils/helper';
+import {prepareRequestDialogFields,setStateOfPropsForDialog} from '../Utils/helper';
 import assert from 'assert';
 
 describe('new helper function tests', () => {
@@ -63,7 +63,7 @@ describe('new helper function tests', () => {
             "номер телефона": 'string',
             "Абонентский номер телефона": '',
         };
-        expect(setStateOfProps(props, 'name')).toEqual(newState);
+        expect(setStateOfPropsForDialog(props, 'name')).toEqual(newState);
     })
 
 })

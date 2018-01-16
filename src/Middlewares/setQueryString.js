@@ -1,4 +1,4 @@
-import {stateToQueryString} from '../Utils/helper'
+import {stateToQueryString} from 'pbr-lib-front-utils/dist/queryStringHelper'
 import {CHANGE_LOCATION} from "../CONSTANTS"
 
 export default history => store => next => action => {

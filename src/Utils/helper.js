@@ -1,7 +1,3 @@
-import {OrderedMap} from 'immutable'
-import parse from 'url-parse'
-
-import clone from 'clone';
 import qs from "qs"
 
 export function prepareParams(params) {
@@ -49,35 +45,6 @@ export function prepareOriginFieldPhone(phone, prefix) {
     return phone.substr(prefix.length).replace(new RegExp('[^0-9]', 'g'), '')
 }
 
-
-export function formatPhone(phone) {
-    if (phone.length !== 12) {
-        return phone
-    }
-    return '+' + phone.slice(0, 3) + ' (' + phone.slice(3, 5) + ')-' + phone.slice(-7, -4) + '-' + phone.slice(-4)
-}
-
-/** @deprecated */
-export function getFieldError(field, props) {
-    return props.errors && props.errors.fields ? props.errors.fields[field] : null
-}
-
-export function stateToQueryString(state = {}) {
-    let queryStringArr = {};
-    for (let key in state) {
-        if (state[key]) {
-            queryStringArr[key] = state[key];
-            if (state[key] instanceof Array && !!state[key].length) {
-                queryStringArr[key] = state[key].join(',');
-            }
-        }
-    }
-    return qs.stringify(queryStringArr);
-}
-
-export function queryStringToState(location = null) {
-    return qs.parse(location && location.search, {ignoreQueryPrefix: true}) || {}
-}
 
 export function setSearchValue(state, key) {
     return state[key] ? state[key] : '';

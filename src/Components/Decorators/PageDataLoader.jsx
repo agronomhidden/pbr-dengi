@@ -1,7 +1,7 @@
 import React from 'react'
 import PageComponent from '../App/PageComponent'
 import PropTypes from 'prop-types'
-import {queryStringToState} from '../../Utils/helper'
+import {queryStringToState} from 'pbr-lib-front-utils/dist/queryStringHelper'
 
 
 export default (Component) => class PageDataLoader extends PageComponent {
@@ -30,9 +30,9 @@ export default (Component) => class PageDataLoader extends PageComponent {
 
     _getEntities(props) {
         if (this.isBrowser()) {
-            const {entitiesLoader, searchFunc, history: {push}, match: {params}} = props;
+            const {entitiesLoader, searchFunc, history: {push, location}, match: {params}} = props;
 
-            const search = queryStringToState(this.props.history.location)
+            const search = queryStringToState(location && location.search)
 
             if (Object.keys(search).length) {
                 params['searchQuery'] = search.searchQuery
