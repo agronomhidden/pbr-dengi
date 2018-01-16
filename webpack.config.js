@@ -1,30 +1,22 @@
 global.Promise = require('bluebird')
 
 const mode = process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '') || 'development'
-const dotenv = require('dotenv')
-const fs = require('fs')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const IsomorphicLoaderPlugin = require("isomorphic-loader/lib/webpack-plugin")
+const Config = require('pbr-lib-front-utils/dist/config').default
 
 const publicPath = mode === 'production' ? '/assets/' :'http://localhost:8050/public/assets/'
 const cssName = mode === 'production' ? 'styles-[hash].css' : 'styles.css'
 const jsName = mode === 'production' ? 'bundle-[hash].js' : 'bundle.js'
 
-const path = `./config/${mode}/.env` + ((fs.existsSync(`./config/${mode}/.env.local`) && '.local') || '');
-const processVariables = dotenv.parse(fs.readFileSync(path))
-processVariables['BROWSER'] = true
-processVariables['NODE_ENV'] = mode
-
-for(let k in processVariables){
-    processVariables[k] = JSON.stringify(processVariables[k])
-}
+let appConf = new Config('./config/', mode);
 
 const plugins = [
     new webpack.DefinePlugin({
-        'process.env': processVariables
+        'process.env': appConf.setMode(mode).exportForWebpackPlugin()
     }),
     new ExtractTextPlugin(cssName),
     new webpack.LoaderOptionsPlugin({

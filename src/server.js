@@ -1,6 +1,4 @@
 import express from 'express'
-import fs from 'fs'
-import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import compress from 'compression'
 import morgan from 'morgan'
@@ -8,15 +6,14 @@ import React from 'react'
 import manifest from '../public/assets/manifest'
 import Layout from './layout'
 import Router from './Components/App/ServerRouter'
-
+import Config from 'pbr-lib-front-utils/dist/config'
 
 const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
 const PORT = process.env.PORT || (mode === 'production' ? 3333 : 3003);
 
-const path = `./config/${mode}/.env` + ((fs.existsSync(`./config/${mode}/.env.local`) && '.local') || '');
-
-dotenv.config({path});
+let appConf = new Config('./config/', mode);
+appConf.exportToGlobalEnv();
 
 Layout.setManifest(manifest);
 if (mode === 'production') {

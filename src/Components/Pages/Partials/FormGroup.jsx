@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import InputMask from 'react-input-mask'
 import classNames from 'classnames'
-import {getFieldError} from '../../../Utils/helper'
+import {getFieldError} from 'pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper'
 
 export default class FormGroup extends Component {
 

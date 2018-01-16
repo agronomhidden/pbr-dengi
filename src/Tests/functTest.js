@@ -1,6 +1,6 @@
 import expect from 'expect';
 import ReactTestUtils from 'react-dom/test-utils';
-import {formatPhone, prepareRequestDialogFields, setStateOfProps} from '../Utils/helper';
+import {prepareRequestDialogFields, setStateOfProps} from '../Utils/helper';
 import assert from 'assert';
 
 describe('new helper function tests', () => {
