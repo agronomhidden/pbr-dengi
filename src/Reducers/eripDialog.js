@@ -25,6 +25,7 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('loading', true)
                 .set('errors', null)
+                .set('fault', null)
                 .set('mts_session', null)
                 .set('dialogBlocks', List([]))
         case DIALOG + RESET:
@@ -43,7 +44,7 @@ export default (state = new ReducerState(), action = {}) => {
                     })))
         case DIALOG + OVER:
             return state
-                .set('success', false)
+                .set('loading', false)
                 .set('success', action.payload.success)
         case DIALOG + FAIL:
             return state

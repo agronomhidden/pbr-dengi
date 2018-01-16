@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import attributesForDialogInput from "../../Decorators/attributesForDialogInput"
 import InputMask from 'react-input-mask'
+import SimpleDatePicker from "../Partials/SimpleDatePicker"
 
 class DialogInput extends Component {
 
@@ -30,7 +31,7 @@ class DialogInput extends Component {
         }
 
         if (attributes.type === 'date') {
-            //return <DatePicker {...attributes} />
+            return <SimpleDatePicker {...attributes} />
         }
 
         return (

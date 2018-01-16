@@ -49,7 +49,7 @@ class Payments extends Component {
             entities.forEach(record => {
                 if (record.get('fields').get(name)) {
                     fieldProps = record.get('fields').get(name)
-                    return false;
+                    return false
                 }
             })
             if (fieldProps) {
@@ -57,6 +57,12 @@ class Payments extends Component {
                 const {originalField, mask} = fieldProps
                 if (!this._validateFields(fieldValue, name, fieldProps)) {
                     return false
+                }
+                if (fieldValue instanceof Date) {
+                    let month = String(fieldValue.getMonth() + 1);
+                    month = month.length !== 2 ? `0${month}` : month
+                    const year = String(fieldValue.getFullYear()).substr(2, 4)
+                    fieldValue = month + year;
                 }
                 if (originalField) {
                     preparedParams['fields[' + name + ']'] = mask ? prepareOriginFieldPhone(fieldValue, mask.prefix) : fieldValue
@@ -86,11 +92,9 @@ class Payments extends Component {
 
     _onInValid = (e) => {
         e.preventDefault()
-        const elements = e.target.form.elements;
-        for(let i in elements){
-            if(elements[i].validationMessage){
-                this.setState(setFieldError(this.state, elements[i].name, elements[i].validationMessage))
-            }
+        for (let element of e.target.form.elements) {
+            element.validationMessage && this.setState(setFieldError(this.state, element.name, element.validationMessage))
+
         }
     }
 
@@ -114,8 +118,8 @@ class Payments extends Component {
                 <form method="POST" onSubmit={this._onSubmit} onInvalid={this._onInValid}>
                     {this._getDialogMap()}
                     {this.props.loading ?
-                        <Roller parentClass="form-group_field-loading" width={'15px'}/> :
-                        <button>Отправить</button>
+                        <Roller parentClass="form-group_field-lgit oading" width={'15px'}/> :
+                        !!this.props.entities.size && <button>Отправить</button>
                     }
                 </form>
             }

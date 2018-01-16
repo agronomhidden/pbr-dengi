@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classNames from "classnames"
-import {getFieldError, setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
+import {getFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
 import PropTypes from "prop-types"
 
 
@@ -13,11 +13,12 @@ export default (Component) => class attributesForDialogInput extends Component {
         type: PropTypes.string,
         min: PropTypes.number,
         max: PropTypes.number,
+        nominal: PropTypes.number,
         required: PropTypes.bool,
         hint: PropTypes.string,
         format: PropTypes.string,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-        editValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+        editValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool,PropTypes.instanceOf(Date)]),
         originalFields: PropTypes.string,
         isSum: PropTypes.bool,
         mask: PropTypes.object,
@@ -41,8 +42,7 @@ export default (Component) => class attributesForDialogInput extends Component {
     }
 
     _getAttributes() {
-
-        const {name, onChange, type, min, max, onCheck, required, checked, editValue, disabled} = this.props;
+        const {name, onChange, type, min, max, onCheck, required, checked, editValue, disabled, nominal, format} = this.props;
 
         let attributes = {
             id: name,
@@ -50,10 +50,11 @@ export default (Component) => class attributesForDialogInput extends Component {
             min,
             max,
             value: editValue,
-            step: min,
+            step: nominal || min,
             required,
             onChange,
             disabled,
+            format,
             className: this._getInputClasses(),
         }
 
@@ -79,11 +80,9 @@ export default (Component) => class attributesForDialogInput extends Component {
         }
 
         return attributes;
-
     }
 
     _getMaskAttributes() {
-
         const {name, onChange, mask, placeholder, editValue, disabled} = this.props;
 
         return {

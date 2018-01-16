@@ -31,13 +31,15 @@ export function setState(props, state) {
     return state;
 }
 
-export function setStateOfProps(props, key) {
+export function setStateOfPropsForDialog(props, key) {
     const state = {};
-    for (let i in props) {
-        const value = props[i].value || '';
-        if (props[i].editable) {
-            console.log('state:', props[i][key], 'value:', value);
-            state[props[i][key]] = value
+    for (let prop of props) {
+        const value = prop.value || '';
+        if (prop.editable) {
+            state[prop[key]] = value
+        }
+        if (prop.type === "D") {
+            state[prop[key]] = !prop.value ? new Date() : new Date(`20${prop.value.substring(2, 4)}`, prop.value.substring(0, 2), 0)
         }
     }
     return state;

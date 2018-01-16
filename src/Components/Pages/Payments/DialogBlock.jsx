@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
-import {setStateOfProps} from "../../../Utils/helper"
+import {setStateOfPropsForDialog} from "../../../Utils/helper"
 import {DialogFormGroup} from "./index"
 
 export default class DialogBlock extends Component {
-
 
     static propTypes = {
         setFieldsState: PropTypes.func.isRequired,
@@ -14,7 +13,7 @@ export default class DialogBlock extends Component {
     }
 
     componentWillMount() {
-        const state = setStateOfProps(this.props.fields, 'name')
+        const state = setStateOfPropsForDialog(this.props.fields, 'name')
         this.setState(state)
         this.props.setFieldsState(state)
     }
@@ -27,14 +26,11 @@ export default class DialogBlock extends Component {
     _onChange = ({target: {name, value}}) => {
         this.props.clearErrors();
         this.setState({[name]: value})
-
     }
 
     _onCheck = ({target: {name, checked}}) => {
-        this.setState({
-            [name]: Number(checked)
-        });
-    };
+        this.setState({[name]: Number(checked)});
+    }
 
     render = () => (
         <div>

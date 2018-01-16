@@ -56,8 +56,7 @@
     "qs": "^6.5.1",
     "react": "^16.2.0",
     "react-autosuggest": "^9.3.2",
-    "react-bootstrap-date-picker": "^5.1.0",
-    "react-date-picker": "^6.5.2",
+    "react-date-picker": "^6.7.0",
     "react-dom": "^16.2.0",
     "react-input-mask": "^1.1.0",
     "react-redux": "^5.0.6",
@@ -69,8 +68,7 @@
     "redux-thunk": "^2.2.0",
     "request-ip": "^2.0.2",
     "transit-immutable-js": "^0.7.0",
-    "transit-js": "^0.8.846",
-    "url-parse": "^1.2.0"
+    "transit-js": "^0.8.846"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

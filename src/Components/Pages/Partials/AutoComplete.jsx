@@ -4,7 +4,6 @@ import propTypes from 'prop-types'
 import classNames from 'classnames'
 import Autosuggest from 'react-autosuggest'
 
-
 export default class AutoComplete extends React.Component {
 
     /** @var number таймаут для запроса */
@@ -18,7 +17,7 @@ export default class AutoComplete extends React.Component {
         type: propTypes.string,
         value: propTypes.string,
         placeholder: propTypes.string,
-        disabled: propTypes.bool,
+        loading: propTypes.bool,
         onChange: propTypes.func.isRequired,
         onSubmit: propTypes.func.isRequired,
         inputModifier: propTypes.string,
@@ -33,7 +32,7 @@ export default class AutoComplete extends React.Component {
 
         const {
             name, placeholder, type = 'text',
-            disabled, inputModifier, onChange,
+            loading, inputModifier, onChange,
             value
         } = this.props;
 
@@ -47,10 +46,14 @@ export default class AutoComplete extends React.Component {
             name,
             type,
             placeholder,
-            disabled,
+            disabled: loading,
             onChange,
             value
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        nextProps.loading && clearTimeout(this.timeout)
     }
 
     _getValue = suggestion => suggestion && suggestion.name
@@ -71,16 +74,13 @@ export default class AutoComplete extends React.Component {
 
     _fetchRequested = ({value, reason}) => {
         this.searchValue = value.trim();
-        const {props: {match: {params}, autoCompleteFunc}, searchValue} = this;
+        const {props: {match: {params}, autoCompleteFunc, loading}, searchValue} = this;
         const id = params ? params.id : null;
         clearTimeout(this.timeout);
-        if (this._minCountValue(value)) {
-            reason === 'input-focused' && autoCompleteFunc(searchValue, id)
-            if (reason === 'input-changed' && this.searchValue !== this.props.value.trim()) {
-                this.timeout = setTimeout(() => {
-                    autoCompleteFunc(searchValue, id)
-                }, 1000)
-            }
+        if (this._minCountValue(value) && reason === 'input-changed' && searchValue !== this.props.value.trim()) {
+            this.timeout = setTimeout(() => {
+                autoCompleteFunc(searchValue, id)
+            }, 1000)
         }
     }
 

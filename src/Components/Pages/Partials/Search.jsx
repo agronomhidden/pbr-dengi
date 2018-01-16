@@ -80,7 +80,6 @@ export default class Search extends Component {
                                   value={searchQuery}
                                   onChange={this._onChange}
                                   onSubmit={this._onSubmit}
-                                  disabled={loading}
                                   multiSection={true}
                                   {...this.props}/>
                     <div className="search-form_loader-wrap">
