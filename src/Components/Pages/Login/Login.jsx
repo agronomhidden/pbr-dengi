@@ -4,7 +4,7 @@ import {FormGroup} from '../Partials'
 import {Roller} from '../../Loading'
 import {setFieldError} from 'pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper'
 import {userLogin} from "../../../Reducers/Requests/loginCurrentUserRequest"
-import favicon from '../../../../public/favicon.ico';
+import {getFavicon as favicon} from '../../../../public/resourcePaths';
 
 class Login extends Component {
 
@@ -23,12 +23,12 @@ class Login extends Component {
             [e.target.name]: e.target.value
         });
         delete this.state.errors;
-    };
+    }
 
     onSubmit = (e) => {
         e.preventDefault();
         this.isValid() && this.props.userLogin(this.state);
-    };
+    }
 
     isValid() {
         if (this.state.phone.replace(/\D/g, '').length < 12) {
@@ -42,7 +42,7 @@ class Login extends Component {
         const {props: {loading}, state: {errors}} = this;
         return (
             <div className="admin-login">
-                <header className="admin-login_header">Авт{<img src={favicon} alt="МТС"/>}ризуйся же!</header>
+                <header className="admin-login_header">Авт{<img src={favicon()} alt="МТС"/>}ризуйся же!</header>
                 <form className="form-group -form-simple" method="POST" onSubmit={this.onSubmit}>
                     <fieldset disabled={loading}>
                         <FormGroup name="phone" label="Номер телефона" value={this.state.phone} maskChar='*'

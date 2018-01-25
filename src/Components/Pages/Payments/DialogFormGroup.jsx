@@ -11,14 +11,12 @@ export default class DialogFormGroup extends Component {
         description: PropTypes.string,
         name: PropTypes.string.isRequired,
         wrapperModifier: PropTypes.string,
-        labelModifier: PropTypes.string,
-        errors: PropTypes.object.isRequired
+        labelModifier: PropTypes.string
     }
 
     render() {
         const {name, description, wrapperModifier, labelModifier} = this.props
-
-        const errorText = getFieldError(name, this.props)
+        const errorText = getFieldError(name, this.props.payState)
 
         const wrapperClass = {
             'form-group': true,

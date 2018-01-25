@@ -79,9 +79,9 @@ describe('Test Dialog Function', () => {
         result: {error: {name: 'name', text: 'длина значения поля должна быть не более 5'}}
     }, {
         minLength: 5,
-        result: true
+        result: false
     }, {
-        result: true
+        result: false
     }]
 
     for (let prop of lengthProp) {
@@ -109,6 +109,14 @@ describe('Test Dialog Function', () => {
             expect(prepareRequestDialogFields(state, dialogBlocks)).toEqual(result)
         })
     }
+
+    it('test preparation with null', () => {
+        expect(prepareRequestDialogFields(null, dialogBlocks)).toEqual({})
+    })
+
+    it('test preparation with undefined', () => {
+        expect(prepareRequestDialogFields(getState[0], undefined)).toEqual({})
+    })
 
     it('Data formater', () => {
         expect(changeEripDataFormat('YYMM')).toEqual('ymm')

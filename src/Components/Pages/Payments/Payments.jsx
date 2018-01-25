@@ -3,111 +3,55 @@ import {connect} from 'react-redux'
 import PageLayout from '../../Decorators/PageLayout'
 import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialogRequest'
 import PageDataLoader from '../../Decorators/PageDataLoader'
-
-import {mapToArr} from 'pbr-lib-front-utils/dateManipulation'
-import {DialogBlock} from "./index"
 import {Roller} from "../../Loading"
 import {setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
-import {prepareOriginFieldPhone} from "../../../Utils/helper"
+import {prepareRequestDialogFields, setStateOfPropsForDialog} from "../../../Utils/helper"
+import {DialogMap} from "./index"
 
-class Payments extends Component {
-
-    /**@var Object конченое состояние перед полготовкой к отправке */
-    fieldState = {}
+export class Payments extends Component {
 
     state = {
         errors: {}
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({errors: nextProps.errors});
-        }
+        const {entities, errors} = nextProps;
+        entities && entities.forEach((record, i) => {
+            this.props.entities.size !== entities.size && entities.size === ++i
+            && this.setState(setStateOfPropsForDialog(record.get('fields').toObject()))
+        })
+        errors && this.setState({errors})
     }
 
-    _setFieldsState = (fieldState) => {
-        this.fieldState = fieldState
+    _onChange = ({target: {name, value}}) => {
+        this.setState({[name]: value, errors: {}})
     }
 
-    _clearErrors = () => {
-        this.setState({errors: {}})
+    _onCheck = ({target: {name, checked}}) => {
+        this.setState({[name]: Number(checked)});
     }
 
     _onSubmit = (e) => {
         e.preventDefault();
         const {mts_session, requestInDialog, entities, match: {params: {id}}} = this.props
-        const prepareFields = this._prepareRequestDialogFields(this.fieldState, entities)
-        prepareFields && requestInDialog(Object.assign(prepareFields, {serviceCode: id, mts_session: mts_session}))
-    }
 
-    _prepareRequestDialogFields = (fieldState, entities) => {
+        const prepareFields = prepareRequestDialogFields(this.state, entities)
 
-        let preparedParams = {}
-
-        for (let name in fieldState) {
-            let fieldProps = {};
-            entities.forEach(record => {
-                if (record.get('fields').get(name)) {
-                    fieldProps = record.get('fields').get(name)
-                    return false
-                }
-            })
-            if (fieldProps) {
-                let fieldValue = fieldState[name]
-                const {originalField, mask} = fieldProps
-                if (!this._validateFields(fieldValue, name, fieldProps)) {
-                    return false
-                }
-                if (fieldValue instanceof Date) {
-                    let month = String(fieldValue.getMonth() + 1);
-                    month = month.length !== 2 ? `0${month}` : month
-                    const year = String(fieldValue.getFullYear()).substr(2, 4)
-                    fieldValue = month + year;
-                }
-                if (originalField) {
-                    preparedParams['fields[' + name + ']'] = mask ? prepareOriginFieldPhone(fieldValue, mask.prefix) : fieldValue
-                } else {
-                    preparedParams[name] = fieldValue
-                }
-            }
-        }
-        return preparedParams;
-    }
-
-    _validateFields = (fieldValue, name, {minLength, maxLength}) => {
-        let text = '';
-
-        if (minLength && fieldValue.length < minLength) {
-            text = `длина значения поля должна быть не менеее ${minLength}`
-        }
-        if (maxLength && fieldValue.length > maxLength) {
-            text = `длина значения поля должна быть не более ${maxLength}`
-        }
-        if (text) {
+        if (prepareFields.error) {
+            const {name, text} = prepareFields.error
             this.setState(setFieldError(this.state, name, text))
-            return false
+            return
         }
-        return true
+
+        prepareFields && requestInDialog(Object.assign(prepareFields, {serviceCode: id, mts_session: mts_session}))
     }
 
     _onInValid = (e) => {
         e.preventDefault()
-        for (let element of e.target.form.elements) {
-            element.validationMessage && this.setState(setFieldError(this.state, element.name, element.validationMessage))
-
+        for (let {validationMessage, name} of e.target.form.elements) {
+            validationMessage && this.setState(setFieldError(this.state, name, validationMessage))
         }
     }
-
-    _getDialogMap = () => this.props.entities.map((record, i) =>
-        <DialogBlock key={i}
-                     fields={mapToArr(record.get('fields'))}
-                     summary={record.get('summary')}
-                     setFieldsState={this._setFieldsState}
-                     errors={this.state.errors}
-                     clearErrors={this._clearErrors}
-                     disabled={this.props.entities.size > ++i}
-                     onSubmit={this._onSubmit}
-                     loading={this.props.loading}/>)
 
     render = () =>
         <div>
@@ -116,9 +60,9 @@ class Payments extends Component {
                 <h3 style={{backgroundColor: 'red'}}>{this.props.fault}</h3>
                 :
                 <form method="POST" onSubmit={this._onSubmit} onInvalid={this._onInValid}>
-                    {this._getDialogMap()}
+                    <DialogMap {...this.props} payState={this.state} onChange={this._onChange} onCheck={this._onCheck}/>
                     {this.props.loading ?
-                        <Roller parentClass="form-group_field-lgit oading" width={'15px'}/> :
+                        <Roller parentClass="form-group_field-loading" width={'15px'}/> :
                         !!this.props.entities.size && <button>Отправить</button>
                     }
                 </form>
@@ -140,6 +84,8 @@ export default connect(
         entitiesLoader: initDialog,
         requestInDialog
     }
-)(PageDataLoader(PageLayout(Payments)));
+)(PageDataLoader(PageLayout(Payments)))
+
+
 
 

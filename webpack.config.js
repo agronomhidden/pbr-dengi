@@ -5,10 +5,10 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
-const IsomorphicLoaderPlugin = require("isomorphic-loader/lib/webpack-plugin")
+
 const Config = require('pbr-lib-front-utils/dist/config').default
 
-const publicPath = mode === 'production' ? '/assets/' :'http://localhost:8050/public/assets/'
+const publicPath = mode === 'production' ? '/assets/' : 'http://localhost:8050/public/assets/'
 const cssName = mode === 'production' ? 'styles-[hash].css' : 'styles.css'
 const jsName = mode === 'production' ? 'bundle-[hash].js' : 'bundle.js'
 
@@ -35,11 +35,6 @@ if (mode === 'production') {
         })
     );
     plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
-    plugins.push(new IsomorphicLoaderPlugin({
-        webpackDev: {
-            url: false,
-        }
-    }));
 }
 
 module.exports = {
@@ -72,7 +67,7 @@ module.exports = {
             },
             {
                 test: /\.(otf|eot|svg|ttf|woff|woff2|jpe?g|png|gif|ico|svg+xml)$/i,
-                loader: "file-loader!isomorphic-loader"
+                loader: "file-loader"
             },
             {test: /\.jsx?$/, loader: 'babel-loader', exclude: [/node_modules/, /public/]},
             {test: /\.json$/, loader: 'json-loader'},

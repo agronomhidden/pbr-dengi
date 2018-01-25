@@ -41,7 +41,6 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('autoCompleteLoading', true)
                 .set('autoCompleteWorks', true)
         case SET_AUTO_COMPLETE + SUCCESS:
-
             return state
                 .set('autoCompleteLoading', false)
                 .set('autoCompleteDetected', [

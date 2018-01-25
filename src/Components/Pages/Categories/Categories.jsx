@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PageLayout from '../../Decorators/PageLayout'
-import {Search} from '../Partials'
+import {Search, Select} from '../Partials'
 import {mapToArr} from 'pbr-lib-front-utils/dateManipulation'
 import {CategoriesRecord} from '../../../Reducers/entities'
 import {getCategories, categoriesSearch, autoCompleteSearch} from '../../../Reducers/Requests/categoriesRequest'
@@ -14,7 +14,7 @@ class Categories extends Component {
 
     _issetCategories = () => this.props.entities.find(({is_category}) => is_category)
 
-    _issetServices = () =>  this.props.entities.find(({is_category}) => !is_category)
+    _issetServices = () => this.props.entities.find(({is_category}) => !is_category)
 
     render = () =>
         <div>

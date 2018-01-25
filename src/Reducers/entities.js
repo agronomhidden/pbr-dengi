@@ -38,6 +38,16 @@ export const DialogFieldsRecord = Record({
     editable: null,
     placeholder: null,
     mask: null,
-    required: null,
-    disabled: null
+    required: null
+})
+
+export const CitiesRecord = Record({
+    id: null,
+    name: null,
+    parent_id: null
+})
+
+export const RegionsRecord = Record({
+    id: null,
+    name: null
 })

@@ -19,5 +19,7 @@ export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER'
 /** Категории */
 export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'
-/** Диалог c ЕРИП*/
+/** Диалог c ЕРИП */
 export const DIALOG = 'DIALOG'
+/** Выбор Локации */
+export const SET_LOCATION = 'SET_LOCATION'
