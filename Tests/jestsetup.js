@@ -1,6 +1,6 @@
 import { shallow, render, mount } from 'enzyme';
 import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 
 global.shallow = shallow;
 global.render = render;
