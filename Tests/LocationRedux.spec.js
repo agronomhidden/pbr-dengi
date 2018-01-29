@@ -39,4 +39,26 @@ describe('async actions', () => {
             expect(store.getActions()).toEqual(expectedActions)
         })
     })
+
+    it('Ошибка получения локаций', () => {
+
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+            request.respondWith({
+                status: 500,
+                response: {status: 500, data: 'Ошибка на сервере'}
+            })
+        })
+
+        const expectedActions = [
+            {type: types.SET_LOCATION + types.START},
+            {type: types.SET_LOCATION + types.FAIL}
+        ]
+        const store = mockStore({location: {}})
+
+        return store.dispatch(getLocation()).catch(()=>{
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
+
 })

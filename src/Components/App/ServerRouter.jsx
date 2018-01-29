@@ -7,9 +7,10 @@ import {Provider} from 'react-redux'
 import {store} from './serverStore'
 import Layout from '../../layout'
 import routes from './routes'
-import {prepareParams, setQueryStringToRoute} from '../../Utils/helper'
-import {TOKEN, REAL_IP, MOBILE, BROWSER} from '../../CONSTANTS'
+import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
+import {TOKEN, REAL_IP, MOBILE, BROWSER, LOCATIONID} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/Requests/loginCurrentUserRequest'
+import {getLocation} from '../../Reducers/Requests/locationRequest'
 import requestIp from 'request-ip';
 import axios from 'axios'
 import MobileDetect from 'mobile-detect'
@@ -24,17 +25,13 @@ router.get('*', (req, res) => {
 
     Layout.setStore(store);
 
-
     const branch = matchRoutes(routes, url);
 
-    const token = cookies[TOKEN];
-
-    const md = new MobileDetect(headers['user-agent']);
+    const md = new MobileDetect(headers['user-agent'])
 
     const version = md.mobile() ? MOBILE : BROWSER;
 
-
-    store.dispatch(getUserByToken(token)).then(() => {
+    store.dispatch(getUserByToken(cookies[TOKEN])).then(() => {
 
         const user = store.getState().auth.user
         const promises = [];
@@ -45,14 +42,16 @@ router.get('*', (req, res) => {
                 return true;
             }
 
+            promises.push(store.dispatch(getLocation(cookies[LOCATIONID])))
+
             if (fetchData instanceof Function) {
-                promises.push(store.dispatch(fetchData(prepareParams(params))))
+                promises.push(store.dispatch(fetchData(prepareParamsToRout(params))))
             }
 
             if (fetchData instanceof Array) {
                 fetchData.forEach(fetchFunction => {
                     if (fetchFunction instanceof Function) {
-                        promises.push(store.dispatch(fetchFunction(prepareParams(params))));
+                        promises.push(store.dispatch(fetchFunction(prepareParamsToRout(params))))
                     }
                 })
             }

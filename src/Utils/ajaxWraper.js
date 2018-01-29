@@ -16,6 +16,7 @@ const onError = (err, errAC, dispatch) => {
             case 406:
                 break;
             case 500:
+                errAC && dispatch(errAC(err.response.data));
                 break;
             case 499:
                 errAC && dispatch(errAC(err.response.data));

@@ -5,7 +5,6 @@ import {SimpleDatePicker, Input, Checkbox} from "../Partials/index"
 import classNames from "classnames"
 import {getFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
 import moment from "moment"
-import {changeEripDataFormat} from "../../../Utils/helper"
 
 
 export default class DialogInput extends Component {
@@ -37,40 +36,41 @@ export default class DialogInput extends Component {
             return <h3>{value}</h3>
         }
 
-        let component;
+        let component
+
+        const attributes = {
+            name,
+            required,
+            disabled,
+            className: this._getInputClasses()
+        }
 
         switch (type) {
             case 'R':
             case 'I':
                 if (mask) {
-                    component = <InputMask name={name} mask={mask.prefix + ' ' + mask.mask + ' ' + mask.postfix}
+                    component = <InputMask mask={mask.prefix + ' ' + mask.mask + ' ' + mask.postfix}
                                            value={payState[name]} maskChar={'*'} alwaysShowMask={true}
-                                           required={required} disabled={disabled}
-                                           onChange={onChange} className={this._getInputClasses()}/>
+                                           onChange={onChange} {...attributes}/>
                     break
                 }
-                component = <Input name={name} type={'number'} min={min} max={max} step={nominal || min}
-                                   value={payState[name]} placeholder={placeholder} required={required}
-                                   disabled={disabled} onChange={onChange} className={this._getInputClasses()}/>
+                component = <Input type={'number'} min={min} max={max} step={nominal || min} {...attributes}
+                                   value={payState[name]} placeholder={placeholder} onChange={onChange} />
                 break
             case 'S':
-                component = <Input name={name} type={'text'} value={payState[name]} placeholder={placeholder}
-                                   required={required} disabled={disabled} onChange={onChange}
-                                   className={this._getInputClasses()}/>
+                component = <Input type={'text'} value={payState[name]} placeholder={placeholder}
+                                   disabled={disabled} onChange={onChange} {...attributes}/>
                 break
             case 'N':
-                component = <InputMask name={name} mask={placeholder} value={payState[name]} maskChar={'*'}
-                                       alwaysShowMask={true} required={required} disabled={disabled}
-                                       onChange={onChange} className={this._getInputClasses()}/>
+                component = <InputMask mask={placeholder} value={payState[name]} maskChar={'*'}
+                                       alwaysShowMask={true} onChange={onChange} {...attributes}/>
                 break
             case 'D':
-                component = <SimpleDatePicker name={name} required={required} format={format}
-                                              onChange={onChange} className={this._getInputClasses()}
+                component = <SimpleDatePicker format={format} onChange={onChange} {...attributes}
                                               value={moment(payState[name], format)}/>
                 break
             case 'L':
-                component = <Checkbox name={name} onChange={onCheck} checked={payState[name]} disabled={disabled}
-                                      className={this._getInputClasses()}/>
+                component = <Checkbox onChange={onCheck} checked={payState[name]} {...attributes}/>
                 break
         }
 

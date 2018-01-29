@@ -1,14 +1,12 @@
 import expect from 'expect';
-import {List, Map, OrderedMap} from 'immutable'
-import {
-    setStateOfPropsForDialog, validateLengthString,
-    prepareRequestDialogFields, changeEripDataFormat
-} from '../src/Utils/helper';
+import assert from 'assert';
+import {List, Map} from 'immutable'
 import {DialogFieldsRecord} from "../src/Reducers/entities"
 import {arrToMap} from "pbr-lib-front-utils/dateManipulation"
+import DialogFieldPreparer from "../src/Utils/DialogFieldPreparer"
 
 
-describe('Test Dialog Function', () => {
+describe('Подготовка данных для диалога', () => {
 
     const dialogResponce = [
         {
@@ -55,75 +53,61 @@ describe('Test Dialog Function', () => {
             summary: '{summary}'
         })])
 
-    const setState = {
-        sum: '',
-        "Абонентский номер": ''
-    }
-
-    const fieldState = {}
-
-    dialogBlocks.forEach(record => {
-        Object.assign(fieldState, setStateOfPropsForDialog(record.get('fields').toObject()))
-    })
-
-    it('prepare Dialog state', () => {
-        expect(fieldState).toEqual(setState)
-    })
-
     const lengthProp = [{
         minLength: 11,
         maxLength: 11,
-        result: {error: {name: 'name', text: 'длина значения поля должна быть не менеее 11'}}
+        name: 'Hello',
+        result: {name: 'name', text: 'длина значения поля должна быть не менее 11'}
     }, {
         maxLength: 5,
-        result: {error: {name: 'name', text: 'длина значения поля должна быть не более 5'}}
+        name: 'HelloWorld',
+        result: {name: 'name', text: 'длина значения поля должна быть не более 5'}
     }, {
         minLength: 5,
-        result: false
+        name: 'HelloWorld',
+        result: undefined
     }, {
-        result: false
+        name: 'HelloWorld',
+        result: undefined
     }]
 
     for (let prop of lengthProp) {
-        it('validate length with ' + prop.result, () => {
-            expect(validateLengthString('fieldValue', 'name', prop)).toEqual(prop.result)
+        it('validate length with ' + prop.name, () => {
+            const preparer = new DialogFieldPreparer()
+            preparer.values = {name: prop.name}
+            preparer.validateLengthString('name', prop)
+            expect(preparer.getError()).toEqual(prop.result)
         })
     }
 
     const getState = [{
         sum: 500,
-        "Абонентский номер": '6464464'
+        'Абонентский номер': '6464464'
     }, {
         sum: 650,
-        "Абонентский номер": '64644641251'
+        'Абонентский номер': '64644641251'
     }]
 
     for (let state of getState) {
-        const result = state.sum === 500 ? {
-            "error": {
-                "name": "Абонентский номер",
-                "text": "длина значения поля должна быть не менеее 11",
-            }
-        } : {"fields[Абонентский номер]": '64644641251', sum: 650}
+        const result = state.sum === 500 ? {"sum": 500} : {"fields[Абонентский номер]": '64644641251', sum: 650}
+
+        const error = {name: 'Абонентский номер', text: 'длина значения поля должна быть не менее 11'}
+
         it('prepare Dialog Fields', () => {
-            expect(prepareRequestDialogFields(state, dialogBlocks)).toEqual(result)
+            const preparer = new DialogFieldPreparer(state, dialogBlocks)
+            preparer.getError() && expect(preparer.getError()).toEqual(error)
         })
     }
 
     it('test preparation with null', () => {
-        expect(prepareRequestDialogFields(null, dialogBlocks)).toEqual({})
+        const preparer = new DialogFieldPreparer(null, dialogBlocks)
+        expect(preparer.getFields()).toEqual({})
     })
 
     it('test preparation with undefined', () => {
-        expect(prepareRequestDialogFields(getState[0], undefined)).toEqual({})
+        const preparer = new DialogFieldPreparer(getState[0], undefined)
+        expect(preparer.getFields()).toEqual({})
     })
-
-    it('Data formater', () => {
-        expect(changeEripDataFormat('YYMM')).toEqual('ymm')
-    })
-
-
-
 })
 
 

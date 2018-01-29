@@ -5,8 +5,9 @@ import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialog
 import PageDataLoader from '../../Decorators/PageDataLoader'
 import {Roller} from "../../Loading"
 import {setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
-import {prepareRequestDialogFields, setStateOfPropsForDialog} from "../../../Utils/helper"
+import {setStateOfPropsForDialog} from "pbr-lib-front-utils/dist/MtsMoneyApi/dialogHelper"
 import {DialogMap} from "./index"
+import DialogFieldPreparer from "../../../Utils/DialogFieldPreparer"
 
 export class Payments extends Component {
 
@@ -35,15 +36,14 @@ export class Payments extends Component {
         e.preventDefault();
         const {mts_session, requestInDialog, entities, match: {params: {id}}} = this.props
 
-        const prepareFields = prepareRequestDialogFields(this.state, entities)
+        const prepareFields = new DialogFieldPreparer(this.state, entities);
 
-        if (prepareFields.error) {
-            const {name, text} = prepareFields.error
+        if (prepareFields.getError()) {
+            const {name, text} = prepareFields.getError()
             this.setState(setFieldError(this.state, name, text))
             return
         }
-
-        prepareFields && requestInDialog(Object.assign(prepareFields, {serviceCode: id, mts_session: mts_session}))
+        requestInDialog(Object.assign(prepareFields.getFields(), {serviceCode: id, mts_session: mts_session}))
     }
 
     _onInValid = (e) => {
@@ -63,7 +63,7 @@ export class Payments extends Component {
                     <DialogMap {...this.props} payState={this.state} onChange={this._onChange} onCheck={this._onCheck}/>
                     {this.props.loading ?
                         <Roller parentClass="form-group_field-loading" width={'15px'}/> :
-                        !!this.props.entities.size && <button>Отправить</button>
+                        !!this.props.entities.size && <button disabled={this.props.success}>Отправить</button>
                     }
                 </form>
             }

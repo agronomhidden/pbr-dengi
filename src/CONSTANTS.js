@@ -6,6 +6,7 @@ export const FAILED = '_FAILED'
 export const OVER = '_OVER'
 
 export const TOKEN = 'access_token'
+export const LOCATIONID = 'location_id'
 export const REAL_IP = 'X-Real-IP'
 export const MOBILE = 'mobile'
 export const BROWSER = 'browser'

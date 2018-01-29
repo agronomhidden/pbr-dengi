@@ -157,7 +157,6 @@ describe('Тестирование Диалога', () => {
         }
     })
 
-
     it('Чекбокс', () => {
 
         const dialogResponce = {

@@ -9,7 +9,8 @@ import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
 const ReducerState = Record({
     regions: new OrderedMap({}),
     cities: new OrderedMap({}),
-    loading: false
+    loading: false,
+    locationId: null
 })
 
 export default (state = new ReducerState(), action = {}) => {
@@ -21,6 +22,7 @@ export default (state = new ReducerState(), action = {}) => {
         case SET_LOCATION + SUCCESS:
             return state
                 .set('loading', false)
+                .set('locationId', action.locationId)
                 .set('cities', arrToMap(action.payload.cities))
                 .set('regions', arrToMap(action.payload.regions))
         case SET_LOCATION + FAIL:

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PageLayout from '../../Decorators/PageLayout'
-import {Search, Select} from '../Partials'
+import {Search} from '../Partials'
 import {mapToArr} from 'pbr-lib-front-utils/dateManipulation'
 import {CategoriesRecord} from '../../../Reducers/entities'
 import {getCategories, categoriesSearch, autoCompleteSearch} from '../../../Reducers/Requests/categoriesRequest'
