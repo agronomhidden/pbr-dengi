@@ -5,11 +5,18 @@ export const RESET = '_RESET'
 export const FAILED = '_FAILED'
 export const OVER = '_OVER'
 
+
+export const ERROR = 'ERROR'
+
 export const TOKEN = 'access_token'
 export const LOCATIONID = 'location_id'
 export const REAL_IP = 'X-Real-IP'
 export const MOBILE = 'mobile'
 export const BROWSER = 'browser'
+
+
+
+export const POST_REQUEST_ADDR = '/api'
 /** Роутер */
 export const CHANGE_LOCATION = '@@router/LOCATION_CHANGE'
 /** Поиск */
@@ -24,3 +31,5 @@ export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'
 export const DIALOG = 'DIALOG'
 /** Выбор Локации */
 export const SET_LOCATION = 'SET_LOCATION'
+/** История платежей */
+export const SET_HISTORY_ITEMS = 'SET_HISTORY_ITEMS'

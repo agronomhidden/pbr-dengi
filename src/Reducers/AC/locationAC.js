@@ -1,16 +1,14 @@
-import {FAIL, SET_LOCATION, START, SUCCESS} from "../../CONSTANTS"
+import {SET_LOCATION, START, SUCCESS} from "../../CONSTANTS"
 
-export const loadLocation = () => ({
-    type: SET_LOCATION + START
-})
-
-export const locationLoaded = (response, locationId) => ({
-    type: SET_LOCATION + SUCCESS,
-    payload: response,
+export const loadLocation = locationId => ({
+    type: SET_LOCATION + START,
     locationId
 })
 
-export const setLocationErrors = _ => ({
-    type: SET_LOCATION + FAIL
+export const locationLoaded = (response) => ({
+    type: SET_LOCATION + SUCCESS,
+    payload: response,
 })
+
+
 

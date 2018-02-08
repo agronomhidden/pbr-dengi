@@ -16,14 +16,14 @@ export default (Component) => class PageDataLoader extends PageComponent {
     componentDidMount() {
         const {loading, history, entities} = this.props;
         if (!loading && (history.location.state || !entities.length)) {
-            this.props.history.location.state = '';
+            this.props.history.location.state = ''
             this._getEntities(this.props)
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (!nextProps.loading && this.props.history.location.state) {
-            this.props.history.location.state = '';
+            this.props.history.location.state = ''
             this._getEntities(nextProps)
         }
     }

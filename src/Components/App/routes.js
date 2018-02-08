@@ -2,6 +2,8 @@ import Error from '../Pages/Error/Error';
 import {Categories, CurrentCategories} from "../Pages/Categories"
 import {Payments} from "../Pages/Payments"
 import {categoriesSearch, getCategories} from "../../Reducers/Requests/categoriesRequest"
+import Receipt from "../Pages/Reciept/Receipt"
+import {getHistoryItem} from "../../Reducers/Requests/historyRequest"
 
 export default [
     {
@@ -31,6 +33,13 @@ export default [
         component: CurrentCategories,
         title: 'Категории',
         fetchData: categoriesSearch
+    },
+    {
+        path: '/history-items/:transaction_uuids',
+        exact: true,
+        component: Receipt,
+        title: 'Квитанция об оплате',
+        fetchData: getHistoryItem
     },
     {
         path: '/payments/:id(\\d+)',

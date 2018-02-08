@@ -1,5 +1,5 @@
 import {
-    START, SUCCESS, FAIL,
+    START, SUCCESS, ERROR,
     SET_CURRENT_USER,
     LOGOUT_CURRENT_USER
 } from "../CONSTANTS"
@@ -28,7 +28,7 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('user', null)
                 .set('loading', false);
-        case SET_CURRENT_USER + FAIL:
+        case ERROR:
             return state
                 .set('loading', false)
                 .set('errors', action.payload);

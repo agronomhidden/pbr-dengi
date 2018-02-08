@@ -1,5 +1,5 @@
 import {SET_CATEGORIES, SET_AUTO_COMPLETE, SUCCESS, START, FAIL, RESET} from "../../CONSTANTS"
-import {search} from './searchAC';
+import {search} from './commonAC'
 
 export const loadCategories = (searchQuery = '') => ({
     type: SET_CATEGORIES + START,
@@ -8,16 +8,12 @@ export const loadCategories = (searchQuery = '') => ({
 
 export const categoriesLoaded = response => ({
     type: SET_CATEGORIES + SUCCESS,
-    payload: response.data.result
+    payload: response
 })
 
 export const categoriesSetSearch = data => dispatch => {
     dispatch(search(data));
 }
-
-export const setCategoriesErrors = _ => ({
-    type: SET_CATEGORIES + FAIL,
-})
 
 export const loadAutoComplete = _ => ({
     type: SET_AUTO_COMPLETE + START,
@@ -25,7 +21,7 @@ export const loadAutoComplete = _ => ({
 
 export const autoCompleteLoaded = response => ({
     type: SET_AUTO_COMPLETE + SUCCESS,
-    payload: response.data.result,
+    payload: response
 })
 
 export const resetAutoComplete = searchQuery => ({

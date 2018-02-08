@@ -1,10 +1,12 @@
-import {loadLocation, locationLoaded, setLocationErrors} from "../AC/locationAC"
-import {get} from "../../Utils/ajaxWraper"
+import {loadLocation, locationLoaded} from "../AC/locationAC"
+import MtsMoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
 
 
 export const getLocation = locationId => dispatch => {
-    dispatch(loadLocation())
-    return get('api/locations', {}, res => {
-        res && dispatch(locationLoaded(res.data.result, locationId))
-    }, setLocationErrors, dispatch)
+    dispatch(loadLocation(locationId))
+
+    return MtsMoneyRequest
+        .setMethod('locations')
+        .postRequest()
+        .then(res => res && dispatch(locationLoaded(res.data.result)))
 }

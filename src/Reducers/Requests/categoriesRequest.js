@@ -1,32 +1,43 @@
-import {get} from '../../Utils/ajaxWraper'
 import {
-    loadCategories, categoriesLoaded, setCategoriesErrors,
+    loadCategories, categoriesLoaded,
     loadAutoComplete, autoCompleteLoaded
-} from '../AC/categoriesAC';
+} from '../AC/categoriesAC'
+import MtsMoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
+
 
 export const getCategories = params => dispatch => {
     dispatch(loadCategories())
-    return get('api/categories/get', {parent_id: params.id}, res => {
-        res && dispatch(categoriesLoaded(res))
-    }, setCategoriesErrors, dispatch, false)
 
+    return MtsMoneyRequest
+        .setMethod('categories/get')
+        .setParams({parent_id: params.id})
+        .postRequest()
+        .then(res => res && dispatch(categoriesLoaded(res.data.result)))
 }
 
-
-export const categoriesSearch = (params) => dispatch => {
+export const categoriesSearch = params => dispatch => {
     dispatch(loadCategories(params.searchQuery));
-    return get('api/search', {
-        value: params.searchQuery,
-        category_id: params.id
-    }, res => {
-        res && dispatch(categoriesLoaded(res))
-    }, setCategoriesErrors, dispatch, false)
+
+    return MtsMoneyRequest
+        .setMethod('search')
+        .setParams({
+            value: params.searchQuery,
+            category_id: params.id
+        })
+        .postRequest()
+        .then(res => res && dispatch(categoriesLoaded(res.data.result)))
+
+
 };
 
 
 export const autoCompleteSearch = (value, category_id) => dispatch => {
     dispatch(loadAutoComplete());
-    return get('api/search/autocomplete-search', {value, category_id}, res => {
-        res && dispatch(autoCompleteLoaded(res))
-    }, setCategoriesErrors, dispatch, false)
+
+    return MtsMoneyRequest
+        .setMethod('search/autocomplete-search')
+        .setParams({value, category_id})
+        .postRequest()
+        .then(res => res && dispatch(autoCompleteLoaded(res.data.result)))
+
 };

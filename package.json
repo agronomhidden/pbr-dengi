@@ -44,6 +44,7 @@
     "dotenv": "^4.0.0",
     "es6-promise": "^4.2.2",
     "express": "^4.16.2",
+    "express-http-proxy": "^1.1.0",
     "fetch-mock": "^6.0.0",
     "history": "^4.7.2",
     "immutable": "^3.8.2",

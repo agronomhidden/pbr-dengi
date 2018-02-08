@@ -7,6 +7,8 @@ import manifest from '../public/assets/manifest'
 import Layout from './layout'
 import Router from './Components/App/ServerRouter'
 import Config from 'pbr-lib-front-utils/dist/config'
+import proxy from 'express-http-proxy'
+
 
 const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
@@ -30,6 +32,13 @@ app.use(compress());
 // Настраиваем путь для статичных файлов:
 app.use(express.static('public', {
     maxage: '1Y',
+}));
+
+console.log(process.env.API_URL);
+
+app.use('/api', proxy(process.env.API_URL, {
+
+    proxyReqPathResolver: () =>  '/api/post_request'
 }));
 
 app.use('/', Router);

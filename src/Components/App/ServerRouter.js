@@ -8,46 +8,62 @@ import {store} from './serverStore'
 import Layout from '../../layout'
 import routes from './routes'
 import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
-import {TOKEN, REAL_IP, MOBILE, BROWSER, LOCATIONID} from '../../CONSTANTS'
+import {TOKEN, MOBILE, BROWSER, LOCATIONID, REAL_IP} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/Requests/loginCurrentUserRequest'
 import {getLocation} from '../../Reducers/Requests/locationRequest'
 import requestIp from 'request-ip';
-import axios from 'axios'
 import MobileDetect from 'mobile-detect'
+import ErrorHandler from "../../Utils/ErrorHandler"
+import AdminMoneyRequest from "../../Utils/RequestApi/AdminMoneyRequest"
+import MoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
 
 const router = express.Router();
 
 router.get('*', (req, res) => {
 
-    const {url, cookies, headers} = req;
+    const {url, cookies, headers} = req,
 
-    axios.defaults.headers.common[REAL_IP] = requestIp.getClientIp(req)
+        ip = requestIp.getClientIp(req),
 
-    Layout.setStore(store);
+        token = cookies[TOKEN],
 
-    const branch = matchRoutes(routes, url);
+        version = new MobileDetect(headers['user-agent']).mobile() ? MOBILE : BROWSER,
 
-    const md = new MobileDetect(headers['user-agent'])
+        branch = matchRoutes(routes, url),
 
-    const version = md.mobile() ? MOBILE : BROWSER;
+        locationId = cookies[LOCATIONID]
 
-    store.dispatch(getUserByToken(cookies[TOKEN])).then(() => {
+    Layout.setStore(store)
 
-        const user = store.getState().auth.user
-        const promises = [];
+    MoneyRequest
+        .setHeader({[REAL_IP]: ip})
+        .setBaseUrl(process.env.API_URL)
+        .setUrl('/api/post_request')
+    //.setAccessToken(TOKEN, token)
+
+    AdminMoneyRequest
+        .setBaseUrl(process.env.API_URL)
+        .setToken(TOKEN, token)
+
+    ErrorHandler
+        .setDispatcher(store.dispatch)
+
+
+    store.dispatch(getUserByToken()).then(() => {
+
+        const user = store.getState().auth.user,
+            promises = []
 
         branch.some(({route: {fetchData, needAuth}, match: {params}}) => {
             if (needAuth && !user) {
                 res.redirect('/')
                 return true;
             }
-
-            promises.push(store.dispatch(getLocation(cookies[LOCATIONID])))
+            promises.push(store.dispatch(getLocation(locationId)))
 
             if (fetchData instanceof Function) {
                 promises.push(store.dispatch(fetchData(prepareParamsToRout(params))))
             }
-
             if (fetchData instanceof Array) {
                 fetchData.forEach(fetchFunction => {
                     if (fetchFunction instanceof Function) {
@@ -62,7 +78,6 @@ router.get('*', (req, res) => {
                 pageTitleSetter: (title) => {
                     Layout.setTitle(title)
                 }, setNotFound: () => {
-                    console.log(404);
                     res.status(404)
                 }
             };
@@ -77,8 +92,7 @@ router.get('*', (req, res) => {
 
             res.end(Layout.render(content));
         }).catch(err => {
-            console.log('error on PromiseAll');
-            console.log(err)
+            console.log('error on PromiseAll')
             if (err && err.response.status === 404) {
                 res.redirect('/not-found');
             }

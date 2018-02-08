@@ -1,32 +1,27 @@
 import axios from 'axios';
-import qs from 'qs';
 import {TOKEN} from '../CONSTANTS'
 import cookies from 'js-cookie';
 
 
 const onError = (err, errAC, dispatch) => {
-
+        console.log(err.response);
     if (err.response) {
         switch (err.response.status) {
             case 403:
                 errAC && dispatch(errAC());
-                return;
-            case 400:
-                break;
-            case 406:
-                break;
+                return
             case 500:
                 errAC && dispatch(errAC(err.response.data));
-                break;
+                break
             case 499:
                 errAC && dispatch(errAC(err.response.data));
-                return;
+                return
             default:
-                break;
+                break
         }
     }
-    throw err;
-};
+    throw err
+}
 
 
 export const get = (url, params = {}, success, errActionCreator, dispatch, withToken = true) => {
@@ -40,12 +35,6 @@ export const get = (url, params = {}, success, errActionCreator, dispatch, withT
         .then(success)
         .catch(err => onError(err, errActionCreator, dispatch));
 }
-
-
-export const post = (url, data, success, errActionCreator) =>
-    axios.post(url, qs.stringify(data))
-        .then(success)
-        .catch(err => onError(err, errActionCreator));
 
 
 

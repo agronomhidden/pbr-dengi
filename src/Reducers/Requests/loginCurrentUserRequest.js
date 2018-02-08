@@ -1,22 +1,38 @@
-import {get} from '../../Utils/ajaxWraper'
-import {setCurrentUser, loginCurrentUser, logoutCurrentUser, setLoginErrors} from "../AC/loginAC"
+import {setCurrentUser, loginCurrentUser, logoutCurrentUser} from "../AC/loginAC"
 import {TOKEN} from '../../CONSTANTS';
 import cookies from 'js-cookie';
+import AdminMoneyRequest from "../../Utils/RequestApi/AdminMoneyRequest"
+import ErrorHandler from "../../Utils/ErrorHandler"
+import qs from "qs"
 
-export const getUserByToken = token => dispatch => {
+
+export const getUserByToken = () => dispatch => {
+
     dispatch(loginCurrentUser())
-    return get('admin/api/user/get', {[TOKEN]: token}, res => {
-        res && dispatch(setCurrentUser(res.data.result))
-    }, logoutCurrentUser, dispatch)
+
+    ErrorHandler.setHandler(logoutCurrentUser)
+
+    return AdminMoneyRequest
+        .setUrl('admin/api/user/get')
+        .getRequest()
+        .then(res => res && dispatch(setCurrentUser(res.data.result)))
 }
 
 
 export const userLogin = data => dispatch => {
     dispatch(loginCurrentUser())
-    return get('admin/api/user/login', data, res => {
-        if (res) {
-            cookies.set(TOKEN, res.data.result.authKey, {expires: 1});
-            dispatch(setCurrentUser(res.data.result.user))
-        }
-    }, setLoginErrors, dispatch)
+
+    ErrorHandler.setHandler(logoutCurrentUser)
+
+    return AdminMoneyRequest
+        .setUrl('admin/api/user/login')
+        .setParams(qs.stringify(data))
+        .postRequest()
+        .then(res => {
+            if (res) {
+                cookies.set(TOKEN, res.data.result.authKey, {expires: 1});
+                dispatch(setCurrentUser(res.data.result.user))
+            }
+        })
+
 }
