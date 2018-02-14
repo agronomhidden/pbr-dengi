@@ -3,7 +3,7 @@ import {Categories, CurrentCategories} from "../Pages/Categories"
 import {Payments} from "../Pages/Payments"
 import {categoriesSearch, getCategories} from "../../Reducers/Requests/categoriesRequest"
 import Receipt from "../Pages/Reciept/Receipt"
-import {getHistoryItem} from "../../Reducers/Requests/historyRequest"
+import {getHistoryItem} from "../../Reducers/Requests/payHistoryRequest"
 
 export default [
     {
@@ -11,7 +11,7 @@ export default [
         exact: true,
         component: Categories,
         title: 'Главная страница',
-        fetchData: getCategories
+      //  fetchData: getCategories
     },
     {
         path: '/\?(.+)',
@@ -39,7 +39,7 @@ export default [
         exact: true,
         component: Receipt,
         title: 'Квитанция об оплате',
-        fetchData: getHistoryItem
+        // fetchData: getHistoryItem
     },
     {
         path: '/payments/:id(\\d+)',

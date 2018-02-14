@@ -1,7 +1,7 @@
 import {
     START, SUCCESS, RESET,
     SET_CATEGORIES,
-    SET_AUTO_COMPLETE
+    SET_AUTO_COMPLETE, ERROR
 } from "../CONSTANTS"
 
 import {Record, OrderedMap} from 'immutable'
@@ -36,6 +36,9 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('categories', arrToMap(data))
                 .set('count_categories', count_categories)
                 .set('count_services', count_services)
+
+            console.log(state);
+            //return state
         case SET_AUTO_COMPLETE + START:
             return state
                 .set('autoCompleteLoading', true)
@@ -56,6 +59,9 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('autoCompleteDetected', [])
                 .set('searchValue', action.searchQuery)
+        case ERROR:
+            return state
+                .set('loading', false)
         default:
             return state;
     }

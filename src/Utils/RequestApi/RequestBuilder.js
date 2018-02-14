@@ -17,6 +17,7 @@ export default class RequestBuilder {
     /** @var {{}} params */
     header = {}
 
+
     setBaseUrl(baseURL) {
         this.baseURL = baseURL
         return this
@@ -52,10 +53,9 @@ export default class RequestBuilder {
     }
 
     validateParams() {
-        for (let param of this.params) {
-            if (param === undefined || param === null) {
-                ErrorHandler.onError({response: {data: {msg: 'No valid params'}}})
-                return false
+        for (let param in this.params) {
+            if (this.params[param] === undefined || this.params[param] === null) {
+                delete this.params[param]
             }
         }
         return this

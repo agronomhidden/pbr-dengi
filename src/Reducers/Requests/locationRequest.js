@@ -8,5 +8,5 @@ export const getLocation = locationId => dispatch => {
     return MtsMoneyRequest
         .setMethod('locations')
         .postRequest()
-        .then(res => res && dispatch(locationLoaded(res.data.result)))
+        .then(res => res && res.data && dispatch(locationLoaded(res.data.result)))
 }

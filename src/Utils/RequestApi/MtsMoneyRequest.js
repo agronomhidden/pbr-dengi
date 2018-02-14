@@ -1,8 +1,7 @@
-import {TOKEN} from "../../CONSTANTS"
+import {LOCATIONID} from "../../CONSTANTS"
 import {AxiosRequest} from "./AxiosRequest"
 
 class MtsMoneyRequest extends AxiosRequest {
-
 
     /** @var string method */
     method
@@ -13,11 +12,18 @@ class MtsMoneyRequest extends AxiosRequest {
         return this
     }
 
-    cleanParams() {
-        this.method = ''
-        this.params = {}
+    setLocation(location) {
+        this.location = location
         return this
     }
+
+    withLocation(){
+        if(this.location) {
+            this.params[LOCATIONID] = this.location
+        }
+        return this
+    }
+
 
     get Args() {
         if (this.token) {

@@ -4,7 +4,6 @@ import cookies from 'js-cookie';
 
 
 const onError = (err, errAC, dispatch) => {
-        console.log(err.response);
     if (err.response) {
         switch (err.response.status) {
             case 403:

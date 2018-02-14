@@ -5,7 +5,7 @@ export const loadLocation = locationId => ({
     locationId
 })
 
-export const locationLoaded = (response) => ({
+export const locationLoaded = response => ({
     type: SET_LOCATION + SUCCESS,
     payload: response,
 })

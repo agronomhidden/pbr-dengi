@@ -117,7 +117,7 @@ describe('Тестирование Диалога', () => {
                 "type": "R",
                 "maxLength": null,
                 "minLength": null,
-                "min": 0.01,
+                "min": '0.01',
                 "max": 200,
                 "hint": null,
                 "format": null,
@@ -146,7 +146,7 @@ describe('Тестирование Диалога', () => {
             name: 'sum',
             type: 'number',
             value: '',
-            min: 0.01,
+            min: '0.01',
             max: 200,
             required: true,
             className: 'form-group_control'

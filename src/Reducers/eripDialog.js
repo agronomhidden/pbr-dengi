@@ -1,6 +1,6 @@
 import {
     START, SUCCESS, FAIL, RESET,
-    DIALOG, FAILED, OVER
+    DIALOG, FAILED, OVER, ERROR
 } from "../CONSTANTS"
 
 
@@ -15,7 +15,7 @@ const ReducerState = Record({
     summary: null,
     mts_session: null,
     fault: null,
-    success: false
+    uuid: null
 })
 
 
@@ -24,6 +24,7 @@ export default (state = new ReducerState(), action = {}) => {
         case DIALOG + START:
             return state
                 .set('loading', true)
+                .set('uuid', null)
                 .set('errors', null)
                 .set('fault', null)
                 .set('mts_session', null)
@@ -45,7 +46,7 @@ export default (state = new ReducerState(), action = {}) => {
         case DIALOG + OVER:
             return state
                 .set('loading', false)
-                .set('success', action.payload.success)
+                .set('uuid', action.payload.uuid)
         case DIALOG + FAIL:
             return state
                 .set('loading', false)
@@ -54,6 +55,9 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('loading', false)
                 .set('fault', action.payload)
+        case ERROR:
+            return state
+                .set('loading', false)
         default:
             return state;
     }

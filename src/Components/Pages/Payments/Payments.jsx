@@ -1,5 +1,6 @@
 import React, {Component,} from 'react'
 import {connect} from 'react-redux'
+import { Redirect } from 'react-router'
 import PageLayout from '../../Decorators/PageLayout'
 import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialogRequest'
 import PageDataLoader from '../../Decorators/PageDataLoader'
@@ -8,8 +9,9 @@ import {setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
 import {setStateOfPropsForDialog} from "pbr-lib-front-utils/dist/MtsMoneyApi/dialogHelper"
 import {DialogMap} from "./index"
 import DialogFieldPreparer from "../../../Utils/DialogFieldPreparer"
+import PageComponent from "../../App/PageComponent"
 
-export class Payments extends Component {
+export class Payments extends PageComponent {
 
     state = {
         errors: {}
@@ -17,6 +19,7 @@ export class Payments extends Component {
 
     componentWillReceiveProps(nextProps) {
         const {entities, errors} = nextProps;
+
         entities && entities.forEach((record, i) => {
             this.props.entities.size !== entities.size && entities.size === ++i
             && this.setState(setStateOfPropsForDialog(record.get('fields').toObject()))
@@ -55,6 +58,7 @@ export class Payments extends Component {
 
     render = () =>
         <div>
+            {this.props.uuid && <Redirect to={'/history-items/' + this.props.uuid}/>}
             <h3>Заголовок платежа</h3>
             {this.props.fault ?
                 <h3 style={{backgroundColor: 'red'}}>{this.props.fault}</h3>
@@ -67,7 +71,6 @@ export class Payments extends Component {
                     }
                 </form>
             }
-            {this.props.success && <span>Диалог завершен успешно!</span>}
         </div>
 }
 
@@ -78,7 +81,7 @@ export default connect(
         mts_session: s.eripDialog.get('mts_session'),
         fault: s.eripDialog.get('fault'),
         errors: s.eripDialog.get('errors'),
-        success: s.eripDialog.get('success')
+        uuid: s.eripDialog.get('uuid')
     })),
     {
         entitiesLoader: initDialog,

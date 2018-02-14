@@ -23,15 +23,14 @@ export default (state = new ReducerState(), action = {}) => {
         case SET_CURRENT_USER + SUCCESS:
             return state
                 .set('user', new UserRecord(action.payload))
-                .set('loading', false);
+                .set('loading', false)
         case LOGOUT_CURRENT_USER:
             return state
                 .set('user', null)
-                .set('loading', false);
+                .set('loading', false)
         case ERROR:
             return state
                 .set('loading', false)
-                .set('errors', action.payload);
         default:
             return state;
     }

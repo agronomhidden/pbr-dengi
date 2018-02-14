@@ -1,9 +1,8 @@
-import {ERROR,SEARCH_EVENT} from "../../CONSTANTS"
-
+import {ERROR, SEARCH_EVENT} from "../../CONSTANTS"
 
 export const setErrors = response => ({
     type: ERROR,
-    payload: {fields: response.result, msg: response.message},
+    payload: response
 })
 
 export const search = data => ({

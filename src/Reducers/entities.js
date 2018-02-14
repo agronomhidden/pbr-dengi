@@ -51,3 +51,26 @@ export const RegionsRecord = Record({
     id: null,
     name: null
 })
+
+export const payHistoryRecord = Record({
+    id: null,
+    item_name: null,
+    transaction_uuid: null,
+    key: null,
+    service: null,
+    status: null,
+    method: null,
+    total_sum: null,
+    user: null,
+    sum: null,
+    commission: null,
+    currency: null,
+    date_create: null,
+    date_pay: null,
+    img: null,
+    fields: null,
+    category_name: null,
+    erip_data: null,
+    server_time: null,
+
+})

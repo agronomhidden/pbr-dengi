@@ -8,3 +8,4 @@ export const paymentsHistoryItemsLoaded = response => ({
     type: SET_HISTORY_ITEMS + SUCCESS,
     payload: response
 })
+

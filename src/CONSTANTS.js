@@ -14,9 +14,11 @@ export const REAL_IP = 'X-Real-IP'
 export const MOBILE = 'mobile'
 export const BROWSER = 'browser'
 
+export const SEND_MAIL = 'SEND_MAIL'
 
 
-export const POST_REQUEST_ADDR = '/api'
+export const SERVER_POST_URL = '/api/post_request'
+export const CLIENT_POST_URL = '/api'
 /** Роутер */
 export const CHANGE_LOCATION = '@@router/LOCATION_CHANGE'
 /** Поиск */
