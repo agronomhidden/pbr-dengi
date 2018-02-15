@@ -7,7 +7,7 @@ export class AxiosRequest extends RequestBuilder {
 
 
     getRequest() {
-        return this.prepareAxios().Axios.get(this.URL, {params: this.Args})
+        return this.prepareAxios().Axios.get(this.url, {params: this.Args})
             .then(res => {
                 return res
             })
@@ -17,8 +17,8 @@ export class AxiosRequest extends RequestBuilder {
     }
 
     postRequest() {
-
-        return this.prepareAxios().Axios.post(this.URL, this.Args)
+        console.log(this.Args);
+        return this.prepareAxios().Axios.post(this.url, this.Args)
             .then(res => {
                 this.cleanParams()
                 return res
