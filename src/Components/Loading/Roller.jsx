@@ -1,5 +1,5 @@
 import React from 'react';
-import {getRoller} from '../../../public/resourcePaths';
+import {getRoller} from '../../resourcePaths';
 
 export const Roller = ({width, modifier, parentClass}) =>
     <div className={parentClass}>

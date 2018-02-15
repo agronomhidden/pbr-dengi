@@ -11,7 +11,7 @@ export default [
         exact: true,
         component: Categories,
         title: 'Главная страница',
-      //  fetchData: getCategories
+        fetchData: getCategories
     },
     {
         path: '/\?(.+)',

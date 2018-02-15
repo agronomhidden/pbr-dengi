@@ -4,7 +4,7 @@ import {FormGroup} from '../Partials'
 import {Roller} from '../../Loading'
 import {setFieldError} from 'pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper'
 import {userLogin} from "../../../Reducers/Requests/authRequest"
-import {getFavicon as favicon} from '../../../../public/resourcePaths';
+import {getFavicon as favicon} from '../../../resourcePaths';
 
 class Login extends Component {
 

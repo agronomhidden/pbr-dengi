@@ -4,7 +4,7 @@ import express from 'express'
 import StaticRouter from 'react-router-dom/StaticRouter'
 import {renderRoutes, matchRoutes} from 'react-router-config'
 import {Provider} from 'react-redux'
-import {store} from './serverStore'
+import {getStore} from './serverStore'
 import Layout from '../../layout'
 import routes from './routes'
 import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
@@ -20,10 +20,12 @@ import {logoutCurrentUser} from "../../Reducers/AC/authAC"
 const router = express.Router();
 
 router.get('*', (req, res) => {
+    const {url, cookies, headers} = req;
+    const store = getStore();
 
-    const {url, cookies, headers} = req,
+    console.log(store.getState());
 
-        ip = requestIp.getClientIp(req),
+        const ip = requestIp.getClientIp(req),
 
         token = cookies[TOKEN],
 
@@ -69,6 +71,8 @@ router.get('*', (req, res) => {
                 })
             }
         })
+
+        //console.log(promises);
 
         Promise.all(promises).then(() => {
             const context = {
