@@ -8,7 +8,7 @@ import ErrorHandler from "../../Utils/ErrorHandler"
 export const getCategories = params => dispatch => {
     dispatch(loadCategories())
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('categories/get')
         .setParams({parent_id: params.id})
         .withLocation()
