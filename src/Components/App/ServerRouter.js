@@ -26,7 +26,6 @@ router.get('*', (req, res) => {
 
     Layout.setStore(store);
 
-
         const ip = requestIp.getClientIp(req),
 
         token = cookies[TOKEN],
@@ -36,8 +35,6 @@ router.get('*', (req, res) => {
         branch = matchRoutes(routes, url),
 
         locationId = cookies[LOCATIONID]
-
-
 
     MoneyRequest
         .setHeader({[REAL_IP]: ip})
@@ -93,7 +90,6 @@ router.get('*', (req, res) => {
 
             res.end(Layout.render(content));
         }).catch(err => {
-            console.log('error on PromiseAll')
             console.log('ServerRouter.err =>',err);
             if (err && err.response && err.response.status === 404) {
                 res.redirect('/not-found');

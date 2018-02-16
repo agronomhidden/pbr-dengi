@@ -23,6 +23,9 @@ export default class FormGroup extends Component {
         /** Label */
         label: PropTypes.string,
         labelModifier: PropTypes.string,
+        /** Hint*/
+        hint: PropTypes.string,
+        hintModifier: PropTypes.string,
         /** Wrapper */
         wrapperModifier: PropTypes.string,
         /** General */
@@ -65,7 +68,7 @@ export default class FormGroup extends Component {
     }
 
     render() {
-        const {name, label, wrapperModifier, labelModifier, isNotForm} = this.props;
+        const {name, label, wrapperModifier, labelModifier, isNotForm, hint} = this.props;
 
         const errorText = getFieldError(name, this.props);
 
@@ -83,8 +86,11 @@ export default class FormGroup extends Component {
         return (
             <section className={classNames(wrapperClass)}>
                 {label && <label htmlFor={name} className={classNames(labelClass)}>{label}</label>}
-                {this.getInput()}
-                {errorText && <div className="form-group_help">{errorText}</div>}
+                <div>
+                    {this.getInput()}
+                    {errorText && <div className="form-group_help">{errorText}</div>}
+                </div>
+                {hint && <div className="form-group_hint">{hint}</div>}
             </section>
         )
     }

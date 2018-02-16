@@ -1,7 +1,8 @@
-import {setCurrentUser, loginCurrentUser} from "../AC/authAC"
+import {setCurrentUser, loginCurrentUser, loginCurrentUserFail} from "../AC/authAC"
 import {TOKEN} from '../../CONSTANTS';
 import cookies from 'js-cookie';
 import MtsMoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
+import ErrorHandler from "../../Utils/ErrorHandler"
 
 
 export const getUserByToken = () => dispatch => {
@@ -15,6 +16,8 @@ export const getUserByToken = () => dispatch => {
 
 export const userLogin = params => dispatch => {
 
+    ErrorHandler.setFieldsErrorHandler(loginCurrentUserFail)
+
     return MtsMoneyRequest
         .setMethod('user/login')
         .setParams(params)
@@ -26,5 +29,4 @@ export const userLogin = params => dispatch => {
                 cookies.set(TOKEN, res.data.result.authKey, {expires: 1});
             }
         })
-
 }

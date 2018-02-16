@@ -35,3 +35,10 @@ export const DIALOG = 'DIALOG'
 export const SET_LOCATION = 'SET_LOCATION'
 /** История платежей */
 export const SET_HISTORY_ITEMS = 'SET_HISTORY_ITEMS'
+/** Настройки */
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
+export const SET_PROFILE = 'SET_PROFILE'
+export const SET_RULES = 'SET_RULES'
+export const TOTAL_LOGOUT = 'LOGOUT_ALL_DEVICES'
+export const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION'
+export const SETTINGS_FIELDS_ERROR = 'SETTINGS_FIELDS_ERROR'

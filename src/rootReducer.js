@@ -5,6 +5,7 @@ import eripDialog from './Reducers/eripDialog'
 import location from './Reducers/location'
 import payHistory from './Reducers/payHistory'
 import mailSender from './Reducers/mailSender'
+import settings from './Reducers/settings'
 
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
     eripDialog,
     location,
     payHistory,
-    mailSender
+    mailSender,
+    settings
 });
