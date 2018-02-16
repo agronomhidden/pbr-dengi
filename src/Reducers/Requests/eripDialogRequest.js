@@ -15,7 +15,7 @@ export const initDialog = params => dispatch => {
 
     ErrorHandler.setFieldsErrorHandler(eripDialogFail)
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('erip-dialog')
         .setParams({serviceCode: params.id})
         .postRequest()
@@ -28,7 +28,7 @@ export const initDialog = params => dispatch => {
 export const requestInDialog = data => dispatch => {
     dispatch(dialogContinue())
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('erip-dialog')
         .setParams(data)
         .postRequest()

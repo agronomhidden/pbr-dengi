@@ -7,7 +7,7 @@ export const mailSender = (params, sectionID = 0) => dispatch => {
 
     ErrorHandler.setFieldsErrorHandler(mailSentFail)
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('payments/send-invoice')
         .setParams(params)
         .postRequest()

@@ -4,6 +4,7 @@ import {Payments} from "../Pages/Payments"
 import {categoriesSearch, getCategories} from "../../Reducers/Requests/categoriesRequest"
 import Receipt from "../Pages/Reciept/Receipt"
 import {getHistoryItem} from "../../Reducers/Requests/payHistoryRequest"
+import Tools from "../Pages/Tools/Tools"
 
 export default [
     {
@@ -39,7 +40,7 @@ export default [
         exact: true,
         component: Receipt,
         title: 'Квитанция об оплате',
-        // fetchData: getHistoryItem
+        fetchData: getHistoryItem
     },
     {
         path: '/payments/:id(\\d+)',
@@ -47,6 +48,14 @@ export default [
         component: Payments,
         title: 'Платежи'
     },
+    {
+        path: '/settings',
+        exact: true,
+        needAuth: true,
+        component: Tools,
+        title: 'Настройки пользователя'
+    },
+
     {
         path: '*',
         component: Error,

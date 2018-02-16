@@ -23,7 +23,6 @@ router.get('*', (req, res) => {
     const {url, cookies, headers} = req;
     const store = getStore();
 
-    console.log(store.getState());
 
         const ip = requestIp.getClientIp(req),
 
@@ -71,8 +70,6 @@ router.get('*', (req, res) => {
                 })
             }
         })
-
-        //console.log(promises);
 
         Promise.all(promises).then(() => {
             const context = {

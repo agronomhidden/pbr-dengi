@@ -17,8 +17,10 @@ export class AxiosRequest extends RequestBuilder {
     }
 
     postRequest() {
-        console.log(this.Args);
-        return this.prepareAxios().Axios.post(this.url, this.Args)
+
+        this.prepareAxios()
+
+        return axios.post(this.url, this.Args)
             .then(res => {
                 this.cleanParams()
                 return res
@@ -39,10 +41,6 @@ export class AxiosRequest extends RequestBuilder {
             axios.defaults.headers.common = this.header
         }
         return this
-    }
-
-    get Axios(){
-        return axios
     }
 
 }

@@ -8,7 +8,7 @@ import ErrorHandler from "../../Utils/ErrorHandler"
 export const getCategories = params => dispatch => {
     dispatch(loadCategories())
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('categories/get')
         .setParams({parent_id: params.id})
         .withLocation()
@@ -19,7 +19,7 @@ export const getCategories = params => dispatch => {
 export const categoriesSearch = params => dispatch => {
     dispatch(loadCategories(params.searchQuery));
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('search')
         .setParams({value: params.searchQuery, category_id: params.id})
         .withLocation()
@@ -31,7 +31,7 @@ export const categoriesSearch = params => dispatch => {
 export const autoCompleteSearch = (value, category_id) => dispatch => {
     dispatch(loadAutoComplete());
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('search/autocomplete-search')
         .setParams({value, category_id})
         .withLocation()

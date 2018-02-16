@@ -9,7 +9,7 @@ export const getHistoryItem = params => dispatch => {
         params.advanced = 1
     }
 
-    MtsMoneyRequest
+    return MtsMoneyRequest
         .setMethod('payments/history-item')
         .setParams(params)
         .postRequest()
