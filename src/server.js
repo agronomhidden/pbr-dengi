@@ -4,11 +4,10 @@ import compress from 'compression'
 import morgan from 'morgan'
 import React from 'react'
 import manifest from '../public/assets/manifest'
-import Layout from './layout'
+import LayoutFactory from './Services/Factories/LayoutFactory'
 import Router from './Components/App/ServerRouter'
 import Config from 'pbr-lib-front-utils/dist/config'
 import proxy from 'express-http-proxy'
-
 
 const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
@@ -17,10 +16,7 @@ const PORT = process.env.PORT || (mode === 'production' ? 3333 : 3003);
 let appConf = new Config('./config/', mode);
 appConf.exportToGlobalEnv();
 
-Layout.setManifest(manifest);
-if (mode === 'production') {
-    Layout.setProdMode();
-}
+LayoutFactory.setManifest(manifest).setProd(mode === 'production');
 
 app.use(cookieParser());
 
@@ -34,10 +30,7 @@ app.use(express.static('public', {
     maxage: '1Y',
 }));
 
-console.log(process.env.API_URL);
-
 app.use('/api', proxy(process.env.API_URL, {
-
     proxyReqPathResolver: () =>  '/api/post_request'
 }));
 

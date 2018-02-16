@@ -5,7 +5,7 @@ import StaticRouter from 'react-router-dom/StaticRouter'
 import {renderRoutes, matchRoutes} from 'react-router-config'
 import {Provider} from 'react-redux'
 import {getStore} from './serverStore'
-import Layout from '../../layout'
+import LayoutFactory from '../../Services/Factories/LayoutFactory'
 import routes from './routes'
 import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
 import {TOKEN, MOBILE, BROWSER, LOCATIONID, REAL_IP,SERVER_POST_URL} from '../../CONSTANTS'
@@ -22,6 +22,9 @@ const router = express.Router();
 router.get('*', (req, res) => {
     const {url, cookies, headers} = req;
     const store = getStore();
+    const Layout = LayoutFactory.getLayout();
+
+    Layout.setStore(store);
 
 
         const ip = requestIp.getClientIp(req),
@@ -34,7 +37,7 @@ router.get('*', (req, res) => {
 
         locationId = cookies[LOCATIONID]
 
-    Layout.setStore(store)
+
 
     MoneyRequest
         .setHeader({[REAL_IP]: ip})
