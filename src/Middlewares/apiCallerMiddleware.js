@@ -12,10 +12,13 @@ export default paramsContainer => store => next => action => {
             paramsContainer.setStore(store);
         }
         action.beforeAC && next(action.beforeAC(paramsContainer))
+        try {
+            const apiCaller = new ApiCaller(action.method, action.payload, paramsContainer)
 
-        const apiCaller = new ApiCaller(action.method, action.payload, paramsContainer)
-
-        return apiCaller.call().then(res => res && res.data && action.successAC && next(action.successAC(res.data.result)))
+            return apiCaller.call().then(res => res && res.data && action.successAC && next(action.successAC(res.data.result)))
+        } catch (e) {
+            
+        }
     }
 
     return next(action)

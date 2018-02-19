@@ -4,7 +4,7 @@ import {Select} from "./Select"
 import {mapToArr} from 'pbr-lib-front-utils/dateManipulation'
 import {RegionsRecord, CitiesRecord} from "../../../Reducers/entities"
 import {Button} from "./index"
-import {LOCATIONID} from "../../../CONSTANTS"
+import {LOCATION_ID} from "../../../CONSTANTS"
 import cookies from "js-cookie"
 
 
@@ -28,7 +28,7 @@ export class Location extends Component {
 
     _onClick = () => {
         const { city ,region } = this.state
-        cookies.set(LOCATIONID, city !== '0' && city || region, {expires: 9999})
+        cookies.set(LOCATION_ID, city !== '0' && city || region, {expires: 9999})
     }
 
     _onChange = ({target: {name, value}}) => {

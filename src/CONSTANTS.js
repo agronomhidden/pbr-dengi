@@ -19,7 +19,7 @@ export const SEND_MAIL = 'SEND_MAIL'
 
 
 export const SERVER_POST_URL = '/api/post_request'
-export const CLIENT_POST_URL = '/api'
+
 /** Роутер */
 export const CHANGE_LOCATION = '@@router/LOCATION_CHANGE'
 /** Поиск */

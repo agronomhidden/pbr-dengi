@@ -3,26 +3,26 @@ import React from 'react';
 import {ConnectedRouter} from 'connected-react-router'
 import {renderRoutes} from 'react-router-config';
 import {Provider} from 'react-redux';
-import {store, history} from './clientStore';
+import {fromJSON} from 'transit-immutable-js';
+import {getStore, history} from './clientStore';
 import routes from './routes';
-import MoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
-
 import ErrorHandler from "../../Utils/ErrorHandler"
-import {CLIENT_POST_URL, LOCATION_ID, TOKEN} from "../../CONSTANTS"
+import {SERVER_POST_URL} from "../../CONSTANTS"
 import cookies from "js-cookie"
 import {logoutCurrentUser} from "../../Reducers/AC/authAC"
+import apiCallerMiddleware from '../../Middlewares/apiCallerMiddleware'
+import ClientApiParamsContainer from "../../Services/Api/ClientApiParamsContainer";
 
 
 export default () => {
+    const url = location.protocol + '//' + location.host + SERVER_POST_URL;
+    const ParamsContainer = new ClientApiParamsContainer(url, cookies);
+    const store = getStore(fromJSON(window.__INITIAL_STATE__), apiCallerMiddleware(ParamsContainer));
 
-    MoneyRequest
-        .setBaseUrl(location.protocol + '//' + location.host)
-        .setUrl(CLIENT_POST_URL)
-        .setToken(TOKEN, cookies.get(TOKEN))
-        .setLocation(cookies.get(LOCATION_ID))
-    ErrorHandler
-        .setDispatcher(store.dispatch)
-        .setLogoutHandler(logoutCurrentUser)
+    /** @todo  разобраться */
+    // ErrorHandler
+    //     .setDispatcher(store.dispatch)
+    //     .setLogoutHandler(logoutCurrentUser)
 
     return (
         <Provider store={store}>
