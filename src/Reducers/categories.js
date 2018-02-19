@@ -1,7 +1,7 @@
 import {
     START, SUCCESS, RESET,
     SET_CATEGORIES,
-    SET_AUTO_COMPLETE, ERROR
+    SET_AUTO_COMPLETE, ERROR, FAIL
 } from "../CONSTANTS"
 
 import {Record, OrderedMap} from 'immutable'
@@ -58,7 +58,7 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('autoCompleteDetected', [])
                 .set('searchValue', action.searchQuery)
-        case ERROR:
+        case SET_CATEGORIES + FAIL:
             return state
                 .set('loading', false)
         default:

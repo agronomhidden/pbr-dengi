@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import {getLocation} from '../src/Reducers/Requests/locationRequest'
+//import {getLocation} from '../src/Reducers/Requests/locationRequest' /** @todo отрефакторить */
 import * as types from '../src/CONSTANTS'
 import moxios from 'moxios';
 import expect from 'expect'
