@@ -17,7 +17,7 @@ export class AxiosRequest extends RequestBuilder {
     }
 
     postRequest() {
-        console.log(this.Args);
+
         return this.prepareAxios().Axios.post(this.url, this.Args)
             .then(res => {
                 this.cleanParams()

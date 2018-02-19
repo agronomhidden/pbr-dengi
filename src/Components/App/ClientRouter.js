@@ -8,7 +8,7 @@ import routes from './routes';
 import MoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
 
 import ErrorHandler from "../../Utils/ErrorHandler"
-import {CLIENT_POST_URL, LOCATIONID, TOKEN} from "../../CONSTANTS"
+import {CLIENT_POST_URL, LOCATION_ID, TOKEN} from "../../CONSTANTS"
 import cookies from "js-cookie"
 import {logoutCurrentUser} from "../../Reducers/AC/authAC"
 
@@ -19,7 +19,7 @@ export default () => {
         .setBaseUrl(location.protocol + '//' + location.host)
         .setUrl(CLIENT_POST_URL)
         .setToken(TOKEN, cookies.get(TOKEN))
-        .setLocation(cookies.get(LOCATIONID))
+        .setLocation(cookies.get(LOCATION_ID))
     ErrorHandler
         .setDispatcher(store.dispatch)
         .setLogoutHandler(logoutCurrentUser)

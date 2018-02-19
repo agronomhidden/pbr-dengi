@@ -9,10 +9,11 @@ export const OVER = '_OVER'
 export const ERROR = 'ERROR'
 
 export const TOKEN = 'access_token'
-export const LOCATIONID = 'location_id'
+export const LOCATION_ID = 'location_id'
 export const REAL_IP = 'X-Real-IP'
 export const MOBILE = 'mobile'
 export const BROWSER = 'browser'
+export const API_REQUEST_ACTION = 'API_REQUEST_ACTION'
 
 export const SEND_MAIL = 'SEND_MAIL'
 

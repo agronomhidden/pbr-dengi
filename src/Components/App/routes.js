@@ -1,7 +1,8 @@
 import Error from '../Pages/Error/Error';
 import {Categories, CurrentCategories} from "../Pages/Categories"
 import {Payments} from "../Pages/Payments"
-import {categoriesSearch, getCategories} from "../../Reducers/Requests/categoriesRequest"
+import {categoriesSearch} from "../../Reducers/Requests/categoriesRequest"
+import {getCategories} from "../../Reducers/AC/categoriesAC"
 import Receipt from "../Pages/Reciept/Receipt"
 import {getHistoryItem} from "../../Reducers/Requests/payHistoryRequest"
 

@@ -24,21 +24,20 @@ export default (state = new ReducerState(), action = {}) => {
         case SET_CATEGORIES + START:
             return state
                 .set('loading', true)
-                .set('searchValue', action.searchQuery)
+                .set('searchValue', action.payload)
                 .set('autoCompleteDetected', [])
                 .set('autoCompleteWorks', false)
                 .set('count_categories', null)
                 .set('count_services', null)
         case SET_CATEGORIES + SUCCESS:
             const {data, count_categories, count_services} = action.payload
+
             return state
                 .set('loading', false)
                 .set('categories', arrToMap(data))
                 .set('count_categories', count_categories)
                 .set('count_services', count_services)
 
-            console.log(state);
-            //return state
         case SET_AUTO_COMPLETE + START:
             return state
                 .set('autoCompleteLoading', true)

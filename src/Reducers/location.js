@@ -19,7 +19,7 @@ export default (state = new ReducerState(), action = {}) => {
         case SET_LOCATION + START:
             return state
                 .set('loading', true)
-                .set('locationId', action.locationId)
+                .set('locationId', action.payload)
         case SET_LOCATION + SUCCESS:
             return state
                 .set('loading', false)
