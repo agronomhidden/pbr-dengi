@@ -1,5 +1,5 @@
 import {
-    START, SUCCESS, SET_LOCATION, ERROR
+    START, SUCCESS, SET_LOCATION, ERROR, CHANGE_LOCATION
 } from "../CONSTANTS"
 
 import {Record, OrderedMap} from 'immutable'
@@ -25,6 +25,9 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('loading', false)
                 .set('cities', arrToMap(action.payload.cities))
                 .set('regions', arrToMap(action.payload.regions))
+        case CHANGE_LOCATION:
+            return state.set('loading', false)
+
         case ERROR:
             return state
                 .set('loading', false)

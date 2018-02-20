@@ -11,6 +11,7 @@ const ReducerState = Record({
     count_categories: null,
     count_services: null,
     categories: new OrderedMap({}),
+    targetCategoryPath: new OrderedMap({}),
     searchValue: '',
     loading: false,
     autoCompleteDetected: [],
@@ -30,10 +31,11 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('count_categories', null)
                 .set('count_services', null)
         case SET_CATEGORIES + SUCCESS:
-            const {data, count_categories, count_services} = action.payload
+            const {data, count_categories, count_services, target_category_path} = action.payload
 
             return state
                 .set('loading', false)
+                .set('targetCategoryPath', arrToMap(target_category_path))
                 .set('categories', arrToMap(data))
                 .set('count_categories', count_categories)
                 .set('count_services', count_services)

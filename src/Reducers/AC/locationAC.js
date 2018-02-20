@@ -1,4 +1,4 @@
-import {API_REQUEST_ACTION, SET_LOCATION, START, SUCCESS} from "../../CONSTANTS"
+import {API_REQUEST_ACTION, SET_LOCATION, CHANGE_LOCATION, START, SUCCESS} from "../../CONSTANTS"
 import BaseApiCaller from "../../Services/Api/BaseApiCaller"
 
 export function loadLocation (locationId) {
@@ -23,5 +23,10 @@ export function getLocations() {
     }
 }
 
-
+export function changeLocation(location_id) {
+    return {
+        type: CHANGE_LOCATION,
+        payload: location_id,
+    }
+}
 

@@ -21,7 +21,7 @@ export const SEND_MAIL = 'SEND_MAIL'
 export const SERVER_POST_URL = '/api/post_request'
 
 /** Роутер */
-export const CHANGE_LOCATION = '@@router/LOCATION_CHANGE'
+export const CHANGE_ROUTE = '@@router/LOCATION_CHANGE'
 /** Поиск */
 export const SEARCH_EVENT = 'SEARCH_EVENT'
 /** Вход пользователя*/
@@ -32,7 +32,8 @@ export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'
 /** Диалог c ЕРИП */
 export const DIALOG = 'DIALOG'
-/** Выбор Локации */
+/** Локации */
 export const SET_LOCATION = 'SET_LOCATION'
+export const CHANGE_LOCATION = 'CHANGE_LOCATION'
 /** История платежей */
 export const SET_HISTORY_ITEMS = 'SET_HISTORY_ITEMS'
