@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import propTypes from 'prop-types';
-import {UserInfo, NavMenu} from './';
+import {UserInfo, NavMenu} from './index';
 
 
 export default class UserUnit extends Component {

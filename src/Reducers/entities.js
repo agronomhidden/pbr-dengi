@@ -3,6 +3,7 @@ import {Record} from 'immutable'
 export const UserRecord = Record({
     first_name: null,
     last_name: null,
+    patronymic: null,
     phone: null,
 });
 

@@ -1,10 +1,15 @@
 import Error from '../Pages/Error/Error';
 import {Categories, CurrentCategories} from "../Pages/Categories"
 import {Payments} from "../Pages/Payments"
-import {categoriesSearch, getCategories} from "../../Reducers/Requests/categoriesRequest"
-import Receipt from "../Pages/Reciept/Receipt"
-import {getHistoryItem} from "../../Reducers/Requests/payHistoryRequest"
 import Tools from "../Pages/Tools/Tools"
+import Receipt from "../Pages/Reciept/Receipt"
+import {categoriesSearch, getCategories} from "../../Reducers/Requests/categoriesRequest"
+import {getHistoryItem} from "../../Reducers/Requests/payHistoryRequest"
+import {getUserAgreement} from "../../Reducers/Requests/setingsRequest"
+import ServiceDescription from "../Pages/Help/ServiceDescription"
+import {getDescription} from "../../Reducers/Requests/helpRequest"
+import UserAgreement from "../Pages/Help/UserAgreement"
+
 
 export default [
     {
@@ -49,11 +54,26 @@ export default [
         title: 'Платежи'
     },
     {
+        path: '/help/about',
+        exact: true,
+        component: ServiceDescription,
+        title: 'Описание сервиса',
+        fetchData: getDescription
+    },
+    {
+        path: '/help/user-agreement',
+        exact: true,
+        component: UserAgreement,
+        title: 'Пользовательское соглашение',
+        fetchData: getUserAgreement
+    },
+    {
         path: '/settings',
         exact: true,
         needAuth: true,
         component: Tools,
-        title: 'Настройки пользователя'
+        title: 'Настройки пользователя',
+        fetchData: getUserAgreement
     },
 
     {

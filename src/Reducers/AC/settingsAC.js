@@ -1,5 +1,5 @@
 import {
-    CHANGE_PASSWORD, SET_PROFILE, SET_RULES, TOTAL_LOGOUT, DELETE_SUBSCRIPTION, START, SUCCESS, FAIL
+    CHANGE_PASSWORD, SET_PROFILE,TOTAL_LOGOUT, DELETE_SUBSCRIPTION, START, SUCCESS, FAIL, USER_AGREEMENT
 } from "../../CONSTANTS"
 
 export const changePasswordStart = () => ({
@@ -23,13 +23,12 @@ export const setProfileSuccess = () => ({
     type: SET_PROFILE + SUCCESS,
 })
 
-export const setProfileFail = response => ({
-    type: SET_PROFILE + FAIL,
-    payload: {fields: response.result, msg: response.message}
+export const getAgreementStart = () => ({
+    type: USER_AGREEMENT + SUCCESS,
 })
 
-export const setRules = response => ({
-    type: SET_RULES + SUCCESS,
+export const getAgreementSuccess = response => ({
+    type: USER_AGREEMENT + SUCCESS,
     payload: response
 })
 
@@ -37,8 +36,12 @@ export const totalLogoutStart = () => ({
     type: TOTAL_LOGOUT + START
 })
 
-export const totalLogoutSuccess = response => ({
+export const totalLogoutSuccess = () => ({
     type: TOTAL_LOGOUT + SUCCESS,
+})
+
+export const totalLogoutFail = () => ({
+    type: TOTAL_LOGOUT + FAIL,
 })
 
 export const delSubscriptionStart = () => ({
@@ -47,4 +50,8 @@ export const delSubscriptionStart = () => ({
 
 export const delSubscriptionSuccess = response => ({
     type: DELETE_SUBSCRIPTION + SUCCESS,
+})
+
+export const delSubscriptionFail = () => ({
+    type: DELETE_SUBSCRIPTION + FAIL,
 })

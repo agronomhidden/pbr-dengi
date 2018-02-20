@@ -22,7 +22,7 @@ export default (Component) => class PageDataLoader extends PageComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.loading && this.props.history.location.state) {
+        if (!nextProps.loading && (this.props.history && this.props.history.location.state)) {
             this.props.history.location.state = ''
             this._getEntities(nextProps)
         }

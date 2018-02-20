@@ -1,22 +1,45 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import PropTypes from "prop-types"
 
-export const ToolWrapper = ({block, onClick, successMsg, showBox, children, label}) =>
-    <div className="settings-item">
-        <label className="settings-item_name -dotted" data-block={block} onClick={onClick}>
-            {label}
+export default class ToolWrapper extends Component {
+
+    static propTypes = {
+        onClick: PropTypes.func.isRequired,
+        children: PropTypes.object.isRequired,
+        successMsg: PropTypes.string,
+        showBox: PropTypes.bool,
+    }
+
+    state = {
+        successMsg: ''
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({successMsg: nextProps.successMsg})
+        setTimeout(() => {
+            this.setState({successMsg: null})
+        }, 5000)
+    }
+
+    render = () => <div className="settings-item">
+        <label className="settings-item_name -dotted" onClick={this.props.onClick}>
+            {this.props.label}
         </label>
-        {successMsg && <span className='settings-item_successMsgs'>
-                    {successMsg}
+        {this.state.successMsg &&
+        <span className='settings-item_successMsgs'>
+                    {this.state.successMsg}
                     </span>}
         <ReactCSSTransitionGroup transitionName="settings-item_transition"
                                  transitionEnterTimeout={500}
                                  transitionLeaveTimeout={500}>
-            {showBox && <div className="settings-item_content">
-                {children}
+            {this.props.showBox && <div className="settings-item_content">
+                {this.props.children}
             </div>}
         </ReactCSSTransitionGroup>
     </div>
+}
+
 
 
 

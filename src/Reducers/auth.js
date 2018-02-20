@@ -4,7 +4,6 @@ import {
     LOGOUT_CURRENT_USER
 } from "../CONSTANTS"
 
-import {UserRecord} from './entities'
 import {Record} from 'immutable'
 
 
@@ -22,7 +21,7 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('errors', null)
         case SET_CURRENT_USER + SUCCESS:
             return state
-                .set('user', new UserRecord(action.payload))
+                .set('user', action.payload)
                 .set('loading', false)
         case SET_CURRENT_USER + FAIL:
             return state
