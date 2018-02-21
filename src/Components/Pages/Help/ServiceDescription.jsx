@@ -26,10 +26,10 @@ export class ServiceDescription extends PageComponent {
 }
 
 export default connect(
-    (s => (
-        {
-            description: s.help.get('description'),
-            loading: s.help.get('loading'),
-        }
-    )), {getDescription}
+    (s =>
+            ({
+                description: s.help.get('description'),
+                loading: s.help.get('loading'),
+            })
+    ), {getDescription}
 )(PageLayout(ServiceDescription))

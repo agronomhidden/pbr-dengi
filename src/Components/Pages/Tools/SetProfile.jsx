@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux"
 
 import FormGroup from "../Partials/FormGroup"
-import {Button} from "../Partials"
+
 import {setProfile} from "../../../Reducers/Requests/setingsRequest"
 import PropTypes from 'prop-types';
 import {updateStateFromAssoc} from "pbr-lib-front-utils/reactStateHelper"
@@ -56,7 +56,7 @@ export class SetProfile extends Component {
                            value={this.state.last_name} onChange={this._onChange} disabled={this.props.loading}/>
                 <FormGroup label='Отчество' name='patronymic' errors={this.state.errors}
                            value={this.state.patronymic} onChange={this._onChange} disabled={this.props.loading}/>
-                <Button disabled={this.props.loading}>Сохранить</Button>
+                <button disabled={this.props.loading}>Сохранить</button>
             </form>
         </div>
 }

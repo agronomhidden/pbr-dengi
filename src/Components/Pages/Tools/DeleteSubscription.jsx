@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
 
-import PropTypes from 'prop-types';
-import {Button} from "../Partials"
+import PropTypes from 'prop-types'
+
 import {delSubscription} from "../../../Reducers/Requests/setingsRequest"
 
 export class DeleteSubscription extends Component {
@@ -28,8 +28,8 @@ export class DeleteSubscription extends Component {
             <h3><strong>Внимание!</strong></h3>
             <p>Вы действительно хотите удалить услугу «МТС&nbsp;Деньги»?</p>
             <div>
-                <Button className="stop-subscription_button mts-button"
-                        onClick={this._onClick}><span>Удалить услугу</span></Button>
+                <button className="stop-subscription_button mts-button"
+                        onClick={this._onClick}><span>Удалить услугу</span></button>
                 {this.props.fail &&
                 <div className="setting-error --stop--error" style={{color: 'red'}}>
                     Произошла ошибка. Повторите попытку позже.

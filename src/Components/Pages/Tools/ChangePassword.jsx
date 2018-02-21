@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux"
 
 import FormGroup from "../Partials/FormGroup"
-import {Button} from "../Partials"
+
 import {changePassword} from "../../../Reducers/Requests/setingsRequest"
 import PropTypes from 'prop-types';
 
@@ -47,7 +47,7 @@ export class ChangePassword extends Component {
                            hint={'Минимальная длина 8 символов. Должен содержать цифры, заглавные и строчные символы'}/>
                 <FormGroup label='Подтвердите пароль' type='password' name='passwordRepeat' errors={this.state.errors}
                            value={this.state.password_repeat} onChange={this._onChange} disabled={this.props.loading}/>
-                <Button disabled={this.props.loading}>Сохранить</Button>
+                <button disabled={this.props.loading}>Сохранить</button>
             </form>
         </div>
 }

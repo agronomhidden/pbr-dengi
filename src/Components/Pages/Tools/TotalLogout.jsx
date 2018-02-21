@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
 
-import PropTypes from 'prop-types';
-import {Button} from "../Partials"
+import PropTypes from 'prop-types'
+
 import {totalLogout} from "../../../Reducers/Requests/setingsRequest"
 import {Redirect} from "react-router"
 
@@ -30,9 +30,9 @@ export class TotalLogout extends Component {
                 заново.</p>
             <p>Используйте эту возможность только при крайней необходимости.</p>
             <div className="logout-anywhere">
-                <Button className="logout-anywhere_button mts-button" onClick={this._onClick}
+                <button className="logout-anywhere_button mts-button" onClick={this._onClick}
                         disabled={this.props.loading}>
-                    <span>Выйти на всех устройствах</span></Button>
+                    <span>Выйти на всех устройствах</span></button>
                 <div className="setting-error --logout-anywhere-error"
                      style={{display: this.props.fail ? 'block' : 'none', color: 'red'}}>
                     Произошла ошибка. Повторите попытку позже.

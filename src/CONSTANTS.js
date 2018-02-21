@@ -35,6 +35,7 @@ export const DIALOG = 'DIALOG'
 export const SET_LOCATION = 'SET_LOCATION'
 /** История платежей */
 export const SET_HISTORY_ITEMS = 'SET_HISTORY_ITEMS'
+export const GET_PAYMENTS_HISTORY = 'GET_PAYMENTS_HISTORY'
 /** Настройки */
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
 export const SET_PROFILE = 'SET_PROFILE'
