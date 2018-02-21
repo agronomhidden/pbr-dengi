@@ -8,44 +8,27 @@ import {getStore} from './serverStore'
 import LayoutFactory from '../../Services/Factories/LayoutFactory'
 import routes from './routes'
 import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
-import {TOKEN, MOBILE, BROWSER, LOCATIONID, REAL_IP,SERVER_POST_URL} from '../../CONSTANTS'
+import {MOBILE, BROWSER} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/Requests/authRequest'
-import {getLocation} from '../../Reducers/Requests/locationRequest'
-import requestIp from 'request-ip';
+import {getLocations} from '../../Reducers/AC/locationAC'
 import MobileDetect from 'mobile-detect'
-import ErrorHandler from "../../Utils/ErrorHandler"
-import MoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
-import {logoutCurrentUser} from "../../Reducers/AC/authAC"
+import apiCallerMiddleware from "../../Middlewares/apiCallerMiddleware"
+import ServerApiParamsContainer from '../../Services/Api/ServerApiParamsContainer'
 
 const router = express.Router();
 
 router.get('*', (req, res) => {
-    const {url, cookies, headers} = req;
-    const store = getStore();
+    const {url, headers} = req;
+
+    const ParamsContainer = new ServerApiParamsContainer(process.env.API_URL, req);
+    const store = getStore(apiCallerMiddleware(ParamsContainer));
     const Layout = LayoutFactory.getLayout();
 
     Layout.setStore(store);
 
-        const ip = requestIp.getClientIp(req),
+    const version = new MobileDetect(headers['user-agent']).mobile() ? MOBILE : BROWSER,
 
-        token = cookies[TOKEN],
-
-        version = new MobileDetect(headers['user-agent']).mobile() ? MOBILE : BROWSER,
-
-        branch = matchRoutes(routes, url),
-
-        locationId = cookies[LOCATIONID]
-
-    MoneyRequest
-        .setHeader({[REAL_IP]: ip})
-        .setBaseUrl(process.env.API_URL)
-        .setUrl(SERVER_POST_URL)
-        .setToken(TOKEN, token)
-
-    ErrorHandler
-        .setDispatcher(store.dispatch)
-        .setLogoutHandler(logoutCurrentUser)
-
+    branch = matchRoutes(routes, url);
 
     store.dispatch(getUserByToken()).then(() => {
 
@@ -57,7 +40,7 @@ router.get('*', (req, res) => {
                 res.redirect('/')
                 return true;
             }
-            promises.push(store.dispatch(getLocation(locationId)))
+            promises.push(store.dispatch(getLocations()))
 
             if (fetchData instanceof Function) {
                 promises.push(store.dispatch(fetchData(prepareParamsToRout(params))))
@@ -90,6 +73,7 @@ router.get('*', (req, res) => {
 
             res.end(Layout.render(content));
         }).catch(err => {
+            console.log('error on PromiseAll')
             console.log('ServerRouter.err =>',err);
             if (err && err.response && err.response.status === 404) {
                 res.redirect('/not-found');

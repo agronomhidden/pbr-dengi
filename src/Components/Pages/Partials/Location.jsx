@@ -3,10 +3,8 @@ import {connect} from 'react-redux';
 import {Select} from "./Select"
 import {mapToArr} from 'pbr-lib-front-utils/dateManipulation'
 import {RegionsRecord, CitiesRecord} from "../../../Reducers/entities"
+import {changeLocation} from "../../../Reducers/AC/locationAC"
 import {Button} from "./index"
-import {LOCATIONID} from "../../../CONSTANTS"
-import cookies from "js-cookie"
-
 
 export class Location extends Component {
 
@@ -28,7 +26,8 @@ export class Location extends Component {
 
     _onClick = () => {
         const { city ,region } = this.state
-        cookies.set(LOCATIONID, city !== '0' && city || region, {expires: 9999})
+
+        this.props.changeLocation(city !== '0' && city || region);
     }
 
     _onChange = ({target: {name, value}}) => {
@@ -57,7 +56,7 @@ export class Location extends Component {
                 <option value={0}>Выберите город / регион</option>
                 {this._getCitiesOptions()}
             </Select>
-            <Button title={'Выбрать'} onClick={this._onClick}>Выбрать локацию</Button>
+            <button title='Выбрать' onClick={this._onClick} disabled={this.props.loading}>Выбрать локацию</button>
         </div>);
     }
 }
@@ -67,6 +66,7 @@ export default connect(
         cities: mapToArr(s.location.get('cities'), CitiesRecord),
         regions: mapToArr(s.location.get('regions'), RegionsRecord),
         locationId: s.location.get('locationId'),
-        loading: s.location.loading,
-    }))
+        loading: s.location.get('loading'),
+    })),
+    {changeLocation}
 )(Location)

@@ -1,7 +1,7 @@
 import {
     START, SUCCESS, RESET,
     SET_CATEGORIES,
-    SET_AUTO_COMPLETE, ERROR
+    SET_AUTO_COMPLETE, ERROR, FAIL
 } from "../CONSTANTS"
 
 import {Record, OrderedMap} from 'immutable'
@@ -11,6 +11,7 @@ const ReducerState = Record({
     count_categories: null,
     count_services: null,
     categories: new OrderedMap({}),
+    targetCategoryPath: new OrderedMap({}),
     searchValue: '',
     loading: false,
     autoCompleteDetected: [],
@@ -24,21 +25,21 @@ export default (state = new ReducerState(), action = {}) => {
         case SET_CATEGORIES + START:
             return state
                 .set('loading', true)
-                .set('searchValue', action.searchQuery)
+                .set('searchValue', action.payload)
                 .set('autoCompleteDetected', [])
                 .set('autoCompleteWorks', false)
                 .set('count_categories', null)
                 .set('count_services', null)
         case SET_CATEGORIES + SUCCESS:
-            const {data, count_categories, count_services} = action.payload
+            const {data, count_categories, count_services, target_category_path} = action.payload
+
             return state
                 .set('loading', false)
+                .set('targetCategoryPath', arrToMap(target_category_path))
                 .set('categories', arrToMap(data))
                 .set('count_categories', count_categories)
                 .set('count_services', count_services)
 
-            console.log(state);
-            //return state
         case SET_AUTO_COMPLETE + START:
             return state
                 .set('autoCompleteLoading', true)
@@ -59,7 +60,7 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('autoCompleteDetected', [])
                 .set('searchValue', action.searchQuery)
-        case ERROR:
+        case SET_CATEGORIES + FAIL:
             return state
                 .set('loading', false)
         default:

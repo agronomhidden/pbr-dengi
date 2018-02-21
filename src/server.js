@@ -8,6 +8,8 @@ import LayoutFactory from './Services/Factories/LayoutFactory'
 import Router from './Components/App/ServerRouter'
 import Config from 'pbr-lib-front-utils/dist/config'
 import proxy from 'express-http-proxy'
+import {SERVER_POST_URL} from './CONSTANTS'
+import nocache from './express/nocache'
 
 const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
@@ -30,10 +32,11 @@ app.use(express.static('public', {
     maxage: '1Y',
 }));
 
-app.use('/api', proxy(process.env.API_URL, {
-    proxyReqPathResolver: () =>  '/api/post_request'
+app.use(SERVER_POST_URL, proxy(process.env.API_URL, {
+    proxyReqPathResolver: () =>  SERVER_POST_URL
 }));
 
+app.use('*', nocache);
 app.use('/', Router);
 
 app.listen(PORT, () => {

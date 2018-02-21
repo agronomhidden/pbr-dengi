@@ -5,7 +5,6 @@ import SimpleDatePicker from './SimpleDatePicker'
 import Input from './Input'
 import Checkbox from './Checkbox'
 import {Select} from './Select'
-import {Button} from './Button'
 import Location from './Location'
 
 
@@ -18,5 +17,4 @@ export {
     Input,
     Checkbox,
     Location,
-    Button
 };
