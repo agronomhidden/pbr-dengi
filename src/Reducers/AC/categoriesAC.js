@@ -1,6 +1,6 @@
 import {SET_CATEGORIES, SET_AUTO_COMPLETE, SUCCESS, START, FAIL, RESET, API_REQUEST_ACTION} from "../../CONSTANTS"
 import {search} from './commonAC'
-import BaseApiCaller from "../../Services/Api/BaseApiCaller";
+import * as creator from "../../Services/Messages/messageCreators";
 
 export const loadCategories = (searchQuery = '') => ({
     type: SET_CATEGORIES + START,
@@ -40,7 +40,7 @@ export const resetAutoComplete = searchQuery => ({
 export function getCategories(params) {
     return {
         type: API_REQUEST_ACTION,
-        method: BaseApiCaller.GET_CATEGORIES_METHOD,
+        method: creator.MessageGetCategories.GET_CATEGORIES_METHOD,
         payload: params,
         beforeAC: (paramsContainer) => loadCategories(params.searchQuery || ''),
         successAC: categoriesLoaded,
@@ -51,7 +51,7 @@ export function getCategories(params) {
 export function categoriesSearch(params) {
     return {
         type: API_REQUEST_ACTION,
-        method: BaseApiCaller.SEARCH_METHOD,
+        method: creator.MessageSearchCategories.SEARCH_METHOD,
         payload: params,
         beforeAC: (paramsContainer) => loadCategories(params.searchQuery || ''),
         successAC: categoriesLoaded,
@@ -62,7 +62,7 @@ export function categoriesSearch(params) {
 export function autoCompleteSearch(value, category_id) {
     return {
         type: API_REQUEST_ACTION,
-        method: BaseApiCaller.SEARCH_AUTOCOMPLETE_METHOD,
+        method: creator.MessageSearchAutoCompleteCategories.SEARCH_AUTOCOMPLETE_METHOD,
         payload: {value, category_id},
         beforeAC: (paramsContainer) => loadAutoComplete(),
         successAC: autoCompleteLoaded,

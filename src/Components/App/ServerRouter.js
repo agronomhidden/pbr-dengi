@@ -71,10 +71,9 @@ router.get('*', (req, res) => {
                 </Provider>
             );
 
-            res.end(Layout.render(content));
+            res.end(Layout.render(content))
         }).catch(err => {
-            console.log('error on PromiseAll')
-            console.log('ServerRouter.err =>',err);
+            console.log('ServerRouter.err =>',err)
             if (err && err.response && err.response.status === 404) {
                 res.redirect('/not-found');
             }

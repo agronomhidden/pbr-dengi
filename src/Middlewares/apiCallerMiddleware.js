@@ -3,13 +3,13 @@ import ApiCaller from '../Services/Api/ApiCaller';
 
 function getActionOnError(xhr, action) {
     if (xhr.response) {
-        if (xhr.response.status == 403 && action.forbiddenErrorAC) {
+        if (xhr.response.status === 403 && action.forbiddenErrorAC) {
             return action.forbiddenErrorAC(xhr.response.data)
         }
-        if (xhr.response.status == 499 && action.fieldErrorAC) {
+        if (xhr.response.status === 499 && action.fieldErrorAC) {
             return action.fieldErrorAC(xhr.response.data)
         }
-        if (xhr.response.status == 500 && action.serverErrorAC) {
+        if (xhr.response.status === 500 && action.serverErrorAC) {
             return action.serverErrorAC(xhr.response.data)
         }
     }
