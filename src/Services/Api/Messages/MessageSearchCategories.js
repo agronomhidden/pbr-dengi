@@ -1,4 +1,4 @@
-import Validator from "../Api/ParamsValidator"
+import Validator from "../ParamsValidator"
 import AbstractMessage from "./AbstractMessage"
 
 export default class MessageSearchCategories extends AbstractMessage {

@@ -2,6 +2,7 @@ import AbstractApiParamsContainer from './AbstractApiParamsContainer'
 import {LOCATION_ID, TOKEN} from "../../CONSTANTS";
 
 export default class ClientApiParamsContainer extends AbstractApiParamsContainer {
+
     cookieManager = null;
 
     constructor(url, cookie) {
@@ -20,4 +21,5 @@ export default class ClientApiParamsContainer extends AbstractApiParamsContainer
     getToken() {
         return this.cookieManager.get(TOKEN)
     }
+
 }

@@ -11,6 +11,7 @@ export default class AbstractMessage {
     getMethod(){}
 
     getMessage() {
+        console.log(this.args);
         return {
             method: this.getMethod(),
             args: this.args

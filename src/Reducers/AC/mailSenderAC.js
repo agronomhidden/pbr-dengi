@@ -1,4 +1,6 @@
-import {FAIL, SEND_MAIL, START, SUCCESS} from "../../CONSTANTS"
+import {API_REQUEST_ACTION, FAIL, SEND_MAIL, START, SUCCESS} from "../../CONSTANTS"
+import * as creator from "../../Services/Api/Messages/messagesClassStorage"
+import {logoutCurrentUser} from "./authAC"
 
 export const mailSent = sectionID => ({
     type: SEND_MAIL + START,
@@ -14,3 +16,15 @@ export const mailSentFail = (response) => ({
     type: SEND_MAIL + FAIL,
     payload: {fields: response.result, msg: response.message}
 })
+
+
+export const mailSender = (sectionID = 0) => ({
+    type: API_REQUEST_ACTION,
+    method: creator.MessageMailSender.SEND_MAIL,
+    beforeAC: (paramsContainer) => mailSent(sectionID),
+    successAC: mailSended,
+    fieldErrorAC: mailSentFail,
+    forbiddenErrorAC: logoutCurrentUser
+})
+
+

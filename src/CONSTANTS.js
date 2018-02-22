@@ -26,6 +26,7 @@ export const CHANGE_ROUTE = '@@router/LOCATION_CHANGE'
 export const SEARCH_EVENT = 'SEARCH_EVENT'
 /** Вход пользователя*/
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER'
 /** Категории */
 export const SET_CATEGORIES = 'SET_CATEGORIES'

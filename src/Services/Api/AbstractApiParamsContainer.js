@@ -42,10 +42,6 @@ export default class AbstractApiParamsContainer {
         return this.locationId;
     }
 
-    getToken() {
-        return this.token;
-    }
-
     getIP() {
         return this.ips.join(' ');
     }

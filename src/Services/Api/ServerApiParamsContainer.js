@@ -25,6 +25,10 @@ export default class ServerApiParamsContainer extends AbstractApiParamsContainer
         return this.locationId;
     }
 
+    getToken() {
+        return this.token;
+    }
+
 
     /** @todo вынести в либу */
     static getIpFromRequest(request) {

@@ -16,7 +16,7 @@ import {
 import {logoutCurrentUser} from "..//AC/authAC"
 import MtsMoneyRequest from "../../Utils/RequestApi/MtsMoneyRequest"
 import ErrorHandler from "../../Utils/ErrorHandler"
-import {getUserByToken} from "./authRequest"
+
 
 export const changePassword = data => dispatch => {
 
@@ -42,7 +42,7 @@ export const setProfile = data => dispatch => {
         .setMethod('user/set-profile')
         .setParams(data)
         .postRequest()
-        .then(res => res && res.data && dispatch(setProfileSuccess()) && dispatch(getUserByToken()))
+        .then(res => res && res.data && dispatch(setProfileSuccess()) && dispatch())
 }
 
 export const getUserAgreement = () => dispatch => {

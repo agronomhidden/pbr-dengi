@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
+import PropTypes from 'prop-types'
 
-import PropTypes from 'prop-types';
-import {getDescription} from "../../../Reducers/Requests/helpRequest"
 import PageLayout from "../../Decorators/PageLayout"
 import PageComponent from "../../App/PageComponent"
+import {getDescription} from "../../../Reducers/AC/helpAC"
 
 
 export class ServiceDescription extends PageComponent {
@@ -14,22 +14,18 @@ export class ServiceDescription extends PageComponent {
         loading: PropTypes.bool.isRequired,
     }
 
-    componentDidMount() {
-        !this.props.description && this.props.getDescription()
-    }
-
-    render = () => this.isBrowser() && this.props.description &&
+    render = () => this.isBrowser() && this.props.data &&
         <article>
-            <h3>{this.props.description.title}</h3>
-            <p dangerouslySetInnerHTML={{__html: this.props.description.text}}/>
+            <h3>{this.props.data.title}</h3>
+            <p dangerouslySetInnerHTML={{__html: this.props.data.text}}/>
         </article> || <div/>
 }
 
 export default connect(
     (s =>
             ({
-                description: s.help.get('description'),
+                data: s.help.get('description'),
                 loading: s.help.get('loading'),
             })
-    ), {getDescription}
+    ), {dataLoader: getDescription}
 )(PageLayout(ServiceDescription))

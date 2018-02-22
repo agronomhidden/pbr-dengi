@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {FormGroup} from '../Partials'
 import {Roller} from '../../Loading'
 import {setFieldError} from 'pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper'
-import {userLogin} from "../../../Reducers/Requests/authRequest"
+import {userLogin} from "../../../Reducers/AC/authAC"
 import {getFavicon as favicon} from '../../../resourcePaths';
 
 class Login extends Component {

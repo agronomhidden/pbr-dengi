@@ -9,7 +9,7 @@ import LayoutFactory from '../../Services/Factories/LayoutFactory'
 import routes from './routes'
 import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
 import {MOBILE, BROWSER} from '../../CONSTANTS'
-import {getUserByToken} from '../../Reducers/Requests/authRequest'
+import {getUserByToken} from '../../Reducers/AC/authAC'
 import {getLocations} from '../../Reducers/AC/locationAC'
 import MobileDetect from 'mobile-detect'
 import apiCallerMiddleware from "../../Middlewares/apiCallerMiddleware"

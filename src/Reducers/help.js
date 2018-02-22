@@ -18,6 +18,7 @@ export default (state = new payState(), action = {}) => {
                 .set('loading', true)
                 .set('fail', false)
         case SERVICE_DESCRIPTION + SUCCESS:
+            console.log(action.payload);
             return state
                 .set('loading', false)
                 .set('description', action.payload)

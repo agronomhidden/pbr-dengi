@@ -1,4 +1,4 @@
-import Validator from "../Api/ParamsValidator"
+import Validator from "../ParamsValidator"
 import AbstractMessage from "./AbstractMessage"
 
 export default class MessageGetCategories extends AbstractMessage {
@@ -19,7 +19,6 @@ export default class MessageGetCategories extends AbstractMessage {
         if (!Validator.isNull(parent_id) && !Validator.isInt(parent_id)) {
             throw new TypeError('Parent_id must be integer or NULL')
         }
-        console.dir({...arguments})
         this.args = {parent_id, location_id}
     }
 

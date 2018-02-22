@@ -32,4 +32,10 @@ export default class PageComponent extends Component {
             document.title = this.title;
         }
     }
+
+    componentDidMount() {
+        if (this.isBrowser() && this.props.dataLoader && !this.props.data) {
+            this.props.dataLoader()
+        }
+    }
 }

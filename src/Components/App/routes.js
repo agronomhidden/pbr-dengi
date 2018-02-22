@@ -7,8 +7,8 @@ import Receipt from "../Pages/Reciept/Receipt"
 import {getHistoryItem} from "../../Reducers/Requests/payHistoryRequest"
 import {getUserAgreement} from "../../Reducers/Requests/setingsRequest"
 import ServiceDescription from "../Pages/Help/ServiceDescription"
-import {getDescription} from "../../Reducers/Requests/helpRequest"
 import UserAgreement from "../Pages/Help/UserAgreement"
+import {getDescription} from "../../Reducers/AC/helpAC"
 
 
 export default [

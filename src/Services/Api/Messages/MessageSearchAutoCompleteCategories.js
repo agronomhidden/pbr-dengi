@@ -12,7 +12,6 @@ export default class MessageSearchAutoCompleteCategories extends MessageSearchCa
      * @param {integer|null} location_id
      */
     constructor(value = '', category_id = null, location_id = null) {
-        console.log(...arguments);
         super(...arguments)
     }
 }

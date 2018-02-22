@@ -1,6 +1,6 @@
 import {REAL_IP} from "../../CONSTANTS";
 import BaseApiCaller from './BaseApiCaller';
-import * as creator from '../Messages/messageCreators';
+import * as creator from './Messages/messagesClassStorage';
 
 export default class ApiCaller extends BaseApiCaller {
 
@@ -23,6 +23,7 @@ export default class ApiCaller extends BaseApiCaller {
     }
 
     createMessage(method, params, paramsContainer) {
+        let build;
         switch (method) {
             case creator.MessageGetLocation.GET_LOCATION_METHOD:
                 return new creator.MessageGetLocation().getMessage()
@@ -30,14 +31,20 @@ export default class ApiCaller extends BaseApiCaller {
                 return new creator.MessageGetCategories(params.id, paramsContainer.getLocationId()).getMessage()
             case creator.MessageSearchCategories.SEARCH_METHOD:
                 return new creator.MessageSearchCategories(
-                    params.searchQuery, params.id, paramsContainer.getLocationId())
-                    .getMessage()
+                    params.searchQuery, params.id, paramsContainer.getLocationId()).getMessage()
             case creator.MessageSearchAutoCompleteCategories.SEARCH_AUTOCOMPLETE_METHOD:
                 return new creator.MessageSearchAutoCompleteCategories(
-                    params.value, params.category_id, paramsContainer.getLocationId()
-                ).getMessage()
+                    params.value, params.category_id, paramsContainer.getLocationId()).getMessage()
             case creator.MessageGetUser.GET_USER_METHOD:
                 return new creator.MessageGetUser(paramsContainer.getToken()).getMessage()
+            case creator.MessageLoginUser.LOGIN_USER:
+                return new creator.MessageLoginUser(params).getMessage()
+            case creator.MessageGetDescription.GET_DESCRIPTION_METHOD:
+                return new creator.MessageGetDescription().getMessage()
+            case creator.MessageSendMail.SEND_MAIL:
+                build = new creator.MessageSendMail(params)
         }
+
+        return build.getMessage()
     }
 }
