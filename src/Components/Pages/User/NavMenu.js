@@ -7,6 +7,7 @@ export default class NavMenu extends Component {
 
     render = () =>
             <div>
-                <NavLink to='/settings'>Настройки</NavLink>
+                <div className='nav-link'><NavLink to='/settings'>Настройки</NavLink></div>
+                <div className='nav-link'><NavLink to='/payments-history'>История платежей</NavLink></div>
             </div>
 }

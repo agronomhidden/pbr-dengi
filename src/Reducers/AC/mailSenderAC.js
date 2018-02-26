@@ -17,10 +17,9 @@ export const mailSentFail = (response) => ({
     payload: {fields: response.result, msg: response.message}
 })
 
-
 export const mailSender = (sectionID = 0) => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageMailSender.SEND_MAIL,
+    method: creator.MessageSendMail.SEND_MAIL,
     beforeAC: (paramsContainer) => mailSent(sectionID),
     successAC: mailSended,
     fieldErrorAC: mailSentFail,

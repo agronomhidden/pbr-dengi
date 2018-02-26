@@ -12,9 +12,6 @@ export default class AbstractApiParamsContainer {
     url = null;
 
     constructor(url) {
-        if (new.target === AbstractApiParamsContainer) {
-            throw new TypeError('Cannot construct Abstract instances directly');
-        }
         this.url = url;
     }
 

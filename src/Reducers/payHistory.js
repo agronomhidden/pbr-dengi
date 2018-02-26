@@ -1,16 +1,16 @@
 import {
-    START, SUCCESS, SET_HISTORY_ITEMS, GET_PAYMENTS_HISTORY, ERROR
+    START, SUCCESS, SET_HISTORY_ITEMS, SET_HISTORY_LIST
 } from "../CONSTANTS"
 
 import {Record, OrderedMap} from 'immutable'
 import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
 
 export const payState = Record({
-    payments: new OrderedMap({}),
+    historyItems: new OrderedMap({}),
     HILoading: false,
-    PHLoading: false,
-    PHCount: null,
-    history: new OrderedMap({})
+    historyList: new OrderedMap({}),
+    HLLoading: false,
+    HLLCount: null,
 })
 
 export default (state = new payState(), action = {}) => {
@@ -21,19 +21,16 @@ export default (state = new payState(), action = {}) => {
         case SET_HISTORY_ITEMS + SUCCESS:
             return state
                 .set('HILoading', false)
-                .set('payments', arrToMap(action.payload.list))
-        case GET_PAYMENTS_HISTORY + START:
+                .set('historyItems', arrToMap(action.payload.list))
+        case SET_HISTORY_LIST + START:
             return state
-                .set('PHLoading', true)
-                .set('PHCount', null)
-        case GET_PAYMENTS_HISTORY + SUCCESS:
+                .set('HLLoading', true)
+                .set('HLLCount', null)
+        case SET_HISTORY_LIST + SUCCESS:
             return state
-                .set('PHLoading', false)
-                .set('PHCount', action.payload.count)
-                .set('history', arrToMap(action.payload.list))
-        case ERROR:
-            return state
-                .set('loading', false)
+                .set('HLLoading', false)
+                .set('HLLCount', action.payload.count)
+                .set('historyList', arrToMap(action.payload.list))
         default:
             return state;
     }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import SendReceiptToMail from "../src/Components/Pages/Reciept/SendReceiptToMail"
+import SendReceiptToMail from "../src/Components/Pages/History/SendReceiptToMail"
 
 import {OrderedMap} from "immutable"
 import PropTypes from "prop-types"

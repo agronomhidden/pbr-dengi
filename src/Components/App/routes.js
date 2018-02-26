@@ -3,12 +3,12 @@ import {Categories, CurrentCategories} from "../Pages/Categories"
 import {Payments} from "../Pages/Payments"
 import Tools from "../Pages/Tools/Tools"
 import {getCategories, categoriesSearch} from "../../Reducers/AC/categoriesAC"
-import Receipt from "../Pages/Reciept/Receipt"
-import {getHistoryItem} from "../../Reducers/Requests/payHistoryRequest"
+import {getHistoryItems,getHistoryList} from "../../Reducers/AC/payHistoryAC"
 import {getUserAgreement} from "../../Reducers/Requests/setingsRequest"
 import ServiceDescription from "../Pages/Help/ServiceDescription"
 import UserAgreement from "../Pages/Help/UserAgreement"
 import {getDescription} from "../../Reducers/AC/helpAC"
+import {History,HistoryDetailItem} from "../Pages/History"
 
 
 export default [
@@ -41,11 +41,19 @@ export default [
         fetchData: categoriesSearch
     },
     {
+        path: '/payments-history',
+        needAuth: true,
+        exact: true,
+        component: History,
+        title: 'История платежей',
+        fetchData: getHistoryList
+    },
+    {
         path: '/history-items/:transaction_uuids',
         exact: true,
-        component: Receipt,
+        component: HistoryDetailItem,
         title: 'Квитанция об оплате',
-        fetchData: getHistoryItem
+        fetchData: getHistoryItems
     },
     {
         path: '/payments/:id(\\d+)',

@@ -38,7 +38,7 @@ export const SET_LOCATION = 'SET_LOCATION'
 export const CHANGE_LOCATION = 'CHANGE_LOCATION'
 /** История платежей */
 export const SET_HISTORY_ITEMS = 'SET_HISTORY_ITEMS'
-export const GET_PAYMENTS_HISTORY = 'GET_PAYMENTS_HISTORY'
+export const SET_HISTORY_LIST = 'SET_HISTORY_LIST'
 /** Настройки */
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
 export const SET_PROFILE = 'SET_PROFILE'

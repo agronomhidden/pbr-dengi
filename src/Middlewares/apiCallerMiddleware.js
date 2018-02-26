@@ -4,7 +4,6 @@ import ApiCaller from '../Services/Api/ApiCaller';
 function getActionOnError(xhr, action) {
     if (xhr.response) {
         if (xhr.response.status === 403 && action.forbiddenErrorAC) {
-            console.log('forbiddenErrorAC');
             return action.forbiddenErrorAC(xhr.response.data)
         }
         if (xhr.response.status === 499 && action.fieldErrorAC) {

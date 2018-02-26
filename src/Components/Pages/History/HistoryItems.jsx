@@ -1,18 +1,23 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PageLayout from "../../Decorators/PageLayout"
-import {mapToArr} from "pbr-lib-front-utils/dist/dateManipulation"
-import {payHistoryRecord} from "../../../Reducers/entities"
-import {PrintReceipt} from "./PrintReceipt"
-import PrintComponent from "../../Decorators/PrintComponent"
-import {getHistoryItem} from "../../../Reducers/Requests/payHistoryRequest"
-import {mailSender} from "../../../Reducers/Requests/mailSenderRequest"
+
 import PageComponent from "../../App/PageComponent"
-import PageDataLoader from "../../Decorators/PageDataLoader"
-import SendMail from "./SendReceiptToMail"
+
+import PrintComponent from "../../Decorators/PrintComponent"
+
+import PropTypes from 'prop-types';
+
+import {SendHistoryItemToMail, PrintHistoryItem} from "./index"
 
 
-export class Receipt extends PageComponent {
+export default class HistoryItems extends PageComponent {
+
+    static propTypes = {
+        entities: PropTypes.array.isRequired,
+        loading: PropTypes.bool.isRequired,
+        sending: PropTypes.bool.isRequired,
+        mailSection: PropTypes.object.isRequired,
+        mailSender: PropTypes.func.isRequired
+    }
 
     getReceipts = () => this.props.entities.map((receipt, key) =>
         <div key={key}>
@@ -50,11 +55,11 @@ export class Receipt extends PageComponent {
             </div>
             {this.getFields(receipt.fields)}
             {receipt.status === "SUCCESS" &&
-            <SendMail sender={this.props.mailSender} receiptKey={receipt.key} sectionID={key}
-                      mailSection={this.props.mailSection.get(key)} sending={this.props.sending}/>}
+            <SendHistoryItemToMail sender={this.props.mailSender} receiptKey={receipt.key} sectionID={key}
+                                   mailSection={this.props.mailSection.get(key)} sending={this.props.sending}/>}
             {receipt.status === "SUCCESS" &&
             <PrintComponent buttonText='Распечатать квитанцию' buttonClass='search-form_button-wrap_button'>
-                <PrintReceipt receipt={receipt}/>
+                <PrintHistoryItem receipt={receipt}/>
             </PrintComponent>
             }
             <hr/>
@@ -69,18 +74,9 @@ export class Receipt extends PageComponent {
         }
     })
 
-    render = () => <div>
-        <h1> Квитанция об оплате </h1>
-        {this.getReceipts()}
-    </div>
-
+    render = () =>
+        <div>
+            <h1> Квитанция об оплате </h1>
+            {this.getReceipts()}
+        </div>
 }
-
-export default connect(
-    (s => ({
-        entities: mapToArr(s.payHistory.get('payments'), payHistoryRecord),
-        loading: s.payHistory.get('loading'),
-        sending: s.mailSender.get('sending'),
-        mailSection: s.mailSender.get('mailSection'),
-    })), {entitiesLoader: getHistoryItem, mailSender}
-)(PageDataLoader(PageLayout(Receipt)))

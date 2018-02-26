@@ -1,6 +1,6 @@
-import React, {Component,} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
-import { Redirect } from 'react-router'
+import {Redirect} from 'react-router'
 import PageLayout from '../../Decorators/PageLayout'
 import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialogRequest'
 import PageDataLoader from '../../Decorators/PageDataLoader'

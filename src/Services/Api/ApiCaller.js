@@ -26,25 +26,36 @@ export default class ApiCaller extends BaseApiCaller {
         let build;
         switch (method) {
             case creator.MessageGetLocation.GET_LOCATION_METHOD:
-                return new creator.MessageGetLocation().getMessage()
+                build = new creator.MessageGetLocation()
+                break;
             case creator.MessageGetCategories.GET_CATEGORIES_METHOD:
-                return new creator.MessageGetCategories(params.id, paramsContainer.getLocationId()).getMessage()
+                build = new creator.MessageGetCategories(params.id, paramsContainer.getLocationId())
+                break;
             case creator.MessageSearchCategories.SEARCH_METHOD:
-                return new creator.MessageSearchCategories(
-                    params.searchQuery, params.id, paramsContainer.getLocationId()).getMessage()
+                build = new creator.MessageSearchCategories(params.searchQuery, params.id, paramsContainer.getLocationId())
+                break;
             case creator.MessageSearchAutoCompleteCategories.SEARCH_AUTOCOMPLETE_METHOD:
-                return new creator.MessageSearchAutoCompleteCategories(
-                    params.value, params.category_id, paramsContainer.getLocationId()).getMessage()
+                build = new creator.MessageSearchAutoCompleteCategories(params.value, params.category_id, paramsContainer.getLocationId())
+                break;
             case creator.MessageGetUser.GET_USER_METHOD:
-                return new creator.MessageGetUser(paramsContainer.getToken()).getMessage()
+                build = new creator.MessageGetUser(paramsContainer.getToken())
+                break;
             case creator.MessageLoginUser.LOGIN_USER:
-                return new creator.MessageLoginUser(params).getMessage()
+                build = new creator.MessageLoginUser(params)
+                break;
             case creator.MessageGetDescription.GET_DESCRIPTION_METHOD:
-                return new creator.MessageGetDescription().getMessage()
+                build = new creator.MessageGetDescription()
+                break;
             case creator.MessageSendMail.SEND_MAIL:
                 build = new creator.MessageSendMail(params)
+                break;
+            case creator.MessageGetHistory.GET_PAYMENTS_HISTORY:
+                build = new creator.MessageGetHistory(params,paramsContainer.getToken())
+                break;
+            case creator.MessageGetHistoryItems.GET_PAYMENTS_HISTORY_ITEMS:
+                build = new creator.MessageGetHistoryItems(params)
+                break;
         }
-
-        return build.getMessage()
+        return build && build.getMessage()
     }
 }

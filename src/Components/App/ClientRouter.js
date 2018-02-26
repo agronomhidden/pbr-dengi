@@ -17,7 +17,7 @@ import ClientApiParamsContainer from "../../Services/Api/ClientApiParamsContaine
 export default () => {
     const url = location.protocol + '//' + location.host + SERVER_POST_URL;
     const ParamsContainer = new ClientApiParamsContainer(url, cookies);
-    const store = getStore(fromJSON(window.__INITIAL_STATE__), catchLocationChange(cookies), setTokenMiddleware(cookies), apiCallerMiddleware(ParamsContainer));
+    const store = getStore(fromJSON(window.__INITIAL_STATE__), catchLocationChange(cookies), apiCallerMiddleware(ParamsContainer), setTokenMiddleware(cookies));
 
     return (
         <Provider store={store}>

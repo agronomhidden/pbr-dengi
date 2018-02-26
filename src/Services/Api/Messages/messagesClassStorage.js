@@ -6,6 +6,8 @@ import MessageGetUser from './MessageGetUser';
 import MessageLoginUser from './MessageLoginUser';
 import MessageGetDescription from './MessageGetDescription';
 import MessageSendMail from './MessageSendMail';
+import MessageGetHistory from './MessageGetHistory';
+import MessageGetHistoryItems from './MessageGetHistoryItems';
 
 
 export  {
@@ -16,5 +18,7 @@ export  {
     MessageGetUser,
     MessageLoginUser,
     MessageGetDescription,
-    MessageSendMail
+    MessageSendMail,
+    MessageGetHistory,
+    MessageGetHistoryItems
 }

@@ -34,7 +34,7 @@ export default class PageComponent extends Component {
     }
 
     componentDidMount() {
-        if (this.isBrowser() && this.props.dataLoader && !this.props.data) {
+        if (this.isBrowser() && this.props.dataLoader && (!this.props.data || !this.props.data.length)) {
             this.props.dataLoader()
         }
     }
