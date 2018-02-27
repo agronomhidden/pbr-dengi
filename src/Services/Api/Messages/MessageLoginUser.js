@@ -2,16 +2,18 @@ import AbstractMessage from "./AbstractMessage"
 
 export default class MessageLoginUser extends AbstractMessage {
 
-    static LOGIN_USER = 'user/login';
-
-    getMethod = () => MessageLoginUser.LOGIN_USER
+    static METHOD = 'user/login';
 
     /**
-     * @param {string|null} params
+     *
+     * @param {string} phone
+     * @param {string} password
+     * @param {integer} location_id
      */
-    constructor(params) {
+    constructor(phone, password, location_id) {
         super()
-        this.args = params
+
+        this.args = {phone, password, location_id}
     }
 
 }

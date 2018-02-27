@@ -1,9 +1,10 @@
 import Error from '../Pages/Error/Error';
 import {Categories, CurrentCategories} from "../Pages/Categories"
+import Accounts from '../Pages/Accounts'
 import {Payments} from "../Pages/Payments"
 import Tools from "../Pages/Tools/Tools"
 import {getCategories, categoriesSearch} from "../../Reducers/AC/categoriesAC"
-import {getHistoryItems,getHistoryList} from "../../Reducers/AC/payHistoryAC"
+import {getHistoryItems, getHistoryList} from "../../Reducers/AC/payHistoryAC"
 import {getUserAgreement} from "../../Reducers/Requests/setingsRequest"
 import ServiceDescription from "../Pages/Help/ServiceDescription"
 import UserAgreement from "../Pages/Help/UserAgreement"
@@ -83,7 +84,14 @@ export default [
         title: 'Настройки пользователя',
         fetchData: getUserAgreement
     },
-
+    {
+        path: '/accounts',
+        exact: true,
+        needAuth: true,
+        component: Accounts,
+        title: 'Мои счета',
+        //fetchData: [getUserAgreement]
+    },
     {
         path: '*',
         component: Error,

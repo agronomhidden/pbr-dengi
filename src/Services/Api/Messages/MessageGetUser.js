@@ -3,9 +3,7 @@ import {TOKEN} from "../../../CONSTANTS"
 
 export default class MessageGetUser extends AbstractMessage {
 
-    static GET_USER_METHOD = 'user/get';
-
-    getMethod = () => MessageGetUser.GET_USER_METHOD
+    static METHOD = 'user/get';
 
     constructor(token) {
         super()

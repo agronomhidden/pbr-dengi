@@ -12,7 +12,7 @@ export const getDescriptionSuccess = response => ({
 
 export const getDescription = () => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetDescription.GET_DESCRIPTION_METHOD,
+    method: creator.MessageGetDescription.METHOD,
     beforeAC: (paramsContainer) => getDescriptionStart(),
     successAC: getDescriptionSuccess
 })

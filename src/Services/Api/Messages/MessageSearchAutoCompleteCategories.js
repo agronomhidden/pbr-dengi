@@ -2,9 +2,7 @@ import MessageSearchCategories from "./MessageSearchCategories"
 
 export default class MessageSearchAutoCompleteCategories extends MessageSearchCategories {
 
-    static SEARCH_AUTOCOMPLETE_METHOD = 'search/autocomplete-search';
-
-    getMethod = () => MessageSearchAutoCompleteCategories.SEARCH_AUTOCOMPLETE_METHOD
+    static METHOD = 'search/autocomplete-search';
 
     /**
      * @param {string} value

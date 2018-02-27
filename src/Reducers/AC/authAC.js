@@ -26,7 +26,7 @@ export const logoutCurrentUser = () => ({
 
 export const getUserByToken = () => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetUser.GET_USER_METHOD,
+    method: creator.MessageGetUser.METHOD,
     payload: {},
     successAC: setCurrentUser,
     forbiddenErrorAC: logoutCurrentUser
@@ -34,7 +34,7 @@ export const getUserByToken = () => ({
 
 export const userLogin = params => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageLoginUser.LOGIN_USER,
+    method: creator.MessageLoginUser.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => loginUserStart(),
     successAC: loginUserSuccess,

@@ -3,17 +3,16 @@ import Validator from "../ParamsValidator"
 
 export default class MessageGetHistoryItems extends AbstractMessage {
 
-    static GET_PAYMENTS_HISTORY_ITEMS = 'payments/history-item';
-
-    getMethod = () => MessageGetHistoryItems.GET_PAYMENTS_HISTORY_ITEMS
+    static METHOD = 'payments/history-item';
 
     /**
      * @param {{}} params
      */
     constructor(params) {
         super()
+        /** @todo рефакторить (см. MessageGetHistory)*/
         if (Validator.isNull(params.transaction_uuids)) {
-            throw new TypeError('transaction_uuids do not must be NULL')
+            throw new TypeError('transaction_uuids must not be NULL')
         }
         params.transaction_uuids = params.transaction_uuids.split(',')
         params.advanced = 1

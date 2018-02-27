@@ -22,7 +22,7 @@ export const getPaymentsHistorySuccess = response => ({
 
 export const getHistoryList = (date_to = '', date_from = '') => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetHistory.GET_PAYMENTS_HISTORY,
+    method: creator.MessageGetHistory.METHOD,
     payload: {date_to, date_from},
     beforeAC: (paramsContainer) => getPaymentsHistoryStart(),
     successAC: getPaymentsHistorySuccess,
@@ -31,7 +31,7 @@ export const getHistoryList = (date_to = '', date_from = '') => ({
 
 export const getHistoryItems = params => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetHistoryItems.GET_PAYMENTS_HISTORY_ITEMS,
+    method: creator.MessageGetHistoryItems.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => loadPaymentsHistoryItems(),
     successAC: paymentsHistoryItemsLoaded,

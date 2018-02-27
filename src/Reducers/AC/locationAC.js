@@ -25,7 +25,7 @@ export function changeLocation(location_id) {
 export function getLocations() {
     return {
         type: API_REQUEST_ACTION,
-        method: MessageGetLocation.GET_LOCATION_METHOD,
+        method: MessageGetLocation.METHOD,
         payload: {},
         beforeAC: (paramsContainer) => loadLocation(paramsContainer.getLocationId()),
         successAC: locationLoaded

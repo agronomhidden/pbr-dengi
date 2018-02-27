@@ -3,9 +3,7 @@ import AbstractMessage from "./AbstractMessage"
 
 export default class MessageGetCategories extends AbstractMessage {
 
-    static GET_CATEGORIES_METHOD = 'categories/get';
-
-    getMethod = () => MessageGetCategories.GET_CATEGORIES_METHOD
+    static METHOD = 'categories/get';
 
     /**
      * @param {integer|null} parent_id

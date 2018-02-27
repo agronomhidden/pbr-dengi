@@ -1,8 +1,12 @@
 export default class AbstractMessage {
 
+    static METHOD = null;
+
     args = {}
 
-    getMethod(){}
+    getMethod() {
+        return this.constructor.METHOD
+    }
 
     getMessage() {
         return {

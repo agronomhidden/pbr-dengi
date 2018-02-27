@@ -3,10 +3,7 @@ import AbstractMessage from "./AbstractMessage"
 
 export default class MessageSearchCategories extends AbstractMessage {
 
-
-    static SEARCH_METHOD = 'search';
-
-    getMethod = () => MessageSearchCategories.SEARCH_METHOD
+    static METHOD = 'search';
 
     /**
      * @param {string} value
@@ -21,7 +18,6 @@ export default class MessageSearchCategories extends AbstractMessage {
         if (!Validator.isNull(category_id) && !Validator.isInt(category_id)) {
             throw new TypeError('category_id must be integer or NULL')
         }
-        console.dir({...arguments})
         this.args = {value, location_id, category_id}
     }
 

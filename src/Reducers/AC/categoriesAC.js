@@ -37,7 +37,7 @@ export const resetAutoComplete = searchQuery => ({
 
 export const getCategories = params => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetCategories.GET_CATEGORIES_METHOD,
+    method: creator.MessageGetCategories.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => loadCategories(params.searchQuery || ''),
     successAC: categoriesLoaded,
@@ -47,7 +47,7 @@ export const getCategories = params => ({
 
 export const categoriesSearch = params => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageSearchCategories.SEARCH_METHOD,
+    method: creator.MessageSearchCategories.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => loadCategories(params.searchQuery || ''),
     successAC: categoriesLoaded,
@@ -56,7 +56,7 @@ export const categoriesSearch = params => ({
 
 export const autoCompleteSearch = (value, category_id) => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageSearchAutoCompleteCategories.SEARCH_AUTOCOMPLETE_METHOD,
+    method: creator.MessageSearchAutoCompleteCategories.METHOD,
     payload: {value, category_id},
     beforeAC: (paramsContainer) => loadAutoComplete(),
     successAC: autoCompleteLoaded,

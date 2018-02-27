@@ -2,18 +2,15 @@ import AbstractMessage from "./AbstractMessage"
 
 export default class MessageSendMail extends AbstractMessage {
 
-    static SEND_MAIL = 'payments/send-invoice';
-
-    getMethod = () => MessageSendMail.SEND_MAIL
+    static METHOD = 'payments/send-invoice';
 
     /**
-     * @param {string|null} params
+     *
+     * @param {string} recipient
+     * @param {string} key
      */
-    constructor(params) {
+    constructor(recipient, key) {
         super()
-        this.args = params
+        this.args = {recipient, key}
     }
-
 }
-
-

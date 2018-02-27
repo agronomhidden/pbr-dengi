@@ -8,6 +8,7 @@ import MessageGetDescription from './MessageGetDescription';
 import MessageSendMail from './MessageSendMail';
 import MessageGetHistory from './MessageGetHistory';
 import MessageGetHistoryItems from './MessageGetHistoryItems';
+import MessageGetSlider from './MessageGetSlider';
 
 
 export  {
@@ -20,5 +21,6 @@ export  {
     MessageGetDescription,
     MessageSendMail,
     MessageGetHistory,
-    MessageGetHistoryItems
+    MessageGetHistoryItems,
+    MessageGetSlider
 }
