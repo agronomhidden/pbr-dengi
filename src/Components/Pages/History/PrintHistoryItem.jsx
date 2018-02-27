@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PrintHistoryItem = ({receipt: {category_name, service_name, date_pay, sum, total_sum, commission, fields, erip_data, currency, server_time , user}}) => {
+export const PrintHistoryItem = ({historyItem: {category_name, service_name, date_pay, sum, total_sum, commission, fields, erip_data, currency, server_time , user}}) => {
 
     const style = {
         invoiceHeader: {fontSize: '22px', color: '#F44336'},

@@ -6,13 +6,15 @@ export default class MessageGetHistory extends AbstractMessage {
     static METHOD = 'payments/history';
 
     /**
-     * @param {{}|null} params
-     * @param {string|null} token
+     * @param {string| null} access_token
+     * @param {string| null} date_from
+     * @param {string| null} date_to
+     * @param {int} page
+     * @param {int} per_page
+     * @param {string|null} access_token
      */
-    constructor(params = {}, token) {
+    constructor(access_token, date_from = null, date_to = null, page = 1, per_page = 10) {
         super()
-        /** @todo это нужно вынести в параметры constructor(access_token, page=1, per_page=10, date_from = null, date_to = null)*/
-        this.args = {per_page: 10, page: 1, date_from: params.date_from, date_to: params.date_to, [TOKEN]: token}
+        this.args = {per_page, page, date_from: date_from, date_to, access_token}
     }
-
 }
