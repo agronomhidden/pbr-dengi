@@ -12,8 +12,8 @@ import {payHistoryRecord} from '../../../Reducers/entities'
 export class History extends PageComponent {
 
     state = {
-        dateFrom: '',
-        dateTo: '',
+        date_from: '',
+        date_to: '',
     }
 
     _onChange = ({target: {name, value}}) => {
@@ -22,25 +22,22 @@ export class History extends PageComponent {
 
     _onSubmit = (e) => {
         e.preventDefault()
+        this.props.dataLoader(this.state)
     }
 
-    getHistoryItems() {
-        return this.props.data && this.props.data.map((item, i) => {
-            return <div key={i}>
-                <Link to={`history-items/${item.transaction_uuid}`}>{item.item_name}</Link>
-                <span> {item.status}</span>
-            </div>
-        })
-    }
+    getHistoryItems = () => this.props.data && this.props.data.map((item, i) =>
+        <div key={i}>
+            <Link to={`/history-items/${item.transaction_uuid}`}>{item.item_name}</Link>
+            <span> {item.status}</span>
+        </div>)
 
-    render() {
-        return (<div>
-            <HistoryForm onSubmit={this._onSubmit} onChange={this._onChange}
-                         dateFrom={this.state.dateFrom}
-                         dateTo={this.state.dateTo}/>
+
+    render = () =>
+        <div>
+            <HistoryForm onSubmit={this._onSubmit} onChange={this._onChange} {...this.state}/>
             {this.getHistoryItems()}
-        </div>);
-    }
+        </div>
+
 }
 
 export default connect(

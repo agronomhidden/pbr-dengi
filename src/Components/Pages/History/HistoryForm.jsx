@@ -9,8 +9,8 @@ export default class HistoryForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        dateFrom: PropTypes.string.isRequired,
-        dateTo: PropTypes.string.isRequired
+        date_from: PropTypes.string.isRequired,
+        date_to: PropTypes.string.isRequired
     }
 
     render() {
@@ -18,11 +18,11 @@ export default class HistoryForm extends Component {
             <form onSubmit={this.props.onSubmit}>
                 <div>
                     Период с
-                    <SimpleDatePicker format="DD.MM.YY" onChange={this.props.onChange} name="dateFrom"
-                                      value={moment(this.props.dateFrom,"MM.DD.YY")}/>
+                    <SimpleDatePicker format="DD.MM.YYYY" onChange={this.props.onChange} name="date_from"
+                                      value={moment(this.props.date_from, "DD.MM.YYYY")}/>
                     по
-                    <SimpleDatePicker format="DD.MM.YY" onChange={this.props.onChange} name="dateTo"
-                                      value={moment(this.props.dateTo,"MM.DD.YY")}/>
+                    <SimpleDatePicker format="DD.MM.YYYY" onChange={this.props.onChange} name="date_to"
+                                      value={moment(this.props.date_to, "DD.MM.YYYY")}/>
                     <button><span>Показать</span></button>
                 </div>
             </form>

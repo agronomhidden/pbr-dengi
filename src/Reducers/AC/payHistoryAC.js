@@ -20,10 +20,10 @@ export const getPaymentsHistorySuccess = response => ({
     payload: response
 })
 
-export const getHistoryList = (date_to = '', date_from = '') => ({
+export const getHistoryList = data => ({
     type: API_REQUEST_ACTION,
     method: creator.MessageGetHistory.METHOD,
-    payload: {date_to, date_from},
+    payload: data,
     beforeAC: (paramsContainer) => getPaymentsHistoryStart(),
     successAC: getPaymentsHistorySuccess,
     forbiddenErrorAC: logoutCurrentUser
@@ -31,7 +31,7 @@ export const getHistoryList = (date_to = '', date_from = '') => ({
 
 export const getHistoryItems = params => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetHistoryItems.METHOD,
+    method: creator.MessageGetHistoryItems.GET_PAYMENTS_HISTORY_ITEMS,
     payload: params,
     beforeAC: (paramsContainer) => loadPaymentsHistoryItems(),
     successAC: paymentsHistoryItemsLoaded,

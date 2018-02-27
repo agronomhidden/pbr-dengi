@@ -31,9 +31,9 @@ export default CookieManager => store => next => action => {
 
         const params = getParams(store);
         if (params.searchQuery) {
-            promises.push( next(categoriesSearch(params)) )
+            promises.push(next(categoriesSearch(params)))
         } else {
-            promises.push( next(getCategories(params)) )
+            promises.push(next(getCategories(params)))
         }
         if (hasUser(store)) {
             promises.push( next(setUserLocations()))
