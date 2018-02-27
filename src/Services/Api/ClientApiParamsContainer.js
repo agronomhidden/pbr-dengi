@@ -11,11 +11,7 @@ export default class ClientApiParamsContainer extends AbstractApiParamsContainer
     }
 
     getLocationId() {
-        const user = this.getUser();
-        if (user && user.location_id) {
-            return user.location_id;
-        }
-        return this.cookieManager.get(LOCATION_ID)
+        return this.getStoredLocationId() || this.cookieManager.get(LOCATION_ID)
     }
 
     getToken() {

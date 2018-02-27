@@ -10,6 +10,7 @@ import {SERVER_POST_URL} from "../../CONSTANTS"
 import cookies from "js-cookie"
 import apiCallerMiddleware from '../../Middlewares/apiCallerMiddleware'
 import catchLocationChange from '../../Middlewares/catchLocationChange'
+import catchUserLogin from '../../Middlewares/catchUserLogin'
 import setTokenMiddleware from '../../Middlewares/setTokenMiddleware'
 import ClientApiParamsContainer from "../../Services/Api/ClientApiParamsContainer";
 
@@ -17,7 +18,12 @@ import ClientApiParamsContainer from "../../Services/Api/ClientApiParamsContaine
 export default () => {
     const url = location.protocol + '//' + location.host + SERVER_POST_URL;
     const ParamsContainer = new ClientApiParamsContainer(url, cookies);
-    const store = getStore(fromJSON(window.__INITIAL_STATE__), catchLocationChange(cookies), apiCallerMiddleware(ParamsContainer), setTokenMiddleware(cookies));
+    const store = getStore(fromJSON(window.__INITIAL_STATE__),
+        catchLocationChange(cookies),
+        apiCallerMiddleware(ParamsContainer),
+        catchUserLogin,
+        setTokenMiddleware(cookies)
+    );
 
     return (
         <Provider store={store}>

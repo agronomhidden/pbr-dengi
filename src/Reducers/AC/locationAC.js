@@ -1,5 +1,5 @@
 import {API_REQUEST_ACTION, SET_LOCATION, CHANGE_LOCATION, START, SUCCESS} from "../../CONSTANTS"
-import {MessageGetLocation} from "../../Services/Api/Messages/messagesClassStorage";
+import {MessageGetLocation, MessageSetLocation} from "../../Services/Api/Messages/messagesClassStorage";
 
 export function loadLocation(locationId) {
     return {
@@ -19,6 +19,14 @@ export function changeLocation(location_id) {
     return {
         type: CHANGE_LOCATION,
         payload: location_id,
+    }
+}
+
+export function setUserLocations() {
+    return {
+        type: API_REQUEST_ACTION,
+        method: MessageSetLocation.METHOD,
+        payload: {},
     }
 }
 

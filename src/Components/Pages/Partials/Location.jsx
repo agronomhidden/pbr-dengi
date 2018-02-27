@@ -14,14 +14,24 @@ export class Location extends Component {
     }
 
     componentWillMount() {
-        this.props.locationId && this.setState((prevState, props) => {
-            const city = props.cities.find(city => city.id === Number(props.locationId))
-            const region = city ? city.parent_id : props.locationId
-            return {
-                city: city ? city.id : 0,
-                region: region
-            }
-        })
+        this.setCurrentLocation(this.props.cities, this.props.locationId)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setCurrentLocation(this.props.cities, nextProps.locationId)
+    }
+
+    setCurrentLocation(cities, locationId) {
+        if (locationId) {
+            this.setState((prevState) => {
+                const city = cities.find(city => city.id === Number(locationId))
+                const region = city ? city.parent_id : locationId
+                return {
+                    city: city ? city.id : 0,
+                    region: region
+                }
+            })
+        }
     }
 
     _onClick = () => {

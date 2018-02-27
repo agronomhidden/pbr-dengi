@@ -1,6 +1,7 @@
 import {CHANGE_LOCATION, LOCATION_ID} from '../CONSTANTS'
 import {loadLocation} from '../Reducers/AC/locationAC'
 import {getCategories, categoriesSearch} from '../Reducers/AC/categoriesAC'
+import {setUserLocations} from '../Reducers/AC/locationAC'
 
 /**
  * Формирует параметры запроса для поиска категорий или загрузки категорий
@@ -18,6 +19,10 @@ function getParams(store) {
     }
 }
 
+function hasUser(store) {
+    return  !!store.getState().auth.get('user');
+}
+
 export default CookieManager => store => next => action => {
     const promises = [];
     if (action.type === CHANGE_LOCATION) {
@@ -29,6 +34,9 @@ export default CookieManager => store => next => action => {
             promises.push( next(categoriesSearch(params)) )
         } else {
             promises.push( next(getCategories(params)) )
+        }
+        if (hasUser(store)) {
+            promises.push( next(setUserLocations()))
         }
     }
 

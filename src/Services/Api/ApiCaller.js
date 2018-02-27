@@ -62,6 +62,10 @@ export default class ApiCaller extends BaseApiCaller {
 
             case msg.MessageGetSlider.METHOD:
                 return (new msg.MessageGetSlider(container.getToken(), container.getLocationId())).getMessage()
+
+            case msg.MessageSetLocation.METHOD:
+                return (new msg.MessageSetLocation(container.getToken(), container.getLocationId())).getMessage()
+
             default:
                 throw Error('Message for method ' + method + ' was not found')
         }

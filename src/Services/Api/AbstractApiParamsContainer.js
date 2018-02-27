@@ -32,7 +32,11 @@ export default class AbstractApiParamsContainer {
         if (!this.store) {
             throw new Error('store was not be defined');
         }
-        return this.store.getState().auth.user || null;
+        return this.store.getState().auth.get('user') || null;
+    }
+
+    getStoredLocationId() {
+        return this.store.getState().location.get('locationId')
     }
 
     getLocationId() {
