@@ -3,8 +3,8 @@ import {connect} from "react-redux"
 
 import PropTypes from 'prop-types'
 
-import {totalLogout} from "../../../Reducers/Requests/setingsRequest"
-import {Redirect} from "react-router"
+import {totalLogout} from "../../../Reducers/AC/settingsAC"
+
 
 export class TotalLogout extends Component {
 
@@ -20,7 +20,6 @@ export class TotalLogout extends Component {
 
     render = () =>
         <div>
-            {!this.props.user && <Redirect to={'/'}/>}
             <h3><strong>Внимание!</strong></h3>
             <p>Нажимая "Выйти на всех устройствах", Вы сбрасываете пароль для доступа к сервису МТС Деньги на всех
                 устройствах

@@ -30,9 +30,7 @@ export class HistoryDetailItem extends PageComponent {
         if (typeof transaction_uuids === 'string') {
             uuids = transaction_uuids.split(',')
         }
-        if (!uuids.length) {
-            return false
-        }
+
         !historyItems.size || historyItems.size !== uuids.length && getHistoryItems({transaction_uuids})
 
         for (let transaction_uuid of uuids) {

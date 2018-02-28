@@ -3,13 +3,14 @@ import {connect} from "react-redux"
 
 import FormGroup from "../Partials/FormGroup"
 
-import {setProfile} from "../../../Reducers/Requests/setingsRequest"
+import {setProfile} from "../../../Reducers/AC/settingsAC"
 import PropTypes from 'prop-types';
 import {updateStateFromAssoc} from "pbr-lib-front-utils/reactStateHelper"
 import {UserRecord} from "../../../Reducers/entities"
 
 
 export class SetProfile extends Component {
+
 
     static propTypes = {
         setProfile: PropTypes.func.isRequired,
@@ -36,6 +37,7 @@ export class SetProfile extends Component {
         if (successMsg) {
             this.props.blockManagement(this.props.block, successMsg)
         }
+        this.successMsg = successMsg;
     }
 
     _onSubmit = (e) => {

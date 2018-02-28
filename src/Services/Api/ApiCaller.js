@@ -25,10 +25,10 @@ export default class ApiCaller extends BaseApiCaller {
     createMessage(method, params, container) {
         switch (method) {
             case msg.MessageGetLocation.METHOD:
-                return (new msg.MessageGetLocation()).getMessage();
+                return (new msg.MessageGetLocation()).getMessage()
 
             case msg.MessageGetCategories.METHOD:
-                return (new msg.MessageGetCategories(params.id, container.getLocationId())).getMessage();
+                return (new msg.MessageGetCategories(params.id, container.getLocationId())).getMessage()
 
             case msg.MessageSearchCategories.METHOD:
                 return (new msg.MessageSearchCategories(
@@ -55,13 +55,29 @@ export default class ApiCaller extends BaseApiCaller {
                 return (new msg.MessageSendMail(params.recipient, params.key)).getMessage()
 
             case msg.MessageGetHistory.METHOD:
-                return (new msg.MessageGetHistory(params,container.getToken())).getMessage()
+                return (new msg.MessageGetHistory(container.getToken(), params.date_from, params.date_to)).getMessage()
 
             case msg.MessageGetHistoryItems.METHOD:
-                return (new msg.MessageGetHistoryItems(params)).getMessage()
+                return (new msg.MessageGetHistoryItems(params.transaction_uuids)).getMessage()
 
             case msg.MessageGetSlider.METHOD:
                 return (new msg.MessageGetSlider(container.getToken(), container.getLocationId())).getMessage()
+
+            case msg.MessageChangePassword.METHOD:
+                return new msg.MessageChangePassword(container.getToken(), params.password, params.passwordRepeat).getMessage()
+
+            case msg.MessageSetProfile.METHOD:
+                return new msg.MessageSetProfile(container.getToken(), params.first_name, params.last_name, params.patronymic).getMessage()
+
+            case msg.MessageUserAgreement.METHOD:
+                return new msg.MessageUserAgreement().getMessage()
+
+            case msg.MessageTotalLogout.METHOD:
+                return new msg.MessageTotalLogout(container.getToken()).getMessage()
+
+            case msg.MessageDelSubscription.METHOD:
+                return new msg.MessageDelSubscription(container.getToken()).getMessage()
+
 
             case msg.MessageSetLocation.METHOD:
                 return (new msg.MessageSetLocation(container.getToken(), container.getLocationId())).getMessage()

@@ -16,6 +16,10 @@ export class History extends PageComponent {
         date_to: '',
     }
 
+    componentWillMount() {
+        this.props.data.length && this.setState(this.props.searchFields)
+    }
+
     _onChange = ({target: {name, value}}) => {
         this.setState({[name]: value})
     }
@@ -37,12 +41,12 @@ export class History extends PageComponent {
             <HistoryForm onSubmit={this._onSubmit} onChange={this._onChange} {...this.state}/>
             {this.getHistoryItems()}
         </div>
-
 }
 
 export default connect(
     (s => ({
         data: mapToArr(s.payHistory.get('historyList'), payHistoryRecord),
+        searchFields: s.payHistory.get('searchFields'),
         loading: s.payHistory.get('HlLoading')
     })),
     {dataLoader: getHistoryList}

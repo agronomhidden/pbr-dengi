@@ -19,7 +19,7 @@ export const getStore = (initialState, ...middlewares) => createStore(
             routerMiddleware(history),
             setQueryString(history),
             setStateLocation(history),
-            ...middlewares
+            ...middlewares,
         )
     )
 );
