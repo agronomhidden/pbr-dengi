@@ -27,7 +27,7 @@ class Tools extends PageComponent {
 
     blockManagement = (blockNumber, successMsg = null) => {
         let {showBox, successMsgs} = this.state;
-        showBox[blockNumber] = !showBox[blockNumber];
+        showBox[blockNumber] = false
         if (successMsg) {
             successMsgs[blockNumber] = successMsg
         }

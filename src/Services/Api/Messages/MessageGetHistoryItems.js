@@ -6,16 +6,16 @@ export default class MessageGetHistoryItems extends AbstractMessage {
     static METHOD = 'payments/history-item';
 
     /**
-     * @param {{}} params
+     * @param {string} transaction_uuids
+     * @param {int} advanced
      */
-    constructor(params) {
+    constructor(transaction_uuids, advanced = 1) {
         super()
-        /** @todo рефакторить (см. MessageGetHistory)*/
-        if (Validator.isNull(params.transaction_uuids)) {
+        if (Validator.isNull(transaction_uuids)) {
             throw new TypeError('transaction_uuids must not be NULL')
         }
-        params.transaction_uuids = params.transaction_uuids.split(',')
-        params.advanced = 1
-        this.args = params
+        transaction_uuids = transaction_uuids.split(',')
+
+        this.args = {transaction_uuids, advanced}
     }
 }

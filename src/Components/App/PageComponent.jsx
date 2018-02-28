@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import is from 'is_js'
 
 export default class PageComponent extends Component {
 
@@ -34,7 +35,7 @@ export default class PageComponent extends Component {
     }
 
     componentDidMount() {
-        if (this.isBrowser() && this.props.dataLoader && (!this.props.data || !this.props.data.length)) {
+        if (this.isBrowser() && this.props.dataLoader && is.empty(this.props.data)) {
             this.props.dataLoader()
         }
     }

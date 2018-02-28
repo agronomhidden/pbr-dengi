@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 
 import PropTypes from 'prop-types'
 
-import {delSubscription} from "../../../Reducers/Requests/setingsRequest"
+import {delSubscription} from "../../../Reducers/AC/settingsAC"
 
 export class DeleteSubscription extends Component {
 
@@ -22,7 +22,7 @@ export class DeleteSubscription extends Component {
         <div>
             {this.props.success &&
             <h3 className="stop-subscription_result">
-                <strong>Ваш запрос на удаление услуги «МТС Деньги» принят, ожидайте
+                <strong style={{color: 'green'}}>Ваш запрос на удаление услуги «МТС Деньги» принят, ожидайте
                     подтверждение по SMS</strong>
             </h3>}
             <h3><strong>Внимание!</strong></h3>

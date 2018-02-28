@@ -9,6 +9,11 @@ import MessageSendMail from './MessageSendMail';
 import MessageGetHistory from './MessageGetHistory';
 import MessageGetHistoryItems from './MessageGetHistoryItems';
 import MessageGetSlider from './MessageGetSlider';
+import MessageChangePassword from './MessageChangePassword';
+import MessageSetProfile from './MessageSetProfile';
+import MessageUserAgreement from './MessageUserAgreement';
+import MessageTotalLogout from './MessageTotalLogout';
+import MessageDelSubscription from './MessageDelSubscription';
 import MessageSetLocation from './MessageSetLocation';
 import MessageCreateUserData from './MessageCreateUserData';
 
@@ -24,6 +29,12 @@ export {
     MessageSendMail,
     MessageGetHistory,
     MessageGetHistoryItems,
+    MessageGetSlider,
+    MessageChangePassword,
+    MessageSetProfile,
+    MessageUserAgreement,
+    MessageTotalLogout,
+    MessageDelSubscription,
     MessageGetSlider,
     MessageSetLocation,
     MessageCreateUserData

@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 
 import FormGroup from "../Partials/FormGroup"
 
-import {changePassword} from "../../../Reducers/Requests/setingsRequest"
+import {changePassword} from "../../../Reducers/AC/settingsAC"
 import PropTypes from 'prop-types';
 
 export class ChangePassword extends Component {
@@ -13,7 +13,7 @@ export class ChangePassword extends Component {
         blockManagement: PropTypes.func.isRequired,
         block: PropTypes.number.isRequired,
         loading: PropTypes.bool.isRequired,
-        successMsg: PropTypes.bool
+        successMsg: PropTypes.string
     }
 
     state = {
@@ -46,7 +46,7 @@ export class ChangePassword extends Component {
                            value={this.state.password} onChange={this._onChange} disabled={this.props.loading}
                            hint={'Минимальная длина 8 символов. Должен содержать цифры, заглавные и строчные символы'}/>
                 <FormGroup label='Подтвердите пароль' type='password' name='passwordRepeat' errors={this.state.errors}
-                           value={this.state.password_repeat} onChange={this._onChange} disabled={this.props.loading}/>
+                           value={this.state.passwordRepeat} onChange={this._onChange} disabled={this.props.loading}/>
                 <button disabled={this.props.loading}>Сохранить</button>
             </form>
         </div>
