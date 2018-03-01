@@ -78,9 +78,11 @@ export default class ApiCaller extends BaseApiCaller {
             case msg.MessageDelSubscription.METHOD:
                 return new msg.MessageDelSubscription(container.getToken()).getMessage()
 
-
             case msg.MessageSetLocation.METHOD:
                 return (new msg.MessageSetLocation(container.getToken(), container.getLocationId())).getMessage()
+
+            case msg.MessageEripDialog.METHOD:
+                return new msg.MessageEripDialog(container.getToken(), params.id, params.mts_session, params.fields, params.otherFields).getMessage()
 
             case msg.MessageCreateUserData.METHOD:
                 return (new msg.MessageCreateUserData(container.getToken(), params.service_id, params.identifier)).getMessage()

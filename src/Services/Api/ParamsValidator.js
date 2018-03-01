@@ -2,7 +2,7 @@ import is from 'is_js'
 
 export default class ParamsValidator {
     static isInt(value) {
-        return !isNaN(value) && parseInt(value) == value;
+        return !isNaN(value) && value == parseInt(value);
     }
 
     static isNull(value) {

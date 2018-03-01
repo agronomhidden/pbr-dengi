@@ -15,6 +15,7 @@ import MessageUserAgreement from './MessageUserAgreement';
 import MessageTotalLogout from './MessageTotalLogout';
 import MessageDelSubscription from './MessageDelSubscription';
 import MessageSetLocation from './MessageSetLocation';
+import MessageEripDialog from './MessageEripDialog';
 import MessageCreateUserData from './MessageCreateUserData';
 
 
@@ -37,5 +38,6 @@ export {
     MessageDelSubscription,
     MessageGetSlider,
     MessageSetLocation,
-    MessageCreateUserData
+    MessageCreateUserData,
+    MessageEripDialog,
 }

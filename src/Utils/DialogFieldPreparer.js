@@ -2,43 +2,53 @@ import {prepareOriginFieldPhone} from "./helper"
 
 export default class DialogFieldPreparer {
 
-    /** @var {{}} preparedFields **/
-    preparedFields = {};
-    /** @var {{}} values **/
+    originalFields = {};
+
+    otherFields = {};
+
     values;
-    /** @var {{}} fields **/
+
     fields;
-    /** @var {{}}  fieldError **/
+
     fieldError;
 
     constructor(state, entities) {
         this.values = state
         this.fields = entities
-        if(this.removeErrors()){
+        if (this.removeErrors()) {
             this.prepared()
         }
     }
 
-    isObject = (props) => props instanceof Object
+    isObject(props) {
+        return props instanceof Object
+    }
 
-    getFields = () => this.preparedFields
+    setFields(name, {originalField, mask}) {
+        if (originalField) {
+            this.originalFields[name] = this.getFieldValue(mask, this.values[name])
+        } else {
+            this.otherFields[name] = this.getFieldValue(mask, this.values[name])
+        }
+    }
 
-    getError = () => this.fieldError
+    getFieldValue(mask, fieldValue) {
+        return mask ? prepareOriginFieldPhone(fieldValue, mask.prefix) : fieldValue
+    }
 
-    getFieldKey = (originalField, name) => originalField ? `fields[${name}]` : name;
+    getFieldsLength() {
+        return this.fields.size
+    }
 
-    getFieldValue = (mask, fieldValue) => mask ? prepareOriginFieldPhone(fieldValue, mask.prefix) : fieldValue
-
-    getFieldsLength = () => this.fields.size
-
-    removeErrors = () => this.isObject(this.values) && delete this.values.errors
+    removeErrors() {
+        return this.isObject(this.values) && delete this.values.errors
+    }
 
     prepared() {
         for (let name in this.values) {
             const fieldProps = this.getFieldProps(name)
             if (fieldProps && this.validateLengthString(name, fieldProps)) {
-                const {originalField, mask} = fieldProps
-                this.preparedFields[this.getFieldKey(originalField,name)] = this.getFieldValue(mask, this.values[name])
+                this.setFields(name, fieldProps)
             }
         }
     }
@@ -54,13 +64,19 @@ export default class DialogFieldPreparer {
         }
         return false
     }
+    /**  Вынести в  библиотеку */
+    trim(str) {
+        return str && str.replace(/\s*/g, '') || ''
+    }
 
     validateLengthString(name, {minLength, maxLength}) {
         let text = '';
-        if (minLength && this.values[name].length < minLength) {
+        const value = this.trim(this.values[name])
+        if (minLength && value.length < minLength) {
             text = `длина значения поля должна быть не менее ${minLength}`
         }
-        if (maxLength && this.values[name].length > maxLength) {
+
+        if (maxLength && value.length > maxLength) {
             text = `длина значения поля должна быть не более ${maxLength}`
         }
         if (text) {
@@ -69,7 +85,6 @@ export default class DialogFieldPreparer {
         }
         return true
     }
-
 }
 
 
