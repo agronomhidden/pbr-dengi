@@ -33,6 +33,7 @@ export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'
 /** Диалог c ЕРИП */
 export const DIALOG = 'DIALOG'
+export const DIALOG_DISTRIBUTOR = 'ERIP_DIALOG_DISTRIBUTOR'
 /** Локации */
 export const SET_LOCATION = 'SET_LOCATION'
 export const CHANGE_LOCATION = 'CHANGE_LOCATION'

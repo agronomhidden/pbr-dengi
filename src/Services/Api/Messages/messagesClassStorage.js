@@ -15,7 +15,7 @@ import MessageUserAgreement from './MessageUserAgreement';
 import MessageTotalLogout from './MessageTotalLogout';
 import MessageDelSubscription from './MessageDelSubscription';
 import MessageSetLocation from './MessageSetLocation';
-
+import MessageEripDialog from './MessageEripDialog';
 
 export  {
     MessageSearchAutoCompleteCategories,
@@ -34,6 +34,6 @@ export  {
     MessageUserAgreement,
     MessageTotalLogout,
     MessageDelSubscription,
-    MessageGetSlider,
-    MessageSetLocation
+    MessageSetLocation,
+    MessageEripDialog,
 }

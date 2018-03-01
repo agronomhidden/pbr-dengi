@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router'
 import PageLayout from '../../Decorators/PageLayout'
-import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialogRequest'
+import {initDialog, requestInDialog} from '../../../Reducers/AC/eripDialogAC'
 import PageDataLoader from '../../Decorators/PageDataLoader'
 import {Roller} from "../../Loading"
 import {setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
@@ -32,7 +32,7 @@ export class Payments extends PageComponent {
     }
 
     _onCheck = ({target: {name, checked}}) => {
-        this.setState({[name]: Number(checked)});
+        this.setState({[name]: Number(checked)})
     }
 
     _onSubmit = (e) => {
@@ -41,12 +41,17 @@ export class Payments extends PageComponent {
 
         const prepareFields = new DialogFieldPreparer(this.state, entities);
 
-        if (prepareFields.getError()) {
-            const {name, text} = prepareFields.getError()
+        if (prepareFields.fieldError) {
+            const {name, text} = prepareFields.fieldError
             this.setState(setFieldError(this.state, name, text))
             return
         }
-        requestInDialog(Object.assign(prepareFields.getFields(), {serviceCode: id, mts_session: mts_session}))
+        requestInDialog({
+            id,
+            mts_session,
+            fields: prepareFields.originalFields,
+            otherFields: prepareFields.otherFields
+        })
     }
 
     _onInValid = (e) => {

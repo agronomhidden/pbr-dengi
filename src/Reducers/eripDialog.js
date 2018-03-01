@@ -54,7 +54,7 @@ export default (state = new ReducerState(), action = {}) => {
         case DIALOG + FAILED:
             return state
                 .set('loading', false)
-                .set('fault', action.payload)
+                .set('fault', action.payload.errors)
         case ERROR:
             return state
                 .set('loading', false)

@@ -44,6 +44,7 @@ export default class ServerApiParamsContainer extends AbstractApiParamsContainer
 
         return ips;
     }
+
     /** @todo вынести в либу */
     static findRemoteIP(req) {
         if (is.existy(req.connection)) {
