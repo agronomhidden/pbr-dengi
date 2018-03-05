@@ -1,29 +1,35 @@
 import React from 'react'
+import {connect} from "react-redux";
+
 import PageComponent from '../../App/PageComponent'
-import {
-    autoCompleteSearch,
-    categoriesSetSearch,
-    getCategories,
-    resetAutoComplete
-} from "../../../Reducers/AC/categoriesAC";
 import {mapToArr} from "pbr-lib-front-utils/dateManipulation";
 import PageLayout from "../../Decorators/PageLayout";
-import {CategoriesRecord} from "../../../Reducers/entities";
-import {connect} from "react-redux";
-import PageDataLoader from "../../Decorators/PageDataLoader";
+import Slider from './Slider'
+import {ACCOUNTS_SLIDER_LOADED} from "../../../CONSTANTS";
+import {loadBanners} from '../../../Reducers/AC/accountsAC'
 
 class Accounts extends PageComponent {
 
+    componentDidMount() {
+        super.componentDidMount();
+        if (this.props.sliderLoaded === false) {
+            this.props.loadBanners()
+        }
+    }
+
     render() {
-        return <div>Мои счета</div>
+        return <div>
+            <div>Мои счета</div>
+            <div>{this.isBrowser() && this.props.sliderLoaded ? <Slider/> : null }</div>
+        </div>
     }
 }
 
 export default connect(
     (s => ({
-
+        sliderLoaded: !!(s.accounts.get('allDivLoaded') & ACCOUNTS_SLIDER_LOADED)
     })),
     {
-
+        loadBanners
     }
 )(PageLayout(Accounts));

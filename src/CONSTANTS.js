@@ -1,6 +1,7 @@
 export const START = '_START'
 export const SUCCESS = '_SUCCESS'
 export const FAIL = '_FAIL'
+export const PROCESS = '_PROCESS'
 export const RESET = '_RESET'
 export const FAILED = '_FAILED'
 export const OVER = '_OVER'
@@ -48,3 +49,10 @@ export const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION'
 export const SETTINGS_FIELDS_ERROR = 'SETTINGS_FIELDS_ERROR'
 /** Правила сервиса*/
 export const SERVICE_DESCRIPTION = 'SERVICE_DESCRIPTION'
+
+/** Мои счета */
+export const GET_BANNERS = 'GET_BANNERS'
+export const CREATE_USER_DATA_WITH_BANNER = 'CREATE_USER_DATA_WITH_BANNER'
+
+/** флаги */
+export const ACCOUNTS_SLIDER_LOADED = 0b00001

@@ -10,9 +10,10 @@ import MessageGetHistory from './MessageGetHistory';
 import MessageGetHistoryItems from './MessageGetHistoryItems';
 import MessageGetSlider from './MessageGetSlider';
 import MessageSetLocation from './MessageSetLocation';
+import MessageCreateUserData from './MessageCreateUserData';
 
 
-export  {
+export {
     MessageSearchAutoCompleteCategories,
     MessageGetLocation,
     MessageSearchCategories,
@@ -24,5 +25,6 @@ export  {
     MessageGetHistory,
     MessageGetHistoryItems,
     MessageGetSlider,
-    MessageSetLocation
+    MessageSetLocation,
+    MessageCreateUserData
 }

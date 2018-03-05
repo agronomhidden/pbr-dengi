@@ -66,6 +66,9 @@ export default class ApiCaller extends BaseApiCaller {
             case msg.MessageSetLocation.METHOD:
                 return (new msg.MessageSetLocation(container.getToken(), container.getLocationId())).getMessage()
 
+            case msg.MessageCreateUserData.METHOD:
+                return (new msg.MessageCreateUserData(container.getToken(), params.service_id, params.identifier)).getMessage()
+
             default:
                 throw Error('Message for method ' + method + ' was not found')
         }

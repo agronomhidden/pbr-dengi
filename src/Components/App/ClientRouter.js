@@ -12,6 +12,7 @@ import apiCallerMiddleware from '../../Middlewares/apiCallerMiddleware'
 import catchLocationChange from '../../Middlewares/catchLocationChange'
 import catchUserLogin from '../../Middlewares/catchUserLogin'
 import setTokenMiddleware from '../../Middlewares/setTokenMiddleware'
+import accountMiddleware from '../../Middlewares/accountMiddleware'
 import ClientApiParamsContainer from "../../Services/Api/ClientApiParamsContainer";
 
 
@@ -22,7 +23,8 @@ export default () => {
         catchLocationChange(cookies),
         apiCallerMiddleware(ParamsContainer),
         catchUserLogin,
-        setTokenMiddleware(cookies)
+        setTokenMiddleware(cookies),
+        accountMiddleware
     );
 
     return (

@@ -7,6 +7,7 @@ import payHistory from './Reducers/payHistory'
 import mailSender from './Reducers/mailSender'
 import settings from './Reducers/settings'
 import help from './Reducers/help'
+import accounts from './Reducers/accounts'
 
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
     payHistory,
     mailSender,
     settings,
-    help
+    help,
+    accounts
 });

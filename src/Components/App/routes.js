@@ -10,7 +10,7 @@ import ServiceDescription from "../Pages/Help/ServiceDescription"
 import UserAgreement from "../Pages/Help/UserAgreement"
 import {getDescription} from "../../Reducers/AC/helpAC"
 import {History,HistoryDetailItem} from "../Pages/History"
-
+import {loadBanners} from '../../Reducers/AC/accountsAC'
 
 export default [
     {
@@ -90,7 +90,7 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        //fetchData: [getUserAgreement]
+        fetchData: loadBanners
     },
     {
         path: '*',
