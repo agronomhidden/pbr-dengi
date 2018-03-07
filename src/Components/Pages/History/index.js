@@ -6,11 +6,12 @@ import SendHistoryItemToMail from './SendHistoryItemToMail';
 import HistoryDetailItem from './HistoryDetailItem';
 
 
+
 export {
     History,
     HistoryItem,
     HistoryForm,
     PrintHistoryItem,
     SendHistoryItemToMail,
-    HistoryDetailItem
+    HistoryDetailItem,
 }

@@ -23,10 +23,11 @@ export class ChangePassword extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {errors, successMsg} = nextProps
+        const {errors, success} = nextProps
         errors && this.setState({errors})
-        if (successMsg) {
-            this.props.blockManagement(this.props.block, successMsg)
+        if (success) {
+            const msg = 'Пароль успешно изменен'
+            this.props.blockManagement(this.props.block, msg)
         }
     }
 
@@ -56,7 +57,7 @@ export default connect(
     (s => (
         {
             loading: s.settings.get('ChPLoading'),
-            successMsg: s.settings.get('ChPSuccessMsg'),
+            success: s.settings.get('ChPSuccess'),
             errors: s.settings.get('errors')
         }
     )), {changePassword}

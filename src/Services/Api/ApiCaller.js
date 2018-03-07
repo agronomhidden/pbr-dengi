@@ -31,22 +31,16 @@ export default class ApiCaller extends BaseApiCaller {
                 return (new msg.MessageGetCategories(params.id, container.getLocationId())).getMessage()
 
             case msg.MessageSearchCategories.METHOD:
-                return (new msg.MessageSearchCategories(
-                    params.searchQuery, params.id, container.getLocationId()
-                )).getMessage()
+                return (new msg.MessageSearchCategories(params.searchQuery, params.id, container.getLocationId())).getMessage()
 
             case msg.MessageSearchAutoCompleteCategories.METHOD:
-                return (new msg.MessageSearchAutoCompleteCategories(
-                    params.value, params.category_id, container.getLocationId()
-                )).getMessage()
+                return (new msg.MessageSearchAutoCompleteCategories(params.value, params.category_id, container.getLocationId())).getMessage()
 
             case msg.MessageGetUser.METHOD:
                 return (new msg.MessageGetUser(container.getToken())).getMessage()
 
             case msg.MessageLoginUser.METHOD:
-                return (new msg.MessageLoginUser(
-                    params.phone, params.password, container.getLocationId()
-                )).getMessage()
+                return (new msg.MessageLoginUser(params.phone, params.password, container.getLocationId())).getMessage()
 
             case msg.MessageGetDescription.METHOD:
                 return (new msg.MessageGetDescription()).getMessage()
@@ -83,6 +77,18 @@ export default class ApiCaller extends BaseApiCaller {
 
             case msg.MessageEripDialog.METHOD:
                 return new msg.MessageEripDialog(container.getToken(), params.id, params.mts_session, params.fields, params.otherFields).getMessage()
+
+            case msg.MessageGetFavorites.METHOD:
+                return new msg.MessageGetFavorites(container.getToken()).getMessage()
+
+            case msg.MessageAddFavorite.METHOD:
+                return new msg.MessageAddFavorite(container.getToken(), params.key, params.name).getMessage()
+
+            case msg.MessageUpdateFavorite.METHOD:
+                return new msg.MessageUpdateFavorite(container.getToken(), params.id, params.name).getMessage()
+
+            case msg.MessageDelFavorite.METHOD:
+                return new msg.MessageDelFavorite(container.getToken(), params.id).getMessage()
 
             case msg.MessageCreateUserData.METHOD:
                 return (new msg.MessageCreateUserData(container.getToken(), params.service_id, params.identifier)).getMessage()

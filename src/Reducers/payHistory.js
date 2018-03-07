@@ -22,7 +22,7 @@ export default (state = new payState(), action = {}) => {
         case SET_HISTORY_ITEMS + SUCCESS:
             return state
                 .set('HILoading', false)
-                .set('historyItems', arrToMap(action.payload.list, undefined, item => item.transaction_uuid))
+                .mergeIn(['historyItems'], arrToMap(action.payload.list, undefined, item => item.transaction_uuid))
         case SET_HISTORY_LIST + START:
             return state
                 .set('HLLoading', true)

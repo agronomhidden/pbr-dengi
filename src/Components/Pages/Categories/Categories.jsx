@@ -10,7 +10,7 @@ import {categoriesSetSearch, resetAutoComplete} from '../../../Reducers/AC/categ
 import {ServicesList, CategoriesList} from './index'
 
 
-class Categories extends Component {
+export class Categories extends Component {
 
     _issetCategories = () => this.props.entities.find(({is_category}) => is_category)
 

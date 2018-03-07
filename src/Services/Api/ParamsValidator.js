@@ -8,4 +8,8 @@ export default class ParamsValidator {
     static isNull(value) {
         return is['null'](value);
     }
+
+    static isEmpty(value) {
+        return is.empty(value)
+    }
 }

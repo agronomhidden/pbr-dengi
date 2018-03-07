@@ -11,5 +11,6 @@ export default class NavMenu extends Component {
                 <div className='nav-link'><NavLink to='/settings'>Настройки</NavLink></div>
                 <div className='nav-link'><NavLink to='/accounts'>Мои счета</NavLink></div>
                 <div className='nav-link'><NavLink to='/payments-history'>История платежей</NavLink></div>
+                <div className='nav-link'><NavLink to='/favorites'>Избранные платежи</NavLink></div>
             </div>
 }

@@ -51,6 +51,12 @@ export const SETTINGS_FIELDS_ERROR = 'SETTINGS_FIELDS_ERROR'
 export const SETTINGS_DISTRIBUTOR = 'SETTINGS_DISTRIBUTOR'
 /** Правила сервиса*/
 export const SERVICE_DESCRIPTION = 'SERVICE_DESCRIPTION'
+/** Избранное*/
+export const GET_FAVORITES = 'GET_FAVORITES'
+export const ADD_FAVORITE = 'ADD_FAVORITE'
+export const FAVORITE = 'FAVORITE'
+export const UPDATE_FAVORITE = 'UPDATE_FAVORITE'
+export const DELETE_FAVORITE = 'DELETE_FAVORITE'
 
 /** Мои счета */
 export const GET_BANNERS = 'GET_BANNERS'

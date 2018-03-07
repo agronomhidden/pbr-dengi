@@ -16,6 +16,10 @@ import MessageTotalLogout from './MessageTotalLogout';
 import MessageDelSubscription from './MessageDelSubscription';
 import MessageSetLocation from './MessageSetLocation';
 import MessageEripDialog from './MessageEripDialog';
+import MessageGetFavorites from './MessageGetFavorites';
+import MessageAddFavorite from './MessageAddFavorite';
+import MessageUpdateFavorite from './MessageUpdateFavorite';
+import MessageDelFavorite from './MessageDelFavorite';
 import MessageCreateUserData from './MessageCreateUserData';
 
 
@@ -40,4 +44,8 @@ export {
     MessageSetLocation,
     MessageCreateUserData,
     MessageEripDialog,
+    MessageGetFavorites,
+    MessageAddFavorite,
+    MessageUpdateFavorite,
+    MessageDelFavorite
 }

@@ -15,6 +15,7 @@ import accountMiddleware from '../../Middlewares/accountMiddleware'
 import catchUserActionMiddleware from "../../Middlewares/catchUserActionMiddleware"
 import settingMiddleware from "../../Middlewares/settingMiddleware"
 import eripDialogMiddleware from "../../Middlewares/eripDialogMiddleware"
+import catchFavorite from "../../Middlewares/catchFavorite"
 
 export default () => {
     const url = location.protocol + '//' + location.host + SERVER_POST_URL;
@@ -23,10 +24,11 @@ export default () => {
         fromJSON(window.__INITIAL_STATE__),
         catchLocationChange(cookies),
         apiCallerMiddleware(ParamsContainer),
-        catchUserActionMiddleware(history,cookies),
+        catchUserActionMiddleware(history, cookies),
         eripDialogMiddleware,
-        accountMiddleware,
-        settingMiddleware);
+        settingMiddleware,
+        catchFavorite(history),
+        accountMiddleware)
 
     return (
         <Provider store={store}>

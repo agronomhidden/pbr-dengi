@@ -29,14 +29,14 @@ export default class PageComponent extends Component {
     }
 
     componentWillMount() {
-        if (this.isBrowser() && this.title) {
-            document.title = this.title;
+        if (this.isBrowser()) {
+            if(this.title) {
+                document.title = this.title;
+            }
+            if(this.props.dataLoader && is.empty(this.props.data)){
+                this.props.dataLoader()
+            }
         }
     }
 
-    componentDidMount() {
-        if (this.isBrowser() && this.props.dataLoader && is.empty(this.props.data)) {
-            this.props.dataLoader()
-        }
-    }
 }

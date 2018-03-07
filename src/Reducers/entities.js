@@ -73,5 +73,12 @@ export const payHistoryRecord = Record({
     category_name: null,
     erip_data: null,
     server_time: null,
+})
 
+export const FavoritesRecord = Record({
+    id: null,
+    name: null,
+    fields: null,
+    service_name: null,
+    category_name: null
 })

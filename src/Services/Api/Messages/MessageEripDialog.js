@@ -13,8 +13,11 @@ export default class MessageEripDialog extends AbstractMessage {
      * @param {string|null} mts_session
      */
     constructor(access_token, serviceCode, mts_session = null, fields = null, otherFields = {}) {
-        console.log(fields);
         super()
+
+        if (Validator.isNull(access_token) && Validator.isNull(serviceCode)) {
+            throw new Error('access_token and serviceCode, do not must be NULL')
+        }
         if (!Validator.isNull(serviceCode) && !Validator.isInt(serviceCode)) {
             throw new TypeError('serviceCode must be integer or NULL')
         }

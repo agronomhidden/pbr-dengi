@@ -6,10 +6,12 @@ import Tools from "../Pages/Tools/Tools"
 import {getCategories, categoriesSearch} from "../../Reducers/AC/categoriesAC"
 import {getHistoryItems, getHistoryList} from "../../Reducers/AC/payHistoryAC"
 import {getUserAgreement} from "../../Reducers/AC/settingsAC"
+import {getFavorites} from "../../Reducers/AC/favoritesAC"
 import ServiceDescription from "../Pages/Help/ServiceDescription"
 import UserAgreement from "../Pages/Help/UserAgreement"
 import {getDescription} from "../../Reducers/AC/helpAC"
-import {History,HistoryDetailItem} from "../Pages/History"
+import {History, HistoryDetailItem} from "../Pages/History"
+import {Favorites, Favorite} from "../Pages/Favorites"
 import {loadBanners} from '../../Reducers/AC/accountsAC'
 
 export default [
@@ -53,7 +55,7 @@ export default [
         path: '/history-items/:transaction_uuids',
         exact: true,
         component: HistoryDetailItem,
-        title: 'Квитанция об оплате',
+        title: 'Оплата услуги',
         fetchData: getHistoryItems
     },
     {
@@ -91,6 +93,22 @@ export default [
         component: Accounts,
         title: 'Мои счета',
         fetchData: loadBanners
+    },
+    {
+        path: '/favorites',
+        exact: true,
+        needAuth: true,
+        component: Favorites,
+        title: 'Избранные платежи',
+        fetchData: getFavorites
+    },
+    {
+        path: '/favorites/:id(\\d+)',
+        exact: true,
+        needAuth: true,
+        component: Favorite,
+        title: 'Просмотр платежа',
+        fetchData: getFavorites
     },
     {
         path: '*',

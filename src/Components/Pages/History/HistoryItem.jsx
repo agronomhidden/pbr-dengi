@@ -1,24 +1,22 @@
-import React from 'react';
-
-import PageComponent from "../../App/PageComponent"
-
-import PrintComponent from "../../Decorators/PrintComponent"
-
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import PrintComponent from "../../Decorators/PrintComponent"
 import {SendHistoryItemToMail, PrintHistoryItem} from "./index"
+import Popover from "../Partials/Popover"
+import {AddFavorite} from "../Favorites"
 
-
-export default class HistoryItems extends PageComponent {
+export default class HistoryItems extends Component {
 
     static propTypes = {
         historyItem: PropTypes.object.isRequired,
-        getHistoryItems: PropTypes.func.isRequired,
-        loading: PropTypes.bool.isRequired,
         sending: PropTypes.bool.isRequired,
         mailSection: PropTypes.object.isRequired,
         mailSender: PropTypes.func.isRequired,
-        transaction_uuids: PropTypes.string.isRequired
+        user: PropTypes.object,
+        popoverOpen: PropTypes.bool.isRequired,
+        onClose: PropTypes.func.isRequired,
+        onOpen: PropTypes.func.isRequired
     }
 
     getFields = fields => fields.map(({name, value}, key) => {
@@ -31,8 +29,13 @@ export default class HistoryItems extends PageComponent {
     })
 
     render() {
-        const {historyItem, mailSender, mailSection, sending} = this.props;
+        const {historyItem, mailSender, mailSection, sending, user} = this.props;
         return <div>
+            {user &&
+            <Popover open={this.props.popoverOpen} onClose={this.props.onClose}>
+                <button className="button" onClick={this.props.onOpen}>Добавить в Изб</button>
+                <AddFavorite payment_key={historyItem.key} onClose={this.props.onClose}/>
+            </Popover>}
             <div className="payment-result_item">
                 <h5 className="-pb3">Услуга:</h5>
                 <h3>{historyItem.service.name}</h3>
