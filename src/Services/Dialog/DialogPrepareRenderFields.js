@@ -1,0 +1,43 @@
+import {List, Map} from 'immutable'
+
+export default class DialogPrepareRenderFields {
+
+    entities;
+
+    fieldsState = {};
+
+    valueContainer;
+
+    constructor(entities = List([]), valueContainer = null) {
+        this.entities = entities
+        this.defaultValues = valueContainer;
+        this.prepare()
+    }
+
+    prepare() {
+        if (!!this.entities.size) {
+            this.entities.forEach((record) => {
+                if (Map.isMap(record)) {
+                    this.setStateOfPropsForDialog(record.get('fields').toObject())
+                }
+            })
+        }
+    }
+
+    setStateOfPropsForDialog(record) {
+        for (let name in record) {
+            if (record[name].editable) {
+                this.fieldsState[name] = record[name].value === null ? this.getDefaultValue(name) : props[name].value;
+            }
+        }
+    }
+
+    getDefaultValue(name) {
+
+        if (this.valueContainer) {
+            return this.valueContainer.getValue(name);
+        }
+        return '';
+    }
+
+}

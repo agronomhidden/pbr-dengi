@@ -21,6 +21,7 @@ import MessageAddFavorite from './MessageAddFavorite';
 import MessageUpdateFavorite from './MessageUpdateFavorite';
 import MessageDelFavorite from './MessageDelFavorite';
 import MessageCreateUserData from './MessageCreateUserData';
+import MessageGetFavoriteItem from './MessageGetFavoriteItem';
 
 
 export {
@@ -40,12 +41,12 @@ export {
     MessageUserAgreement,
     MessageTotalLogout,
     MessageDelSubscription,
-    MessageGetSlider,
     MessageSetLocation,
     MessageCreateUserData,
     MessageEripDialog,
     MessageGetFavorites,
     MessageAddFavorite,
     MessageUpdateFavorite,
-    MessageDelFavorite
+    MessageDelFavorite,
+    MessageGetFavoriteItem
 }

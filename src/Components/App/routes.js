@@ -59,7 +59,7 @@ export default [
         fetchData: getHistoryItems
     },
     {
-        path: '/payments/:id(\\d+)',
+        path: '/payments/:pay\?(.+)',
         exact: true,
         component: Payments,
         title: 'Платежи'

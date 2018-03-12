@@ -31,12 +31,17 @@ export class Favorites extends PageComponent {
         this._onClose(i)()
     }
 
+    _repeatPay = id => e => {
+        e.preventDefault()
+
+    }
+
     getFavoriteItems = () => this.props.data.map((item, i) =>
         <div key={i} className='history-items'>
-            <span className='history-items_link'>
-                <Link to={`/favorites/${item.id}`}>{item.name}</Link>
-            </span>
-            <span className='history-items_link'>{item.category_name}/{item.service_name}</span>
+            <div className='history-items_link'>
+                <a onClick={this._repeatPay(item.id)}>{item.name}</a>
+            </div>
+            <div className='history-items_link'>{item.category_name}/{item.service_name}</div>
             <Popover open={this.state.popoverOpen === i} onClose={this._onClose(i)}>
                 <button className="button" onClick={this._onOpen(i)}>Удалить</button>
                 <div className="popover">
@@ -45,9 +50,9 @@ export class Favorites extends PageComponent {
                             onClick={this._deleteFavorite(item.id, i)}>Удалить</button>
                 </div>
             </Popover>
-            <span className='history-items_link'>
+            <div className='history-items_link'>
                 <Link to={`/favorites/${item.id}`}>Редактировать</Link>
-            </span>
+            </div>
         </div>)
 
 

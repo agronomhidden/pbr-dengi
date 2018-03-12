@@ -10,6 +10,7 @@ export class AddFavorite extends Component {
     state = {
         name: '',
         success: false,
+        fail: false,
         errors: {}
     }
 
@@ -20,15 +21,17 @@ export class AddFavorite extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        nextProps.errors && this.setState({errors: nextProps.errors});
-        if (nextProps.success && this.props.onClose) {
-            this.setState({success: true})
+
+        const {errors, fail, success} = nextProps
+
+        this.setState({errors: errors || {}, fail: fail || false, success: success || false})
+
+        if ((fail || success) && this.props.onClose)
             setTimeout(() => {
                 this.props.onClose()
             }, 1000)
-        }
-
     }
+
 
     _onChange = ({target: {name, value}}) => {
         this.setState({[name]: value, errors: {}})
@@ -41,16 +44,25 @@ export class AddFavorite extends Component {
     }
 
     render() {
+
+        let rendering =
+            <form onSubmit={this._onSubmit} style={{display: 'grid'}}>
+                <FormGroup onChange={this._onChange} name='name' errors={this.state.errors}
+                           placeholder={'Название'} value={this.state.name}/>
+                <button type='submit'>Сохранить</button>
+            </form>
+
+        if (this.state.success) {
+            rendering = <span>Платеж добавлен в избранное</span>
+        }
+
+        if(this.state.fail) {
+            rendering = <span>Ошибка добавления</span>
+        }
+
         return (
             <div className="popover">
-                {!this.state.success ?
-                    <form onSubmit={this._onSubmit} style={{display: 'grid'}}>
-                        <FormGroup onChange={this._onChange} name='name' errors={this.state.errors}
-                                   placeholder={'Название'} value={this.state.name}/>
-                        <button type='submit'>Сохранить</button>
-                    </form> :
-                    <span>Платеж добавлен в избранное</span>
-                }
+                {rendering}
             </div>
         )
     }
@@ -61,7 +73,8 @@ export default connect(
     (s => ({
         loading: s.favorites.get('loading'),
         errors: s.favorites.get('errors'),
-        success: s.favorites.get('success')
+        success: s.favorites.get('success'),
+        fail: s.favorites.get('fail')
     })),
     {addFavorite}
 )(AddFavorite)

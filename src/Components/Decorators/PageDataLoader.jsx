@@ -31,16 +31,18 @@ export default (Component) => class PageDataLoader extends PageComponent {
 
     _getEntities(props) {
         if (this.isBrowser()) {
-            const {entitiesLoader, searchFunc, history: {replace, location}, match: {params}} = props;
+            const {entitiesLoader, searchFunc, history: {location}, match: {params}} = props;
 
-            const search = queryStringToState(location && location.search)
+            const search = queryStringToState(location && location.search);
 
-            if (Object.keys(search).length) {
-                params['searchQuery'] = search.searchQuery
-                search.searchQuery ? searchFunc(params) : replace('/not-found')
-            } else {
-                entitiesLoader(params);
+            Object.assign(params, search);
+
+            if (searchFunc && params.searchQuery) {
+                searchFunc(params);
+                return
             }
+
+            entitiesLoader(params);
         }
     }
 

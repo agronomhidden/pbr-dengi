@@ -6,24 +6,37 @@ import {initDialog, requestInDialog} from '../../../Reducers/AC/eripDialogAC'
 import PageDataLoader from '../../Decorators/PageDataLoader'
 import {Roller} from "../../Loading"
 import {setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
-import {setStateOfPropsForDialog} from "pbr-lib-front-utils/dist/MtsMoneyApi/dialogHelper"
 import {DialogMap} from "./index"
-import DialogFieldPreparer from "../../../Utils/DialogFieldPreparer"
+import DialogFieldPreparer from "../../../Services/Dialog/DialogFieldPreparer"
 import PageComponent from "../../App/PageComponent"
+import DialogPrepareRenderFields from "../../../Services/Dialog/DialogPrepareRenderFields"
+import DialogDefaultValueFactory from "../../../Services/Dialog/DialogDefaultValueFactory"
 
 export class Payments extends PageComponent {
+
+
+    constructor(props) {
+        super(props);
+        DialogDefaultValueFactory.setSearchString(props.history.location.search);
+    }
 
     state = {
         errors: {}
     }
 
     componentWillReceiveProps(nextProps) {
-        const {entities, errors} = nextProps;
+        const {entities, errors, favorite} = nextProps;
 
-        entities && entities.forEach((record, i) => {
-            this.props.entities.size !== entities.size && entities.size === ++i
-            && this.setState(setStateOfPropsForDialog(record.get('fields').toObject()))
-        })
+        favorite && DialogDefaultValueFactory.setFavoriteProps(favorite)
+
+        const currentDialogEntities = entities.slice(this.props.entities.size);
+        
+        console.log(DialogDefaultValueFactory.valueContainer);
+        
+        const prepareFields = new DialogPrepareRenderFields(currentDialogEntities, DialogDefaultValueFactory.valueContainer)
+
+        this.setState(prepareFields.fieldsState);
+
         errors && this.setState({errors})
     }
 
@@ -86,11 +99,12 @@ export default connect(
         mts_session: s.eripDialog.get('mts_session'),
         fault: s.eripDialog.get('fault'),
         errors: s.eripDialog.get('errors'),
-        uuid: s.eripDialog.get('uuid')
+        uuid: s.eripDialog.get('uuid'),
+        favorite: s.favorites.get('favorite')
     })),
     {
         entitiesLoader: initDialog,
-        requestInDialog
+        requestInDialog,
     }
 )(PageDataLoader(PageLayout(Payments)))
 

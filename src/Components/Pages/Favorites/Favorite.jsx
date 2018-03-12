@@ -14,9 +14,13 @@ export class Favorite extends Component {
         errors: {}
     }
 
-    componentDidMount() {
-        const {favorite} = this.props
-        favorite && this.setState({name: favorite.get('name')})
+    componentWillMount() {
+        const {favorite, history} = this.props
+        if (favorite) {
+            this.setState({name: favorite.get('name')})
+        } else {
+            history.replace('/not-found')
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -33,18 +37,23 @@ export class Favorite extends Component {
         this.props.updateFavorite({id, name})
     }
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this._onSubmit}>
-                    <FormGroup onChange={this._onChange} name='name' errors={this.state.errors}
-                               label={'Название'} value={this.state.name}/>
-                    <button type='submit'>Сохранить</button>
-                </form>
-                <Link to={'#'}><i>Повторить платеж</i></Link>
-            </div>
-        )
+    _repeatPay = (e) => {
+        e.preventDefault()
+        this.props.repeatPay(this.props.id)
     }
+
+    render = () => {
+        return <div>
+            <form onSubmit={this._onSubmit}>
+                <FormGroup onChange={this._onChange} name='name' errors={this.state.errors}
+                           label={'Название'} value={this.state.name}/>
+                <button type='submit'>Сохранить</button>
+            </form>
+            <button onClick={this._repeatPay}><i>Повторить платеж</i></button>
+        </div>
+    }
+
+
 }
 
 
@@ -53,7 +62,7 @@ export default connect(
         const id = Number(p.match.params.id)
         return {
             favorite: s.favorites.get('favorites').get(id),
-            loading: s.favorites.get('HlLoading'),
+            loading: s.favorites.get('loading'),
             errors: s.favorites.get('errors'),
             id
         }

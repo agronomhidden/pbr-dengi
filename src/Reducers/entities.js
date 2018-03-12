@@ -80,5 +80,6 @@ export const FavoritesRecord = Record({
     name: null,
     fields: null,
     service_name: null,
-    category_name: null
+    category_name: null,
+    service_id: null
 })

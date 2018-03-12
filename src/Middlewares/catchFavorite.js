@@ -1,8 +1,8 @@
-import {UPDATE_FAVORITE, ADD_FAVORITE,DELETE_FAVORITE, SUCCESS} from '../CONSTANTS'
+import {UPDATE_FAVORITE, ADD_FAVORITE, DELETE_FAVORITE, SUCCESS, GET_FAVORITE_ITEM} from '../CONSTANTS'
 import {getFavorites} from "../Reducers/AC/favoritesAC"
 
 
-export default history => store => next => action => {
+export default store => next => action => {
     switch (action.type) {
         case UPDATE_FAVORITE + SUCCESS :
             store.dispatch(getFavorites())

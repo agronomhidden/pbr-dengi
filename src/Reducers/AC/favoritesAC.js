@@ -1,6 +1,6 @@
 import {
     GET_FAVORITES, ADD_FAVORITE, UPDATE_FAVORITE, DELETE_FAVORITE, FAVORITE, API_REQUEST_ACTION,
-    START, SUCCESS, FAIL
+    START, SUCCESS, FAIL, FAVORITE_DISTRIBUTOR,GET_FAVORITE_ITEM
 } from "../../CONSTANTS"
 import * as creator from "../../Services/Api/Messages/messagesClassStorage";
 import {logoutCurrentUser} from "./authAC"
@@ -26,9 +26,12 @@ export const addFavoriteStart = () => ({
     type: ADD_FAVORITE + START,
 })
 
-export const addFavoriteSuccess = res => ({
+export const addFavoriteSuccess = _ => ({
     type: ADD_FAVORITE + SUCCESS,
-    payload: res
+})
+
+export const addFavoriteFail = _ => ({
+    type: ADD_FAVORITE + FAIL,
 })
 
 export const favoriteFail = response => ({
@@ -36,12 +39,19 @@ export const favoriteFail = response => ({
     payload: {fields: response.result, msg: response.message}
 })
 
+export const addFavoriteDistributor = response => ({
+    type: FAVORITE_DISTRIBUTOR,
+    payload: response,
+    successAC: addFavoriteSuccess,
+    failAC: addFavoriteFail
+})
+
 export const addFavorite = params => ({
     type: API_REQUEST_ACTION,
     method: creator.MessageAddFavorite.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => addFavoriteStart(),
-    successAC: addFavoriteSuccess,
+    successAC: addFavoriteDistributor,
     fieldErrorAC: favoriteFail,
     forbiddenErrorAC: logoutCurrentUser,
 })
@@ -81,4 +91,21 @@ export const deleteFavorite = params => ({
     forbiddenErrorAC: logoutCurrentUser,
 })
 
+export const getFavoriteItemStart = () => ({
+    type: GET_FAVORITE_ITEM + START,
+})
+
+export const getFavoriteItemSuccess = res => ({
+    type: GET_FAVORITE_ITEM + SUCCESS,
+    payload: res
+})
+
+export const getFavoriteItem = params => ({
+    type: API_REQUEST_ACTION,
+    method: creator.MessageGetFavoriteItem.METHOD,
+    payload: params,
+    beforeAC: (paramsContainer) => getFavoriteItemStart(),
+    successAC: getFavoriteItemSuccess,
+    forbiddenErrorAC: logoutCurrentUser,
+})
 

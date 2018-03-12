@@ -1,4 +1,4 @@
-import {prepareOriginFieldPhone} from "./helper"
+import {prepareOriginFieldPhone} from "../../Utils/helper"
 
 export default class DialogFieldPreparer {
 
