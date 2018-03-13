@@ -10,7 +10,7 @@ export default class DialogPrepareRenderFields {
 
     constructor(entities = List([]), valueContainer = null) {
         this.entities = entities
-        this.defaultValues = valueContainer;
+        this.valueContainer = valueContainer;
         this.prepare()
     }
 
@@ -33,7 +33,6 @@ export default class DialogPrepareRenderFields {
     }
 
     getDefaultValue(name) {
-
         if (this.valueContainer) {
             return this.valueContainer.getValue(name);
         }

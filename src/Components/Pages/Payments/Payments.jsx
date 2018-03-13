@@ -26,13 +26,11 @@ export class Payments extends PageComponent {
 
     componentWillReceiveProps(nextProps) {
         const {entities, errors, favorite} = nextProps;
-
-        favorite && DialogDefaultValueFactory.setFavoriteProps(favorite)
+        
+        favorite && DialogDefaultValueFactory.setFavoriteProps(favorite);
 
         const currentDialogEntities = entities.slice(this.props.entities.size);
-        
-        console.log(DialogDefaultValueFactory.valueContainer);
-        
+
         const prepareFields = new DialogPrepareRenderFields(currentDialogEntities, DialogDefaultValueFactory.valueContainer)
 
         this.setState(prepareFields.fieldsState);

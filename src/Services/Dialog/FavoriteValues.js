@@ -1,9 +1,11 @@
+import AbstractDefaultValues from "./AbstractDefaultValues"
 
-export default class FavoriteValues {
+export default class FavoriteValues extends AbstractDefaultValues {
 
     defaultValues = {}
 
     constructor(serviceId, props) {
+        super()
         if (props && props.get('service_id') === Number(serviceId)) {
             this.prepareValue(props)
         }

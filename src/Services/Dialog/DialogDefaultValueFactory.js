@@ -1,9 +1,8 @@
 import {queryStringToState} from "pbr-lib-front-utils/dist/queryStringHelper"
 import FavoriteValues from './FavoriteValues';
+import LocationStringValues from "./LocationStringValues"
 
 export default new class DialogDefaultValueFactory {
-
-    defaultValues;
 
     queryString;
 
@@ -14,30 +13,29 @@ export default new class DialogDefaultValueFactory {
     }
 
     setFavoriteProps(favoriteProps){
-        this.queryString = favoriteProps;
+        this.favoriteProps = favoriteProps;
     }
 
-    getFavid() {
+    get favid() {
         return this.queryString.favid
     }
 
-    getDefault() {
+    get default() {
         return this.queryString.default
     }
 
-    getServiceId(){
+    get serviceId(){
         return this.queryString.id
     }
 
     get valueContainer() {
-        if (this.getFavid()) {
-            console.log(this.getFavid());
-            return new FavoriteValues(this.getServiceId(), this.favoriteProps)
+        if (this.favid) {
+            return new FavoriteValues(this.serviceId, this.favoriteProps)
         }
-        if (this.getDefault()) {
-         //   return new LocationStringValues(this.getDefault()).getValues()
+        if (this.default) {
+            return new LocationStringValues(this.default)
         }
-        return false;
+        return null;
     }
 
 }
