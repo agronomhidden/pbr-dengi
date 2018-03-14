@@ -14,7 +14,7 @@ export const settingState = Record({
     TLFail: false,
     errors: null,
     UALoading: false,
-    agreement: null,
+    agreement: [],
     DSLoading: false,
     DSFail: false,
     DSSuccess: false
@@ -43,7 +43,7 @@ export default (state = new settingState(), action = {}) => {
         case USER_AGREEMENT + START:
             return state
                 .set('UALoading', true)
-                .set('agreement', null)
+                .set('agreement', [])
         case USER_AGREEMENT + SUCCESS:
             return state
                 .set('UALoading', false)

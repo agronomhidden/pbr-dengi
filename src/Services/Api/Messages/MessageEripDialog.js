@@ -14,8 +14,11 @@ export default class MessageEripDialog extends AbstractMessage {
      */
     constructor(access_token, serviceCode, mts_session = null, fields = null, otherFields = {}) {
         super()
-        if (!Validator.isNull(serviceCode) && !Validator.isInt(serviceCode)) {
-            throw new TypeError('serviceCode must be integer or NULL')
+        if(!serviceCode){
+            throw new TypeError('serviceCode mandatory variable')
+        }
+        if (!Validator.isInt(serviceCode)) {
+            throw new TypeError('serviceCode must be integer')
         }
         this.args = Object.assign({access_token, serviceCode, fields, mts_session}, otherFields)
     }

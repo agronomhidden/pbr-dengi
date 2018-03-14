@@ -9,7 +9,7 @@ import {FavoritesRecord} from "./entities"
 
 
 export const favoriteState = Record({
-    favorites: new OrderedMap({}),
+    favorites: [],
     loading: false,
     success: false,
     fail:false,

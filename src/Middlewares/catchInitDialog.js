@@ -6,7 +6,7 @@ export default history => store => next => action => {
     switch (action.type) {
         case DIALOG + START:
             const params = queryStringToState(history.location.search)
-            if(params.favid){
+            if(params.favId){
                 store.dispatch(getFavoriteItem(params))
             }
             break

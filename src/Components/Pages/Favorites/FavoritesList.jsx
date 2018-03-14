@@ -31,15 +31,12 @@ export class Favorites extends PageComponent {
         this._onClose(i)()
     }
 
-    _repeatPay = id => e => {
-        e.preventDefault()
-
-    }
-
     getFavoriteItems = () => this.props.data.map((item, i) =>
         <div key={i} className='history-items'>
             <div className='history-items_link'>
-                <a onClick={this._repeatPay(item.id)}>{item.name}</a>
+                <Link to={`/payments/${item.service_id}?favId=${item.id}`}>
+                   {item.name}
+                </Link>
             </div>
             <div className='history-items_link'>{item.category_name}/{item.service_name}</div>
             <Popover open={this.state.popoverOpen === i} onClose={this._onClose(i)}>

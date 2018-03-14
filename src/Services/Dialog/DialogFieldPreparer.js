@@ -1,4 +1,6 @@
-import {prepareOriginFieldPhone} from "../../Utils/helper"
+import {prepareOriginFieldPhone} from '../../Utils/helper';
+import {trim} from '../../Utils/helper';
+import {Map} from 'immutable';
 
 export default class DialogFieldPreparer {
 
@@ -25,10 +27,11 @@ export default class DialogFieldPreparer {
     }
 
     setFields(name, {originalField, mask}) {
+        const fieldsValue = this.getFieldValue(mask, this.values[name]);
         if (originalField) {
-            this.originalFields[name] = this.getFieldValue(mask, this.values[name])
+            this.originalFields[name] = fieldsValue;
         } else {
-            this.otherFields[name] = this.getFieldValue(mask, this.values[name])
+            this.otherFields[name] = fieldsValue;
         }
     }
 
@@ -36,8 +39,11 @@ export default class DialogFieldPreparer {
         return mask ? prepareOriginFieldPhone(fieldValue, mask.prefix) : fieldValue
     }
 
-    getFieldsLength() {
-        return this.fields.size
+    get fieldsLength() {
+        if(Map.isMap){
+            return this.fields.size
+        }
+        return 0;
     }
 
     removeErrors() {
@@ -45,10 +51,12 @@ export default class DialogFieldPreparer {
     }
 
     prepared() {
-        for (let name in this.values) {
-            const fieldProps = this.getFieldProps(name)
-            if (fieldProps && this.validateLengthString(name, fieldProps)) {
-                this.setFields(name, fieldProps)
+        if(this.isObject(this.values)) {
+            for (let name in this.values) {
+                const fieldProps = this.getFieldProps(name)
+                if (fieldProps && this.validateLengthString(name, fieldProps)) {
+                    this.setFields(name, fieldProps)
+                }
             }
         }
     }
@@ -57,31 +65,31 @@ export default class DialogFieldPreparer {
         if (this.isObject(this.fields)) {
             let i = 1
             for (let record of this.fields) {
-                if (i++ === this.getFieldsLength()) {
+                if (i++ === this.fieldsLength) {
                     return record.get('fields').get(name)
                 }
             }
         }
         return false
     }
-    /**  Вынести в  библиотеку */
-    trim(str) {
-        return str && str.replace(/\s*/g, '') || ''
-    }
 
     validateLengthString(name, {minLength, maxLength}) {
-        let text = '';
-        const value = this.trim(this.values[name])
-        if (minLength && value.length < minLength) {
-            text = `длина значения поля должна быть не менее ${minLength}`
-        }
 
-        if (maxLength && value.length > maxLength) {
-            text = `длина значения поля должна быть не более ${maxLength}`
-        }
-        if (text) {
-            this.fieldError = {name, text}
-            return false
+        if (this.values[name] instanceof String) {
+            let text = '';
+
+            const value = trim(this.values[name])
+
+            if (minLength && value.length < minLength) {
+                text = `длина значения поля должна быть не менее ${minLength}`
+            }
+            if (maxLength && value.length > maxLength) {
+                text = `длина значения поля должна быть не более ${maxLength}`
+            }
+            if (text) {
+                this.fieldError = {name, text}
+                return false
+            }
         }
         return true
     }

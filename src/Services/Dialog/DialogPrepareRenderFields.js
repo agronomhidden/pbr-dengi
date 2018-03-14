@@ -27,14 +27,17 @@ export default class DialogPrepareRenderFields {
     setStateOfPropsForDialog(record) {
         for (let name in record) {
             if (record[name].editable) {
-                this.fieldsState[name] = record[name].value === null ? this.getDefaultValue(name) : props[name].value;
+                this.fieldsState[name] = record[name].value === null ? this.getDefaultValue(name) : record[name].value;
             }
         }
     }
 
     getDefaultValue(name) {
         if (this.valueContainer) {
-            return this.valueContainer.getValue(name);
+            const value = this.valueContainer.getValue(name)
+            if(value){
+                return value;
+            }
         }
         return '';
     }

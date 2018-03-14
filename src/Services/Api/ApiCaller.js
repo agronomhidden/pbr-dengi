@@ -94,7 +94,7 @@ export default class ApiCaller extends BaseApiCaller {
                 return (new msg.MessageCreateUserData(container.getToken(), params.service_id, params.identifier)).getMessage()
 
             case msg.MessageGetFavoriteItem.METHOD:
-                return new msg.MessageGetFavoriteItem(container.getToken(), params.favid).getMessage()
+                return new msg.MessageGetFavoriteItem(container.getToken(), params.favId).getMessage()
 
             default:
                 throw Error('Message for method ' + method + ' was not found')

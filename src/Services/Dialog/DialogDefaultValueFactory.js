@@ -8,28 +8,38 @@ export default new class DialogDefaultValueFactory {
 
     favoriteProps;
 
-    setSearchString(searchString){
+    serviceId;
+
+
+    setSearchString(searchString) {
         this.queryString = queryStringToState(searchString);
+        return this;
+
     }
 
-    setFavoriteProps(favoriteProps){
+    setServiceId(id){
+        this.serviceId = id;
+        return this;
+    }
+
+    setFavoriteProps(favoriteProps) {
         this.favoriteProps = favoriteProps;
     }
 
-    get favid() {
-        return this.queryString.favid
+    get favId() {
+        return this.queryString.favId
     }
 
     get default() {
         return this.queryString.default
     }
 
-    get serviceId(){
+    get() {
         return this.queryString.id
     }
 
     get valueContainer() {
-        if (this.favid) {
+        if (this.favId) {
             return new FavoriteValues(this.serviceId, this.favoriteProps)
         }
         if (this.default) {

@@ -13,11 +13,12 @@ import DialogPrepareRenderFields from "../../../Services/Dialog/DialogPrepareRen
 import DialogDefaultValueFactory from "../../../Services/Dialog/DialogDefaultValueFactory"
 
 export class Payments extends PageComponent {
-
-
+    
     constructor(props) {
         super(props);
-        DialogDefaultValueFactory.setSearchString(props.history.location.search);
+        DialogDefaultValueFactory
+            .setSearchString(props.history.location.search)
+            .setServiceId(props.match.params.id);
     }
 
     state = {
@@ -32,7 +33,7 @@ export class Payments extends PageComponent {
         const currentDialogEntities = entities.slice(this.props.entities.size);
 
         const prepareFields = new DialogPrepareRenderFields(currentDialogEntities, DialogDefaultValueFactory.valueContainer)
-
+        
         this.setState(prepareFields.fieldsState);
 
         errors && this.setState({errors})

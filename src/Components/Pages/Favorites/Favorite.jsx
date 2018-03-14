@@ -1,34 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from "react-redux"
 
 import FormGroup from "../Partials/FormGroup"
 import PageLayout from "../../Decorators/PageLayout"
-import {updateFavorite} from "../../../Reducers/AC/favoritesAC"
+import {getFavorites, updateFavorite} from "../../../Reducers/AC/favoritesAC"
 import {Link} from "react-router-dom"
+import PageComponent from "../../App/PageComponent"
+import {Map} from 'immutable'
 
-
-export class Favorite extends Component {
+export class Favorite extends PageComponent {
 
     state = {
         name: '',
+        service_id: '',
+        loading: true,
         errors: {}
     }
 
-    componentWillMount() {
-        const {favorite, history} = this.props
-        if (favorite) {
-            this.setState({name: favorite.get('name')})
-        } else {
-            history.replace('/not-found')
-        }
+    componentDidMount() {
+        this.setFavorite(this.props.data);
     }
 
     componentWillReceiveProps(nextProps) {
+        this.setFavorite(nextProps.data);
         nextProps.errors && this.setState({errors: nextProps.errors});
     }
 
     _onChange = ({target: {name, value}}) => {
-        this.setState({[name]: value, errors: {}})
+        this.setState({[name]: value, errors: {}});
     }
 
     _onSubmit = (e) => {
@@ -37,36 +36,44 @@ export class Favorite extends Component {
         this.props.updateFavorite({id, name})
     }
 
-    _repeatPay = (e) => {
-        e.preventDefault()
-        this.props.repeatPay(this.props.id)
+    setFavorite(favorites) {
+        if (Map.isMap(favorites)) {
+            const favorite = favorites.get(this.props.id);
+            if (favorite) {
+                this.setState({name: favorite.get('name'), service_id: favorite.get('service_id'), loading: false});
+            } else {
+                this.props.history.replace('/not-found');
+            }
+        }
     }
 
-    render = () => {
-        return <div>
-            <form onSubmit={this._onSubmit}>
-                <FormGroup onChange={this._onChange} name='name' errors={this.state.errors}
-                           label={'Название'} value={this.state.name}/>
-                <button type='submit'>Сохранить</button>
-            </form>
-            <button onClick={this._repeatPay}><i>Повторить платеж</i></button>
-        </div>
+    render() {
+        let render = <div>Загрузка</div>
+
+        if (!this.state.loading) {
+            render =
+                <div>
+                    <form onSubmit={this._onSubmit}>
+                        <FormGroup onChange={this._onChange} name='name' errors={this.state.errors}
+                                   label={'Название'} value={this.state.name}/>
+                        <button type='submit'>Сохранить</button>
+                    </form>
+                    <Link to={`/payments/${this.state.service_id}?favId=${this.props.id}`}>
+                        <i>Повторить платеж</i>
+                    </Link>
+                </div>
+        }
+        return render;
     }
-
-
 }
 
-
 export default connect(
-    ((s, p) => {
-        const id = Number(p.match.params.id)
+    (s, p) => {
         return {
-            favorite: s.favorites.get('favorites').get(id),
-            loading: s.favorites.get('loading'),
+            data: s.favorites.get('favorites'),
             errors: s.favorites.get('errors'),
-            id
+            id: Number(p.match.params.id)
         }
-    }),
-    {updateFavorite}
+    },
+    {dataLoader: getFavorites, updateFavorite}
 )(PageLayout(Favorite))
-

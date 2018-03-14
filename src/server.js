@@ -10,6 +10,7 @@ import Config from 'pbr-lib-front-utils/dist/config'
 import proxy from 'express-http-proxy'
 import {SERVER_POST_URL} from './CONSTANTS'
 import nocache from './express/nocache'
+import catchUrl from "./express/catchUrl"
 
 const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
@@ -33,9 +34,9 @@ app.use(express.static('public', {
 }));
 
 app.use(SERVER_POST_URL, proxy(process.env.API_URL, {
-    proxyReqPathResolver: () =>  SERVER_POST_URL
+    proxyReqPathResolver: () => SERVER_POST_URL
 }));
-
+app.use('/payments/pay', catchUrl);
 app.use('*', nocache);
 app.use('/', Router);
 
