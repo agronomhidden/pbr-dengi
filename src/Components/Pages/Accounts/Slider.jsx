@@ -75,7 +75,7 @@ class Slider extends Component {
 
     onAfterSlide = () => {
         this.refreshState()
-        this.props.resetCreateUserDataUsingBanner()
+        this.resetData()
     }
 
     onBeforeSlide = () => {}
@@ -86,6 +86,12 @@ class Slider extends Component {
             state[item.getServiceId()] = ''
         })
         this.setState(state)
+    }
+
+    resetData() {
+       if (this.props.error || this.props.success) {
+           this.props.resetCreateUserDataUsingBanner()
+       }
     }
 
     toggleSliding(stopSlide) {
@@ -146,8 +152,6 @@ class Slider extends Component {
         </div>
     }
 }
-
-
 
 export default connect(
     (s => ({

@@ -10,7 +10,7 @@ import ServiceDescription from "../Pages/Help/ServiceDescription"
 import UserAgreement from "../Pages/Help/UserAgreement"
 import {getDescription} from "../../Reducers/AC/helpAC"
 import {History,HistoryDetailItem} from "../Pages/History"
-import {loadBanners} from '../../Reducers/AC/accountsAC'
+import {loadBanners, loadUserData} from '../../Reducers/AC/accountsAC'
 
 export default [
     {
@@ -85,13 +85,30 @@ export default [
         fetchData: getUserAgreement
     },
     {
+        path: '/accounts/edit/:div_id(\\d+)/:user_data_id(\\d+)',
+        exact: true,
+        needAuth: true,
+        component: Accounts,
+        title: 'Мои счета',
+        fetchData: [loadBanners, loadUserData]
+    },
+    {
+        path: '/accounts/:parent_id(\\d+)\?/:search(.*)',
+        exact: true,
+        needAuth: true,
+        component: Accounts,
+        title: 'Мои счета',
+        fetchData: [loadBanners, loadUserData]
+    },
+    {
         path: '/accounts',
         exact: true,
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: loadBanners
+        fetchData: [loadBanners, loadUserData]
     },
+
     {
         path: '*',
         component: Error,

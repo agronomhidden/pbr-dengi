@@ -23,6 +23,7 @@ export const SERVER_POST_URL = '/api/post_request'
 
 /** Роутер */
 export const CHANGE_ROUTE = '@@router/LOCATION_CHANGE'
+export const TOUCH_LOCATION = 'TOUCH_LOCATION'
 /** Поиск */
 export const SEARCH_EVENT = 'SEARCH_EVENT'
 /** Вход пользователя*/
@@ -53,6 +54,13 @@ export const SERVICE_DESCRIPTION = 'SERVICE_DESCRIPTION'
 /** Мои счета */
 export const GET_BANNERS = 'GET_BANNERS'
 export const CREATE_USER_DATA_WITH_BANNER = 'CREATE_USER_DATA_WITH_BANNER'
+export const CREATE_USER_DATA = 'CREATE_USER_DATA'
+export const GET_USER_DATA = 'GET_USER_DATA'
+export const USER_DATA_SEARCH = 'USER_DATA_SEARCH'
+export const FOCUS_SERVICE = 'FOCUS_SERVICE'
+export const DELETE_USER_DATA = 'DELETE_USER_DATA'
+export const EDIT_USER_DATA = 'EDIT_USER_DATA'
 
 /** флаги */
 export const ACCOUNTS_SLIDER_LOADED = 0b00001
+export const ACCOUNTS_USER_DATA_LOADED = 0b00010

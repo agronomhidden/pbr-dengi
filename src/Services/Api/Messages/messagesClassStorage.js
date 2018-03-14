@@ -11,7 +11,9 @@ import MessageGetHistoryItems from './MessageGetHistoryItems';
 import MessageGetSlider from './MessageGetSlider';
 import MessageSetLocation from './MessageSetLocation';
 import MessageCreateUserData from './MessageCreateUserData';
-
+import MessageGetUserData from './MessageGetUserData';
+import MessageDeleteUserData from './MessageDeleteUserData';
+import MessageEditUserData from './MessageEditUserData';
 
 export {
     MessageSearchAutoCompleteCategories,
@@ -26,5 +28,8 @@ export {
     MessageGetHistoryItems,
     MessageGetSlider,
     MessageSetLocation,
-    MessageCreateUserData
+    MessageCreateUserData,
+    MessageGetUserData,
+    MessageDeleteUserData,
+    MessageEditUserData
 }

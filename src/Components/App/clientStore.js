@@ -5,7 +5,7 @@ import rootReducer from '../../rootReducer';
 import {connectRouter, routerMiddleware} from 'connected-react-router';
 import {createBrowserHistory} from 'history';
 import setQueryString from "../../Middlewares/setQueryString"
-import setStateLocation from "../../Middlewares/setStateLocation"
+import catchRouteChangeMiddleware from "../../Middlewares/catchRouteChangeMiddleware"
 
 
 export const history = createBrowserHistory();
@@ -18,7 +18,7 @@ export const getStore = (initialState, ...middlewares) => createStore(
             thunk,
             routerMiddleware(history),
             setQueryString(history),
-            setStateLocation(history),
+            catchRouteChangeMiddleware(history),
             ...middlewares
         )
     )
