@@ -1,6 +1,6 @@
 import {REAL_IP} from "../../CONSTANTS";
 import BaseApiCaller from './BaseApiCaller';
-import * as msg from './Messages/messagesClassStorage';
+import * as msg from './Messages';
 
 export default class ApiCaller extends BaseApiCaller {
 

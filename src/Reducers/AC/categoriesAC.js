@@ -1,6 +1,6 @@
 import {SET_CATEGORIES, SET_AUTO_COMPLETE, SUCCESS, START, FAIL, RESET, API_REQUEST_ACTION} from "../../CONSTANTS"
 import {search} from './commonAC'
-import * as creator from "../../Services/Api/Messages/messagesClassStorage";
+import * as creator from "../../Services/Api/Messages";
 import {logoutCurrentUser} from "./authAC"
 
 export const loadCategories = (searchQuery = '') => ({

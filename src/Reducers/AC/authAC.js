@@ -1,5 +1,5 @@
 import {SET_CURRENT_USER, SUCCESS, START, LOGOUT_CURRENT_USER, FAIL, API_REQUEST_ACTION, LOGIN_USER} from "../../CONSTANTS"
-import * as creator from "../../Services/Api/Messages/messagesClassStorage";
+import * as creator from "../../Services/Api/Messages";
 
 export const setCurrentUser = response => ({
     type: SET_CURRENT_USER,

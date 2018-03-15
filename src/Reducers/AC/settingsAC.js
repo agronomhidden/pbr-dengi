@@ -2,7 +2,7 @@ import {
     CHANGE_PASSWORD, SET_PROFILE, TOTAL_LOGOUT, DELETE_SUBSCRIPTION, START, SUCCESS, FAIL, USER_AGREEMENT,
     API_REQUEST_ACTION, SETTINGS_FIELDS_ERROR ,SETTINGS_DISTRIBUTOR
 } from "../../CONSTANTS"
-import * as msg from "../../Services/Api/Messages/messagesClassStorage"
+import * as msg from "../../Services/Api/Messages"
 import {logoutCurrentUser} from "./authAC"
 
 export const changePasswordStart = () => ({

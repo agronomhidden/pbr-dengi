@@ -1,5 +1,5 @@
 import {API_REQUEST_ACTION, SET_LOCATION, CHANGE_LOCATION, START, SUCCESS} from "../../CONSTANTS"
-import {MessageGetLocation, MessageSetLocation} from "../../Services/Api/Messages/messagesClassStorage";
+import {MessageGetLocation, MessageSetLocation} from "../../Services/Api/Messages";
 
 export function loadLocation(locationId) {
     return {

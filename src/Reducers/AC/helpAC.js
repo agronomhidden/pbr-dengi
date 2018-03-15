@@ -1,5 +1,5 @@
 import {SERVICE_DESCRIPTION, START, SUCCESS, API_REQUEST_ACTION} from "../../CONSTANTS"
-import * as creator from "../../Services/Api/Messages/messagesClassStorage"
+import * as creator from "../../Services/Api/Messages"
 
 export const getDescriptionStart = () => ({
     type: SERVICE_DESCRIPTION + START

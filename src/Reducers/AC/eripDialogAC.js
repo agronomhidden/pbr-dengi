@@ -2,7 +2,7 @@ import {
     DIALOG, SUCCESS, START, RESET, FAILED, FAIL, OVER, API_REQUEST_ACTION,
     DIALOG_DISTRIBUTOR
 } from "../../CONSTANTS"
-import * as creator from "../../Services/Api/Messages/messagesClassStorage"
+import * as creator from "../../Services/Api/Messages"
 
 export const initDialogStart = () => ({
     type: DIALOG + START

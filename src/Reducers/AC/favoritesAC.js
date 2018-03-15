@@ -2,7 +2,7 @@ import {
     GET_FAVORITES, ADD_FAVORITE, UPDATE_FAVORITE, DELETE_FAVORITE, FAVORITE, API_REQUEST_ACTION,
     START, SUCCESS, FAIL, FAVORITE_DISTRIBUTOR,GET_FAVORITE_ITEM
 } from "../../CONSTANTS"
-import * as creator from "../../Services/Api/Messages/messagesClassStorage";
+import * as creator from "../../Services/Api/Messages";
 import {logoutCurrentUser} from "./authAC"
 
 export const getFavoritesStart = () => ({

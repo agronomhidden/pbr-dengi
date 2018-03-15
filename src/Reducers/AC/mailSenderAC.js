@@ -1,5 +1,5 @@
 import {API_REQUEST_ACTION, FAIL, SEND_MAIL, START, SUCCESS} from "../../CONSTANTS"
-import * as creator from "../../Services/Api/Messages/messagesClassStorage"
+import * as creator from "../../Services/Api/Messages"
 import {logoutCurrentUser} from "./authAC"
 
 export const mailSent = sectionID => ({

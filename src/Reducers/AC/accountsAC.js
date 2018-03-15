@@ -14,7 +14,7 @@ import {
     RESET
 } from "../../CONSTANTS"
 
-import * as msg from "../../Services/Api/Messages/messagesClassStorage";
+import * as msg from "../../Services/Api/Messages";
 
 
 export function setBanners(result) {
