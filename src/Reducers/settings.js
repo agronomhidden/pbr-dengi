@@ -14,7 +14,7 @@ export const settingState = Record({
     TLFail: false,
     errors: null,
     UALoading: false,
-    agreement: [],
+    agreement: {},
     DSLoading: false,
     DSFail: false,
     DSSuccess: false

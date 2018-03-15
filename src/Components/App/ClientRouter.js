@@ -17,8 +17,6 @@ import settingMiddleware from "../../Middlewares/settingMiddleware"
 import eripDialogMiddleware from "../../Middlewares/eripDialogMiddleware"
 import catchFavorite from "../../Middlewares/catchFavorite"
 import catchAddFavorite from "../../Middlewares/catchAddFavorite"
-import catchInitDialog from "../../Middlewares/catchInitDialog"
-import PaymentsUrlRewriter from "../../Services/Riwriter/PaymentsUrlRewriter"
 
 export default () => {
     const url = location.protocol + '//' + location.host + SERVER_POST_URL;
@@ -27,9 +25,8 @@ export default () => {
         fromJSON(window.__INITIAL_STATE__),
         catchLocationChange(cookies),
         apiCallerMiddleware(ParamsContainer),
-        catchInitDialog(history),
         catchUserActionMiddleware(history, cookies),
-        eripDialogMiddleware,
+        eripDialogMiddleware(history),
         settingMiddleware,
         catchAddFavorite,
         catchFavorite,

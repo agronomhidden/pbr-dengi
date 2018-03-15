@@ -30,14 +30,14 @@ export default [
         fetchData: categoriesSearch
     },
     {
-        path: '/categories/:id(\\d+)',
+        path: '/categories/:id(\\d{11})',
         exact: true,
         component: CurrentCategories,
         title: 'Категории',
         fetchData: getCategories
     },
     {
-        path: '/categories/:id?\?(.+)',
+        path: '/categories/:id(\\d{11})\?(.+)',
         exact: true,
         component: CurrentCategories,
         title: 'Категории',
@@ -59,7 +59,7 @@ export default [
         fetchData: getHistoryItems
     },
     {
-        path: '/payments/:id',
+        path: '/payments/:id(\\d{11})',
         exact: true,
         component: Payments,
         title: 'Платежи'
