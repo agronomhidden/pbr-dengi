@@ -9,8 +9,20 @@ import MessageSendMail from './MessageSendMail';
 import MessageGetHistory from './MessageGetHistory';
 import MessageGetHistoryItems from './MessageGetHistoryItems';
 import MessageGetSlider from './MessageGetSlider';
+import MessageChangePassword from './MessageChangePassword';
+import MessageSetProfile from './MessageSetProfile';
+import MessageUserAgreement from './MessageUserAgreement';
+import MessageTotalLogout from './MessageTotalLogout';
+import MessageDelSubscription from './MessageDelSubscription';
 import MessageSetLocation from './MessageSetLocation';
+import MessageEripDialog from './MessageEripDialog';
+import MessageGetFavorites from './MessageGetFavorites';
+import MessageAddFavorite from './MessageAddFavorite';
+import MessageUpdateFavorite from './MessageUpdateFavorite';
+import MessageDelFavorite from './MessageDelFavorite';
 import MessageCreateUserData from './MessageCreateUserData';
+import MessageGetFavoriteItem from './MessageGetFavoriteItem';
+
 import MessageGetUserData from './MessageGetUserData';
 import MessageDeleteUserData from './MessageDeleteUserData';
 import MessageEditUserData from './MessageEditUserData';
@@ -27,9 +39,20 @@ export {
     MessageGetHistory,
     MessageGetHistoryItems,
     MessageGetSlider,
+    MessageChangePassword,
+    MessageSetProfile,
+    MessageUserAgreement,
+    MessageTotalLogout,
+    MessageDelSubscription,
     MessageSetLocation,
     MessageCreateUserData,
     MessageGetUserData,
     MessageDeleteUserData,
-    MessageEditUserData
+    MessageEditUserData,
+    MessageEripDialog,
+    MessageGetFavorites,
+    MessageAddFavorite,
+    MessageUpdateFavorite,
+    MessageDelFavorite,
+    MessageGetFavoriteItem
 }

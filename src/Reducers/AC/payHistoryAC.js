@@ -1,6 +1,7 @@
 import {SET_HISTORY_ITEMS, SET_HISTORY_LIST, START, SUCCESS, API_REQUEST_ACTION} from "../../CONSTANTS"
-import * as creator from "../../Services/Api/Messages/messagesClassStorage"
+import * as msg from "../../Services/Api/Messages/messagesClassStorage"
 import {logoutCurrentUser} from "./authAC"
+
 
 export const loadPaymentsHistoryItems = () => ({
     type: SET_HISTORY_ITEMS + START
@@ -11,8 +12,9 @@ export const paymentsHistoryItemsLoaded = response => ({
     payload: response
 })
 
-export const getPaymentsHistoryStart = () => ({
-    type: SET_HISTORY_LIST + START
+export const getPaymentsHistoryStart = searchFields => ({
+    type: SET_HISTORY_LIST + START,
+    payload: searchFields
 })
 
 export const getPaymentsHistorySuccess = response => ({
@@ -20,18 +22,18 @@ export const getPaymentsHistorySuccess = response => ({
     payload: response
 })
 
-export const getHistoryList = (date_to = '', date_from = '') => ({
+export const getHistoryList = data => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetHistory.METHOD,
-    payload: {date_to, date_from},
-    beforeAC: (paramsContainer) => getPaymentsHistoryStart(),
+    method: msg.MessageGetHistory.METHOD,
+    payload: {date_to: data && data.date_to || null, date_from: data && data.date_from || null},
+    beforeAC: (paramsContainer) => getPaymentsHistoryStart(data),
     successAC: getPaymentsHistorySuccess,
     forbiddenErrorAC: logoutCurrentUser
 })
 
 export const getHistoryItems = params => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetHistoryItems.METHOD,
+    method: msg.MessageGetHistoryItems.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => loadPaymentsHistoryItems(),
     successAC: paymentsHistoryItemsLoaded,

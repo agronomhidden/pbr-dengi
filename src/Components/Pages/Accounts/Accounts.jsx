@@ -34,7 +34,6 @@ class Accounts extends PageComponent {
     }
 
     componentDidMount() {
-        super.componentDidMount();
         if (this.props.sliderLoaded === false) {
             this.props.loadBanners()
         }

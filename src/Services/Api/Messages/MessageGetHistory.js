@@ -1,18 +1,24 @@
 import AbstractMessage from "./AbstractMessage"
 import {TOKEN} from "../../../CONSTANTS"
+import Validator from "../ParamsValidator"
 
 export default class MessageGetHistory extends AbstractMessage {
 
     static METHOD = 'payments/history';
 
     /**
-     * @param {{}|null} params
-     * @param {string|null} token
+     * @param {string} access_token
+     * @param {string| null} date_from
+     * @param {string| null} date_to
+     * @param {int} page
+     * @param {int} per_page
      */
-    constructor(params = {}, token) {
+    constructor(access_token, date_from = null, date_to = null, page = 1, per_page = 10) {
         super()
-        /** @todo это нужно вынести в параметры constructor(access_token, page=1, per_page=10, date_from = null, date_to = null)*/
-        this.args = {per_page: 10, page: 1, date_from: params.date_from, date_to: params.date_to, [TOKEN]: token}
-    }
+        if (Validator.isNull(access_token)) {
+            throw new Error('access_token, do not must be NULL')
+        }
 
+        this.args = {access_token, per_page, page, date_from, date_to}
+    }
 }

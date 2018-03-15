@@ -9,7 +9,7 @@ export default class FormGroup extends Component {
     static propTypes = {
         /** Input */
         type: PropTypes.string,
-        name: PropTypes.string,
+        name: PropTypes.string.isRequired,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
         placeholder: PropTypes.string,

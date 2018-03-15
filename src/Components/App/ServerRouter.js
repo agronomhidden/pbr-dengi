@@ -8,10 +8,10 @@ import {getStore} from './serverStore'
 import LayoutFactory from '../../Services/Factories/LayoutFactory'
 import routes from './routes'
 import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
-import {MOBILE, BROWSER} from '../../CONSTANTS'
 import {getUserByToken} from '../../Reducers/AC/authAC'
 import {getLocations} from '../../Reducers/AC/locationAC'
 import MobileDetect from 'mobile-detect'
+import {MOBILE, BROWSER} from '../../CONSTANTS'
 import apiCallerMiddleware from "../../Middlewares/apiCallerMiddleware"
 import ServerApiParamsContainer from '../../Services/Api/ServerApiParamsContainer'
 
@@ -19,23 +19,20 @@ const router = express.Router();
 
 router.get('*', (req, res) => {
     const {url, headers} = req;
-
     const ParamsContainer = new ServerApiParamsContainer(process.env.API_URL, req);
     const store = getStore(apiCallerMiddleware(ParamsContainer));
+
     const Layout = LayoutFactory.getLayout();
-
     Layout.setStore(store);
-
-    const version = new MobileDetect(headers['user-agent']).mobile() ? MOBILE : BROWSER,
-
-    branch = matchRoutes(routes, url);
-
+    /** Для определяния версии устройства
+        const version = new MobileDetect(headers['user-agent']).mobile() ? MOBILE : BROWSER
+    */
     store.dispatch(getUserByToken()).then(() => {
 
         const user = store.getState().auth.user,
             promises = []
 
-        branch.some(({route: {fetchData, needAuth}, match: {params}}) => {
+        matchRoutes(routes, url).some(({route: {fetchData, needAuth}, match: {params}}) => {
             if (needAuth && !user) {
                 res.redirect('/')
                 return true;
@@ -62,7 +59,6 @@ router.get('*', (req, res) => {
                     res.status(404)
                 }
             };
-
             const content = renderToString(
                 <Provider store={store}>
                     <StaticRouter location={url} context={context}>
@@ -73,7 +69,7 @@ router.get('*', (req, res) => {
 
             res.end(Layout.render(content))
         }).catch(err => {
-            console.log('ServerRouter.err =>',err)
+            console.log('ServerRouter.err =>', err)
             if (err && err.response && err.response.status === 404) {
                 res.redirect('/not-found');
             }

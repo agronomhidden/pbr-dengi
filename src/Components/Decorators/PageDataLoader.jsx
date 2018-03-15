@@ -16,30 +16,33 @@ export default (Component) => class PageDataLoader extends PageComponent {
     componentDidMount() {
         const {loading, history, entities} = this.props;
         if (!loading && (history.location.state || !entities.length)) {
-            this.props.history.location.state = ''
+            history.location.state = ''
             this._getEntities(this.props)
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.loading && (this.props.history && this.props.history.location.state)) {
-            this.props.history.location.state = ''
+        const {history} = this.props
+        if (!nextProps.loading && history.location.state) {
+            history.location.state = ''
             this._getEntities(nextProps)
         }
     }
 
     _getEntities(props) {
         if (this.isBrowser()) {
-            const {entitiesLoader, searchFunc, history: {push, location}, match: {params}} = props;
+            const {entitiesLoader, searchFunc, history: {location}, match: {params}} = props;
 
-            const search = queryStringToState(location && location.search)
+            const search = queryStringToState(location && location.search);
 
-            if (Object.keys(search).length) {
-                params['searchQuery'] = search.searchQuery
-                search.searchQuery ? searchFunc(params) : push('/not-found')
-            } else {
-                entitiesLoader(params);
+            Object.assign(params, search);
+
+            if (searchFunc && params.searchQuery) {
+                searchFunc(params);
+                return
             }
+
+            entitiesLoader(params);
         }
     }
 

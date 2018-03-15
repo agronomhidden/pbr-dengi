@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 
 import FormGroup from "../Partials/FormGroup"
 
-import {changePassword} from "../../../Reducers/Requests/setingsRequest"
+import {changePassword} from "../../../Reducers/AC/settingsAC"
 import PropTypes from 'prop-types';
 
 export class ChangePassword extends Component {
@@ -13,7 +13,7 @@ export class ChangePassword extends Component {
         blockManagement: PropTypes.func.isRequired,
         block: PropTypes.number.isRequired,
         loading: PropTypes.bool.isRequired,
-        successMsg: PropTypes.bool
+        successMsg: PropTypes.string
     }
 
     state = {
@@ -23,10 +23,11 @@ export class ChangePassword extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {errors, successMsg} = nextProps
+        const {errors, success} = nextProps
         errors && this.setState({errors})
-        if (successMsg) {
-            this.props.blockManagement(this.props.block, successMsg)
+        if (success) {
+            const msg = 'Пароль успешно изменен'
+            this.props.blockManagement(this.props.block, msg)
         }
     }
 
@@ -46,7 +47,7 @@ export class ChangePassword extends Component {
                            value={this.state.password} onChange={this._onChange} disabled={this.props.loading}
                            hint={'Минимальная длина 8 символов. Должен содержать цифры, заглавные и строчные символы'}/>
                 <FormGroup label='Подтвердите пароль' type='password' name='passwordRepeat' errors={this.state.errors}
-                           value={this.state.password_repeat} onChange={this._onChange} disabled={this.props.loading}/>
+                           value={this.state.passwordRepeat} onChange={this._onChange} disabled={this.props.loading}/>
                 <button disabled={this.props.loading}>Сохранить</button>
             </form>
         </div>
@@ -56,7 +57,7 @@ export default connect(
     (s => (
         {
             loading: s.settings.get('ChPLoading'),
-            successMsg: s.settings.get('ChPSuccessMsg'),
+            success: s.settings.get('ChPSuccess'),
             errors: s.settings.get('errors')
         }
     )), {changePassword}

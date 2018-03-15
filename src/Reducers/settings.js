@@ -7,14 +7,14 @@ import {Record} from 'immutable'
 
 export const settingState = Record({
     ChPLoading: false,
-    ChPSuccessMsg: null,
+    ChPSuccess: false,
     SPLoading: false,
-    SPSuccessMsg: null,
+    SPSuccess: false,
     TLLoading: false,
     TLFail: false,
     errors: null,
     UALoading: false,
-    agreement: null,
+    agreement: [],
     DSLoading: false,
     DSFail: false,
     DSSuccess: false
@@ -25,25 +25,25 @@ export default (state = new settingState(), action = {}) => {
         case CHANGE_PASSWORD + START:
             return state
                 .set('ChPLoading', true)
-                .set('ChPSuccessMsg', null)
+                .set('ChPSuccess', false)
                 .set('errors', null)
         case CHANGE_PASSWORD + SUCCESS:
             return state
                 .set('ChPLoading', false)
-                .set('ChPSuccessMsg', 'Пароль успешно изменен')
+                .set('ChPSuccess', true)
         case SET_PROFILE + START:
             return state
                 .set('SPLoading', true)
-                .set('SPSuccessMsg', null)
+                .set('SPSuccess', false)
                 .set('errors', null)
         case SET_PROFILE + SUCCESS:
             return state
                 .set('SPLoading', false)
-                .set('SPSuccessMsg', 'Данные успешно обновленны')
+                .set('SPSuccess', true)
         case USER_AGREEMENT + START:
             return state
                 .set('UALoading', true)
-                .set('agreement', null)
+                .set('agreement', [])
         case USER_AGREEMENT + SUCCESS:
             return state
                 .set('UALoading', false)

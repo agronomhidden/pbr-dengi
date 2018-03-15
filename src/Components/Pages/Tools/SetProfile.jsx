@@ -3,13 +3,14 @@ import {connect} from "react-redux"
 
 import FormGroup from "../Partials/FormGroup"
 
-import {setProfile} from "../../../Reducers/Requests/setingsRequest"
+import {setProfile} from "../../../Reducers/AC/settingsAC"
 import PropTypes from 'prop-types';
 import {updateStateFromAssoc} from "pbr-lib-front-utils/reactStateHelper"
 import {UserRecord} from "../../../Reducers/entities"
 
 
 export class SetProfile extends Component {
+
 
     static propTypes = {
         setProfile: PropTypes.func.isRequired,
@@ -31,10 +32,11 @@ export class SetProfile extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {errors, successMsg} = nextProps
+        const {errors, success} = nextProps
         errors && this.setState({errors})
-        if (successMsg) {
-            this.props.blockManagement(this.props.block, successMsg)
+        if (success) {
+            const msg = 'Данные успешно обновленны'
+            this.props.blockManagement(this.props.block, msg)
         }
     }
 
@@ -66,7 +68,7 @@ export default connect(
         {
             user: new UserRecord(s.auth.get('user')),
             loading: s.settings.get('SPLoading'),
-            successMsg: s.settings.get('SPSuccessMsg'),
+            success: s.settings.get('SPSuccess'),
             errors: s.settings.get('errors')
         }
     )), {setProfile}

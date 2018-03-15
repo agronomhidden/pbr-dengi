@@ -2,28 +2,40 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router'
 import PageLayout from '../../Decorators/PageLayout'
-import {initDialog, requestInDialog} from '../../../Reducers/Requests/eripDialogRequest'
+import {initDialog, requestInDialog} from '../../../Reducers/AC/eripDialogAC'
 import PageDataLoader from '../../Decorators/PageDataLoader'
 import {Roller} from "../../Loading"
 import {setFieldError} from "pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper"
-import {setStateOfPropsForDialog} from "pbr-lib-front-utils/dist/MtsMoneyApi/dialogHelper"
 import {DialogMap} from "./index"
-import DialogFieldPreparer from "../../../Utils/DialogFieldPreparer"
+import DialogFieldPreparer from "../../../Services/Dialog/DialogFieldPreparer"
 import PageComponent from "../../App/PageComponent"
+import DialogPrepareRenderFields from "../../../Services/Dialog/DialogPrepareRenderFields"
+import DialogDefaultValueFactory from "../../../Services/Dialog/DialogDefaultValueFactory"
 
 export class Payments extends PageComponent {
+    
+    constructor(props) {
+        super(props);
+        DialogDefaultValueFactory
+            .setSearchString(props.history.location.search)
+            .setServiceId(props.match.params.id);
+    }
 
     state = {
         errors: {}
     }
 
     componentWillReceiveProps(nextProps) {
-        const {entities, errors} = nextProps;
+        const {entities, errors, favorite} = nextProps;
+        
+        favorite && DialogDefaultValueFactory.setFavoriteProps(favorite);
 
-        entities && entities.forEach((record, i) => {
-            this.props.entities.size !== entities.size && entities.size === ++i
-            && this.setState(setStateOfPropsForDialog(record.get('fields').toObject()))
-        })
+        const currentDialogEntities = entities.slice(this.props.entities.size);
+
+        const prepareFields = new DialogPrepareRenderFields(currentDialogEntities, DialogDefaultValueFactory.valueContainer)
+        
+        this.setState(prepareFields.fieldsState);
+
         errors && this.setState({errors})
     }
 
@@ -32,7 +44,7 @@ export class Payments extends PageComponent {
     }
 
     _onCheck = ({target: {name, checked}}) => {
-        this.setState({[name]: Number(checked)});
+        this.setState({[name]: Number(checked)})
     }
 
     _onSubmit = (e) => {
@@ -41,12 +53,17 @@ export class Payments extends PageComponent {
 
         const prepareFields = new DialogFieldPreparer(this.state, entities);
 
-        if (prepareFields.getError()) {
-            const {name, text} = prepareFields.getError()
+        if (prepareFields.fieldError) {
+            const {name, text} = prepareFields.fieldError
             this.setState(setFieldError(this.state, name, text))
             return
         }
-        requestInDialog(Object.assign(prepareFields.getFields(), {serviceCode: id, mts_session: mts_session}))
+        requestInDialog({
+            id,
+            mts_session,
+            fields: prepareFields.originalFields,
+            otherFields: prepareFields.otherFields
+        })
     }
 
     _onInValid = (e) => {
@@ -81,11 +98,12 @@ export default connect(
         mts_session: s.eripDialog.get('mts_session'),
         fault: s.eripDialog.get('fault'),
         errors: s.eripDialog.get('errors'),
-        uuid: s.eripDialog.get('uuid')
+        uuid: s.eripDialog.get('uuid'),
+        favorite: s.favorites.get('favorite')
     })),
     {
         entitiesLoader: initDialog,
-        requestInDialog
+        requestInDialog,
     }
 )(PageDataLoader(PageLayout(Payments)))
 

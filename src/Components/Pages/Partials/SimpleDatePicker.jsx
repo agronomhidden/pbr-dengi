@@ -17,14 +17,14 @@ export default class SimpleDatePicker extends Component {
         this.props.onChange({target: {name: this.props.name, value: date.format(this.props.format)}})
     }
 
-    render = () => <DatePicker
-        inputProps={{disabled: this.props.disabled, readOnly: true}}
-        onChange={this.onChange}
-        dateFormat={this.props.format}
-        timeFormat={false}
-        locale="ru-ru"
-        viewMode={this.props.format.length === 4 ? 'months' : 'days'}
-        value={this.props.value}/>
+    render = () =>
+        <DatePicker inputProps={{disabled: this.props.disabled, readOnly: true}}
+                    onChange={this.onChange}
+                    dateFormat={this.props.format}
+                    timeFormat={false}
+                    locale="ru-ru"
+                    viewMode={this.props.format.length === 4 ? 'months' : 'days'}
+                    value={this.props.value}/>
 
 }
 

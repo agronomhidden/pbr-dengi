@@ -10,7 +10,7 @@ import {categoriesSetSearch, resetAutoComplete} from '../../../Reducers/AC/categ
 import {ServicesList, CategoriesList} from './index'
 
 
-class Categories extends Component {
+export class Categories extends Component {
 
     _issetCategories = () => this.props.entities.find(({is_category}) => is_category)
 
@@ -26,7 +26,7 @@ class Categories extends Component {
 }
 
 export default connect(
-    (s => ({
+    s => ({
         entities: mapToArr(s.categories.get('categories'), CategoriesRecord),
         loading: s.categories.get('loading'),
         searchValue: s.categories.get('searchValue'),
@@ -35,7 +35,7 @@ export default connect(
         autoCompleteDetected: s.categories.get('autoCompleteDetected'),
         count_services: s.categories.get('count_services'),
         count_categories: s.categories.get('count_categories')
-    })),
+    }),
     {
         entitiesLoader: getCategories,
         setSearch: categoriesSetSearch,
