@@ -10,9 +10,10 @@ import Slider from './Slider'
 import UserDataList from './UserDataList'
 import UserDataForm from './UserDataForm'
 import Search from './Search'
+import Invoices from './Invoices'
 
-import {ACCOUNTS_SLIDER_LOADED, ACCOUNTS_USER_DATA_LOADED} from "../../../CONSTANTS";
-import {loadBanners, loadUserData, editUserData} from '../../../Reducers/AC/accountsAC'
+import {ACCOUNTS_SLIDER_LOADED, ACCOUNTS_USER_DATA_LOADED, ACCOUNTS_INVOICES_LOADED} from "../../../CONSTANTS";
+import {loadBanners, loadUserData, editUserData, loadInvoices} from '../../../Reducers/AC/accountsAC'
 import UserDataServiceEntity from '../../../Reducers/Entities/UserDataServiceEntity'
 
 /**
@@ -22,6 +23,7 @@ class Accounts extends PageComponent {
     static propTypes = {
         sliderLoaded: PropTypes.bool,
         userDataLoaded: PropTypes.bool,
+        invoicesLoaded: PropTypes.bool,
         parentId: PropTypes.string,
         search: PropTypes.string,
         pageLoaded: PropTypes.func,
@@ -40,8 +42,10 @@ class Accounts extends PageComponent {
         if (this.props.userDataLoaded === false) {
             this.props.loadUserData()
         }
+        if (this.props.invoicesLoaded === false) {
+            this.props.loadInvoices()
+        }
     }
-
 
     renderPopup() {
         if (!this.props.parentId) {
@@ -53,7 +57,6 @@ class Accounts extends PageComponent {
             <Search parentId={this.props.parentId} search={this.props.search} location={this.props.location}/>
         </div>
     }
-
 
     renderEditPopup() {
         const userDataService = this.props.editUserDataService;
@@ -75,6 +78,7 @@ class Accounts extends PageComponent {
 
     render() {
         return <div>
+            <div>{this.props.invoicesLoaded && <Invoices />}</div>
             <div>Мои счета</div>
             <div key='slider'>{this.isBrowser() && this.props.sliderLoaded ? <Slider/> : null }</div>
             <div key ='userData'>{this.props.userDataLoaded ? <UserDataList/> : null }</div>
@@ -98,8 +102,9 @@ export default connect(
             parentId: parent_id,
             sliderLoaded: !!(accounts.get('allDivLoaded') & ACCOUNTS_SLIDER_LOADED),
             userDataLoaded: !!(accounts.get('allDivLoaded') & ACCOUNTS_USER_DATA_LOADED),
+            invoicesLoaded: !!(accounts.get('allDivLoaded') & ACCOUNTS_INVOICES_LOADED),
     }},
     {
-        loadBanners, loadUserData, editUserData
+        loadBanners, loadUserData, editUserData, loadInvoices
     }
 )(PageLayout(Accounts));

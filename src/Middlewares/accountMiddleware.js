@@ -1,6 +1,6 @@
 import {CREATE_USER_DATA_WITH_BANNER, CREATE_USER_DATA, EDIT_USER_DATA, SUCCESS, DELETE_USER_DATA} from '../CONSTANTS'
 import {push} from 'connected-react-router'
-import { loadUserData } from '../Reducers/AC/accountsAC'
+import { loadUserData, loadInvoices } from '../Reducers/AC/accountsAC'
 
 export default store => next => action => {
     switch (action.type) {
@@ -11,6 +11,7 @@ export default store => next => action => {
         case DELETE_USER_DATA + SUCCESS:
         case CREATE_USER_DATA_WITH_BANNER + SUCCESS:
             store.dispatch(loadUserData())
+            store.dispatch(loadInvoices())
     }
 
     return next(action);

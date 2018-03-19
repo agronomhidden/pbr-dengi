@@ -12,7 +12,7 @@ import UserAgreement from "../Pages/Help/UserAgreement"
 import {getDescription} from "../../Reducers/AC/helpAC"
 import {History, HistoryDetailItem} from "../Pages/History"
 import {Favorites, Favorite} from "../Pages/Favorites"
-import {loadBanners, loadUserData} from '../../Reducers/AC/accountsAC'
+import {loadBanners, loadUserData, loadInvoices} from '../../Reducers/AC/accountsAC'
 
 export default [
     {
@@ -92,7 +92,7 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData]
+        fetchData: [loadBanners, loadUserData, loadInvoices]
     },
     {
         path: '/accounts/:parent_id(\\d+)\?/:search(.*)',
@@ -100,7 +100,7 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData]
+        fetchData: [loadBanners, loadUserData, loadInvoices]
     },
     {
         path: '/accounts',
@@ -108,7 +108,7 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData]
+        fetchData: [loadBanners, loadUserData, loadInvoices]
     },
     {
         path: '/favorites',

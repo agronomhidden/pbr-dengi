@@ -26,6 +26,7 @@ import MessageGetFavoriteItem from './MessageGetFavoriteItem';
 import MessageGetUserData from './MessageGetUserData';
 import MessageDeleteUserData from './MessageDeleteUserData';
 import MessageEditUserData from './MessageEditUserData';
+import MessageGetInvoices from './MessageGetInvoices';
 
 export {
     MessageSearchAutoCompleteCategories,
@@ -54,5 +55,6 @@ export {
     MessageAddFavorite,
     MessageUpdateFavorite,
     MessageDelFavorite,
-    MessageGetFavoriteItem
+    MessageGetFavoriteItem,
+    MessageGetInvoices
 }

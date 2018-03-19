@@ -1,7 +1,11 @@
 import {Record, OrderedMap} from 'immutable'
 import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
 
-import {FOCUS_SERVICE, CREATE_USER_DATA, GET_BANNERS, CREATE_USER_DATA_WITH_BANNER, GET_USER_DATA, START, SUCCESS, FAIL, RESET, ACCOUNTS_SLIDER_LOADED, ACCOUNTS_USER_DATA_LOADED, USER_DATA_SEARCH} from "../CONSTANTS";
+import {
+    FOCUS_SERVICE, CREATE_USER_DATA, GET_INVOICES, GET_BANNERS, CREATE_USER_DATA_WITH_BANNER, GET_USER_DATA,
+    START, SUCCESS, FAIL, RESET, USER_DATA_SEARCH,
+    ACCOUNTS_SLIDER_LOADED, ACCOUNTS_USER_DATA_LOADED, ACCOUNTS_INVOICES_LOADED
+} from "../CONSTANTS";
 
 const ReducerState = Record({
     slider: new OrderedMap({}),
@@ -20,7 +24,9 @@ const ReducerState = Record({
     searchError: null,
 
     createUserDataError: null,
-    createUserDataLoading: false
+    createUserDataLoading: false,
+
+    invoices: new OrderedMap({})
 })
 
 export default (state = new ReducerState(), action = {}) => {
@@ -70,6 +76,11 @@ export default (state = new ReducerState(), action = {}) => {
             return state.set('createUserDataLoading', false)
         case CREATE_USER_DATA + FAIL:
             return state.set('createUserDataError', action.payload).set('createUserDataLoading', false)
+
+        case GET_INVOICES + START:
+            return state
+        case GET_INVOICES + SUCCESS:
+            return state.set('invoices', arrToMap(action.payload.invoices)).set('allDivLoaded', state.get('allDivLoaded') | ACCOUNTS_INVOICES_LOADED)
     }
     return state
 }

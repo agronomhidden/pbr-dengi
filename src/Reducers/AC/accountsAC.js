@@ -4,6 +4,7 @@ import {
     CREATE_USER_DATA_WITH_BANNER,
     CREATE_USER_DATA,
     GET_USER_DATA,
+    GET_INVOICES,
     DELETE_USER_DATA,
     EDIT_USER_DATA,
     USER_DATA_SEARCH,
@@ -232,5 +233,31 @@ export function editUserData(id, identifier, description, defaultError = 'Оши
         fieldErrorAC: (res) => editUserDataFail(res.message || defaultError),
         serverErrorAC: (res) => editUserDataFail(res.error || defaultError),
         dataLoadErrorAC: () => editUserDataFail(defaultError),
+    }
+}
+
+/** ************** Invoices List ************ */
+
+export function loadInvoicesInit() {
+    return {
+        type: GET_INVOICES + START,
+        payload: null,
+    }
+}
+
+export function loadInvoicesComplete(result) {
+    return {
+        type: GET_INVOICES + SUCCESS,
+        payload: result
+    }
+}
+
+export function loadInvoices() {
+    return {
+        type: API_REQUEST_ACTION,
+        method: msg.MessageGetInvoices.METHOD,
+        payload: null,
+        beforeAC: (paramsContainer) => loadInvoicesInit(),
+        successAC: loadInvoicesComplete
     }
 }
