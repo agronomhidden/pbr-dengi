@@ -24,6 +24,16 @@ function doLoadAccountSearch(store, path) {
         }
     }, 0)
 }
+/**
+ * выполняет скролл в ТОП страницы, если произошел переход по ссылке.
+ *
+ * @param historyAction
+ */
+function scroll(historyAction) {
+    if (historyAction !== 'POP') {
+        window.scrollTo(0, 0);
+    }
+}
 
 export default history => store => next => action => {
 
@@ -33,6 +43,7 @@ export default history => store => next => action => {
 
     if (action.type === CHANGE_ROUTE) {
         doLoadAccountSearch(store, action.payload.location.pathname)
+        scroll(action.payload.action)
 
         history.location.state = CHANGE_ROUTE;
     }
