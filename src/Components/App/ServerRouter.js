@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import {getStore} from './serverStore'
 import LayoutFactory from '../../Services/Factories/LayoutFactory'
 import routes from './routes'
-import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
+import {prepareParamsToRout} from "../../Utils/helper"
 import {getUserByToken} from '../../Reducers/AC/authAC'
 import {getLocations} from '../../Reducers/AC/locationAC'
 

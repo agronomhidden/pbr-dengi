@@ -76,6 +76,7 @@ class Accounts extends PageComponent {
     render() {
         return <div>
             <div>Мои счета</div>
+
             <div key='slider'>{this.isBrowser() && this.props.sliderLoaded ? <Slider/> : null }</div>
             <div key ='userData'>{this.props.userDataLoaded ? <UserDataList/> : null }</div>
             <Link to='/accounts/0/'>Добавить</Link>

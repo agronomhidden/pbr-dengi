@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router'
 import PageLayout from '../../Decorators/PageLayout'
 import {initDialog, requestInDialog} from '../../../Reducers/AC/eripDialogAC'
 import PageDataLoader from '../../Decorators/PageDataLoader'
@@ -13,7 +12,7 @@ import DialogPrepareRenderFields from "../../../Services/Dialog/DialogPrepareRen
 import DialogDefaultValueFactory from "../../../Services/Dialog/DialogDefaultValueFactory"
 
 export class Payments extends PageComponent {
-    
+
     constructor(props) {
         super(props);
         DialogDefaultValueFactory
@@ -27,13 +26,13 @@ export class Payments extends PageComponent {
 
     componentWillReceiveProps(nextProps) {
         const {entities, errors, favorite} = nextProps;
-        
+
         favorite && DialogDefaultValueFactory.setFavoriteProps(favorite);
 
         const currentDialogEntities = entities.slice(this.props.entities.size);
 
         const prepareFields = new DialogPrepareRenderFields(currentDialogEntities, DialogDefaultValueFactory.valueContainer)
-        
+
         this.setState(prepareFields.fieldsState);
 
         errors && this.setState({errors})
@@ -75,7 +74,6 @@ export class Payments extends PageComponent {
 
     render = () =>
         <div>
-            {this.props.uuid && <Redirect to={'/history-items/' + this.props.uuid}/>}
             <h3>Заголовок платежа</h3>
             {this.props.fault ?
                 <h3 style={{backgroundColor: 'red'}}>{this.props.fault}</h3>
@@ -98,7 +96,6 @@ export default connect(
         mts_session: s.eripDialog.get('mts_session'),
         fault: s.eripDialog.get('fault'),
         errors: s.eripDialog.get('errors'),
-        uuid: s.eripDialog.get('uuid'),
         favorite: s.favorites.get('favorite')
     })),
     {

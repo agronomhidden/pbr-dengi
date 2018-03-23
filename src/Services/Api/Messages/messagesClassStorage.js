@@ -22,10 +22,12 @@ import MessageUpdateFavorite from './MessageUpdateFavorite';
 import MessageDelFavorite from './MessageDelFavorite';
 import MessageCreateUserData from './MessageCreateUserData';
 import MessageGetFavoriteItem from './MessageGetFavoriteItem';
-
 import MessageGetUserData from './MessageGetUserData';
 import MessageDeleteUserData from './MessageDeleteUserData';
 import MessageEditUserData from './MessageEditUserData';
+import MessageGetRequirement from './MessageGetRequirement';
+import MessageRecharge from './MessageRecharge';
+import MessageRechargeInfo from './MessageRechargeInfo';
 
 export {
     MessageSearchAutoCompleteCategories,
@@ -54,5 +56,8 @@ export {
     MessageAddFavorite,
     MessageUpdateFavorite,
     MessageDelFavorite,
-    MessageGetFavoriteItem
+    MessageGetFavoriteItem,
+    MessageGetRequirement,
+    MessageRecharge,
+    MessageRechargeInfo
 }

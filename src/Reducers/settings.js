@@ -1,9 +1,10 @@
 import {
-    CHANGE_PASSWORD, SET_PROFILE,TOTAL_LOGOUT, DELETE_SUBSCRIPTION, START, SUCCESS, ERROR,
+    CHANGE_PASSWORD, SET_PROFILE, TOTAL_LOGOUT, DELETE_SUBSCRIPTION, START, SUCCESS, ERROR,
     SETTINGS_FIELDS_ERROR, USER_AGREEMENT, FAIL
 } from "../CONSTANTS"
 
 import {Record} from 'immutable'
+import {DocumentRecord} from "./entities"
 
 export const settingState = Record({
     ChPLoading: false,
@@ -12,12 +13,13 @@ export const settingState = Record({
     SPSuccess: false,
     TLLoading: false,
     TLFail: false,
-    errors: null,
     UALoading: false,
+    UALoaded: false,
     agreement: {},
     DSLoading: false,
     DSFail: false,
-    DSSuccess: false
+    DSSuccess: false,
+    errors: null,
 })
 
 export default (state = new settingState(), action = {}) => {
@@ -43,11 +45,11 @@ export default (state = new settingState(), action = {}) => {
         case USER_AGREEMENT + START:
             return state
                 .set('UALoading', true)
-                .set('agreement', [])
         case USER_AGREEMENT + SUCCESS:
             return state
                 .set('UALoading', false)
-                .set('agreement', action.payload)
+                .set('UALoaded', true)
+                .set('agreement', new DocumentRecord(action.payload))
         case SETTINGS_FIELDS_ERROR:
             return state
                 .set('SPLoading', false)

@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import {getFavorites, deleteFavorite} from '../../../Reducers/AC/favoritesAC'
 import {FavoritesRecord} from '../../../Reducers/entities'
 import Popover from "../Partials/Popover"
-
+import PageDataLoader from "../../Decorators/PageDataLoader"
 
 
 export class Favorites extends PageComponent {
@@ -31,11 +31,11 @@ export class Favorites extends PageComponent {
         this._onClose(i)()
     }
 
-    getFavoriteItems = () => this.props.data.map((item, i) =>
+    getFavoriteItems = () => this.props.entities.map((item, i) =>
         <div key={i} className='history-items'>
             <div className='history-items_link'>
                 <Link to={`/payments/${item.service_id}?favId=${item.id}`}>
-                   {item.name}
+                    {item.name}
                 </Link>
             </div>
             <div className='history-items_link'>{item.category_name}/{item.service_name}</div>
@@ -61,9 +61,11 @@ export class Favorites extends PageComponent {
 }
 
 export default connect(
-    (s => ({
-        data: mapToArr(s.favorites.get('favorites'), FavoritesRecord),
-        loading: s.favorites.get('loading')
-    })),
-    {dataLoader: getFavorites, deleteFavorite}
-)(PageLayout(Favorites))
+    ({favorites}) => ({
+        entities: mapToArr(favorites.get('favorites'), FavoritesRecord),
+        loading: favorites.get('loading')
+    }),
+    {
+        entitiesLoader: getFavorites, deleteFavorite
+    }
+)(PageLayout(PageDataLoader(Favorites)))

@@ -14,8 +14,13 @@ export default class FormGroup extends Component {
         checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
         placeholder: PropTypes.string,
         disabled: PropTypes.bool,
+        required: PropTypes.bool,
         onChange: PropTypes.func,
         inputModifier: PropTypes.string,
+        maxLength: PropTypes.number,
+        minLength: PropTypes.number,
+        max: PropTypes.number,
+        min: PropTypes.number,
         /** Mask*/
         mask: PropTypes.string,
         maskChar: PropTypes.string,
@@ -35,36 +40,31 @@ export default class FormGroup extends Component {
 
     getInput() {
         const {
-            mask, name, value, onChange, placeholder, type = 'text',
-            checked, disabled, isNotForm, inputModifier, maskChar, alwaysShowMask
+            mask, name, value, onChange, placeholder, type = 'text', checked, disabled, required,
+            isNotForm, inputModifier, maskChar, alwaysShowMask, maxLength, minLength, max, min
         } = this.props;
 
         const inputClass = {
             'form-group_control': !isNotForm,
             'danger': getFieldError(name, this.props)
-        };
+        }
+
         inputClass[inputModifier] = !!inputModifier;
 
-        return mask ?
-            <InputMask id={name}
-                       mask={mask}
-                       maskChar={maskChar}
-                       alwaysShowMask={alwaysShowMask}
-                       className={classNames(inputClass)}
-                       name={name}
-                       value={value}
-                       disabled={disabled}
-                       onChange={onChange}/>
-            :
-            <input id={name}
-                   className={classNames(inputClass)}
-                   name={name}
-                   type={type}
-                   placeholder={placeholder}
-                   value={value}
-                   onChange={onChange}
-                   disabled={disabled}
-                   checked={checked}/>
+        const inputAttr = {
+            id: name, className: classNames(inputClass), name, type, placeholder,
+            value, onChange, disabled, maxLength, minLength, checked, required, max, min
+        }
+
+        const maskAttr = {
+            id: name, className: classNames(inputClass), name, value, onChange, disabled,
+            mask, maskChar, alwaysShowMask
+        }
+
+        if (mask) {
+            return <InputMask {...maskAttr}/>
+        }
+        return <input {...inputAttr}/>
     }
 
     render() {

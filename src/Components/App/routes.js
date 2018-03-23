@@ -3,6 +3,7 @@ import {Categories, CurrentCategories} from "../Pages/Categories"
 import Accounts from '../Pages/Accounts'
 import {Payments} from "../Pages/Payments"
 import Tools from "../Pages/Tools/Tools"
+import {RechargeDialog, RechargeInfo} from '../Pages/Assist'
 import {getCategories, categoriesSearch} from "../../Reducers/AC/categoriesAC"
 import {getHistoryItems, getHistoryList} from "../../Reducers/AC/payHistoryAC"
 import {getUserAgreement} from "../../Reducers/AC/settingsAC"
@@ -13,6 +14,7 @@ import {getDescription} from "../../Reducers/AC/helpAC"
 import {History, HistoryDetailItem} from "../Pages/History"
 import {Favorites, Favorite} from "../Pages/Favorites"
 import {loadBanners, loadUserData} from '../../Reducers/AC/accountsAC'
+import {getRechargeInfo} from "../../Reducers/AC/assistAC"
 
 export default [
     {
@@ -30,14 +32,14 @@ export default [
         fetchData: categoriesSearch
     },
     {
-        path: '/categories/:id(\\d{11})',
+        path: '/categories/:id(\\d+)',
         exact: true,
         component: CurrentCategories,
         title: 'Категории',
         fetchData: getCategories
     },
     {
-        path: '/categories/:id(\\d{11})\?(.+)',
+        path: '/categories/:id(\\d+)\?(.+)',
         exact: true,
         component: CurrentCategories,
         title: 'Категории',
@@ -125,6 +127,28 @@ export default [
         component: Favorite,
         title: 'Просмотр платежа',
         fetchData: getFavorites
+    },
+    {
+        path: '/recharge-dialog',
+        exact: true,
+        needAuth: true,
+        component: RechargeDialog,
+        title: 'Оплата услуги',
+    },
+    {
+        path: '/recharge-ok*',
+        needAuth: true,
+        component: RechargeInfo,
+        title: 'Результат платежа',
+        fetchData: getRechargeInfo
+    },
+    {
+        path: '/recharge-no',
+        exact: true,
+        needAuth: true,
+        component: RechargeInfo,
+        title: 'Результат платежа',
+        fetchData: params => getRechargeInfo(params, false)
     },
     {
         path: '*',

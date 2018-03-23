@@ -22,9 +22,8 @@ export const dialogFailed = response => ({
     payload: response
 })
 
-export const dialogOver = response => ({
-    type: DIALOG + OVER,
-    payload: response
+export const dialogOver = () => ({
+    type: DIALOG + OVER
 })
 
 export const dialogFail = response => ({

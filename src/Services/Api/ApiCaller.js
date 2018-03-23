@@ -52,7 +52,7 @@ export default class ApiCaller extends BaseApiCaller {
                 return (new msg.MessageGetHistory(container.getToken(), params.date_from, params.date_to)).getMessage()
 
             case msg.MessageGetHistoryItems.METHOD:
-                return (new msg.MessageGetHistoryItems(params.transaction_uuids)).getMessage()
+                return (new msg.MessageGetHistoryItems(params.transaction_uuids, params.withNew)).getMessage()
 
             case msg.MessageGetSlider.METHOD:
                 return (new msg.MessageGetSlider(container.getToken(), container.getLocationId())).getMessage()
@@ -104,6 +104,15 @@ export default class ApiCaller extends BaseApiCaller {
 
             case msg.MessageGetFavoriteItem.METHOD:
                 return new msg.MessageGetFavoriteItem(container.getToken(), params.favId).getMessage()
+
+            case msg.MessageGetRequirement.METHOD:
+                return new msg.MessageGetRequirement(container.getToken(), params.transaction_uuids).getMessage()
+
+            case msg.MessageRecharge.METHOD:
+                return new msg.MessageRecharge(container.getToken(), params.first_name, params.last_name, params.email, params.sum, params.uuids).getMessage()
+
+            case msg.MessageRechargeInfo.METHOD:
+                return new msg.MessageRechargeInfo(container.getToken(), params.ordernumber).getMessage()
 
             default:
                 throw Error('Message for method ' + method + ' was not found')

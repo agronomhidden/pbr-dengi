@@ -27,15 +27,16 @@ function doLoadAccountSearch(store, path) {
 
 export default history => store => next => action => {
 
-    if (action.type === TOUCH_LOCATION) {
-        doLoadAccountSearch(store, action.payload.location.pathname)
+    switch (action.type) {
+        case TOUCH_LOCATION :
+            doLoadAccountSearch(store, action.payload.location.pathname)
+            break
+        case CHANGE_ROUTE:
+            doLoadAccountSearch(store, action.payload.location.pathname)
+            history.location.state = history.location.pathname;
+            break
     }
 
-    if (action.type === CHANGE_ROUTE) {
-        doLoadAccountSearch(store, action.payload.location.pathname)
-
-        history.location.state = CHANGE_ROUTE;
-    }
 
     return next(action)
 }

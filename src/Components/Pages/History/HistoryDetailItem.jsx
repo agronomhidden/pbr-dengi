@@ -8,6 +8,7 @@ import {mailSender} from "../../../Reducers/AC/mailSenderAC"
 import {payHistoryRecord} from "../../../Reducers/entities"
 import {getHistoryItems} from "../../../Reducers/AC/payHistoryAC"
 import {HistoryItem} from "../History/index"
+import {Roller} from "../../Loading"
 
 export class HistoryDetailItem extends PageComponent {
 
@@ -35,23 +36,32 @@ export class HistoryDetailItem extends PageComponent {
 
     getHistoryBlocks = ({historyItems, sending, mailSection, mailSender, user}) =>
         historyItems.length && historyItems.map((historyItem, key) =>
-            <HistoryItem key={key}
-                         historyItem={historyItem}
-                         user={user}
-                         onOpen={this._onOpen(key)}
-                         onClose={this._onClose(key)}
-                         sending={sending}
-                         mailSection={mailSection}
-                         mailSender={mailSender}
-                         popoverOpen={this.state.popoverOpen === key}
-            />)
-        || <span>Нет данных для отабражения</span>
+        <HistoryItem key={key}
+                     historyItem={historyItem}
+                     user={user}
+                     onOpen={this._onOpen(key)}
+                     onClose={this._onClose(key)}
+                     sending={sending}
+                     mailSection={mailSection}
+                     mailSender={mailSender}
+                     popoverOpen={this.state.popoverOpen === key}
+        />) || <div className="error-block">Транзакция не найдена</div>
 
-    render = () =>
-        <div>
+    render() {
+        const {error, loaded, loading} = this.props
+
+        let render = <div>
             <h1>Квитанции об оплате</h1>
-            {this.getHistoryBlocks(this.props)}
+            {loaded && this.getHistoryBlocks(this.props)}
         </div>
+        if (loading) {
+            render = <Roller/>
+        }
+        if (error) {
+            render = <div className="error-block">{error}</div>
+        }
+        return render;
+    }
 }
 
 function mapStateToProps(s, p) {
@@ -61,6 +71,8 @@ function mapStateToProps(s, p) {
         historyItems: mapToArr(historyItems, payHistoryRecord),
         transaction_uuids,
         loading: s.payHistory.get('HILoading'),
+        loaded: s.payHistory.get('HILoaded'),
+        error: s.payHistory.get('HIError'),
         sending: s.mailSender.get('sending'),
         mailSection: s.mailSender.get('mailSection'),
         user: s.auth.get('user')

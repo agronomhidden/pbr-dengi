@@ -12,7 +12,7 @@ export const favoriteState = Record({
     favorites: [],
     loading: false,
     success: false,
-    fail:false,
+    fail: false,
     errors: null,
     favorite: null
 })

@@ -5,6 +5,7 @@ import SimpleDatePicker from './SimpleDatePicker'
 import Input from './Input'
 import Checkbox from './Checkbox'
 import {Select} from './Select'
+import {MapFormGroup} from './MapFormGroup'
 import Location from './Location'
 
 
@@ -17,4 +18,5 @@ export {
     Input,
     Checkbox,
     Location,
+    MapFormGroup,
 };

@@ -8,6 +8,7 @@ import mailSender from './Reducers/mailSender'
 import settings from './Reducers/settings'
 import help from './Reducers/help'
 import accounts from './Reducers/accounts'
+import assist from './Reducers/assist'
 import favorites from './Reducers/favorites'
 
 
@@ -21,5 +22,6 @@ export default combineReducers({
     settings,
     help,
     favorites,
-    accounts
+    accounts,
+    assist
 });

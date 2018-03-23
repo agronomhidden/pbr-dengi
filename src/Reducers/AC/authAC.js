@@ -27,8 +27,8 @@ export const logoutCurrentUser = () => ({
 export const getUserByToken = () => ({
     type: API_REQUEST_ACTION,
     method: creator.MessageGetUser.METHOD,
-    payload: {},
     successAC: setCurrentUser,
+    serverErrorAC:loginUserFail,
     forbiddenErrorAC: logoutCurrentUser
 })
 
