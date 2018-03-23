@@ -22,12 +22,13 @@ class UserDataList extends Component {
 
     renderFoldersList() {
         return this.props.userData.map(item => (
-            <div key={item.getId()}>
+            <li key={item.getId()}>
                 {item.getName()}
                 <Link to={`/accounts/${item.getId()}/`}>{item.getPlaceholder() || 'Узнать начисления'}</Link>
                 <i>{item.hasChildren() ? null : 'Удалить'}</i>
-                <div>{this.renderServiceList(item)}</div>
-            </div>
+                <ul>{this.renderServiceList(item)}</ul>
+                <hr/>
+            </li>
         ));
     }
 
@@ -39,11 +40,11 @@ class UserDataList extends Component {
             return null;
         }
         return item.getUserDataServices().map(service => (
-            <div key={service.getId()}>
+            <li key={service.getId()}>
                 <Link to={`/accounts/edit/${item.getId()}/${service.getId()}`}>{this.getLink(service)}</Link>
                 {this.getDesc(service)} <i>№{service.getIdentifier()}</i>
                 [ <a href="#" onClick={this.delete(service.getId())}>Удалить</a> ]
-            </div>
+            </li>
         ))
     }
 
@@ -62,9 +63,9 @@ class UserDataList extends Component {
     }
 
     render() {
-        return <div>
+        return <ul>
             {this.renderFoldersList()}
-        </div>
+        </ul>
     }
 }
 

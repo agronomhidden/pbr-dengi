@@ -12,16 +12,19 @@ export class UserAgreement extends PageComponent {
         data: PropTypes.object,
         loading: PropTypes.bool.isRequired,
     }
-    
-    componentWillMount(){
-        console.log(this.props.data);
+
+    render() {
+        const {loading, loaded, data: agreement} = this.props;
+
+        if (loading || !loaded) {
+            return <div>Загрузка</div>
+        }
+
+        return <article>
+            <h3>{agreement.get('title')}</h3>
+            {this.isBrowser() && <p dangerouslySetInnerHTML={{__html: agreement.get('text')}}/>}
+        </article>
     }
-    
-    render = () => this.isBrowser() && this.props.data &&
-        <article>
-            <h3>{this.props.data.title}</h3>
-            <p dangerouslySetInnerHTML={{__html: this.props.data.text}}/>
-        </article> || <div/>
 }
 
 export default connect(
@@ -29,6 +32,7 @@ export default connect(
         {
             data: s.settings.get('agreement'),
             loading: s.settings.get('UALoading'),
+            loaded: s.settings.get('UALoaded'),
         }
     )), {dataLoader: getUserAgreement}
 )(UserAgreement)

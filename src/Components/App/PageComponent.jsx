@@ -7,8 +7,8 @@ export default class PageComponent extends Component {
         super(props);
         this.title = props.route && props.route.title || '';
         if (this.isBrowser()) {
-            const {createBrowserHistory} = require('history');
-            this.history = createBrowserHistory;
+            const {history} = require('./clientStore');
+            this.history = history;
         }
         props.staticContext && props.staticContext.pageTitleSetter(this.title);
     }

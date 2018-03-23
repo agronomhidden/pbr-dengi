@@ -7,6 +7,9 @@ import {getFavorites, updateFavorite} from "../../../Reducers/AC/favoritesAC"
 import {Link} from "react-router-dom"
 import PageComponent from "../../App/PageComponent"
 import {Map} from 'immutable'
+import {FavoritesRecord} from "../../../Reducers/entities"
+import {mapToArr} from "pbr-lib-front-utils/dateManipulation"
+import {Roller} from "../../Loading"
 
 export class Favorite extends PageComponent {
 
@@ -48,7 +51,7 @@ export class Favorite extends PageComponent {
     }
 
     render() {
-        let render = <div>Загрузка</div>
+        let render = <div><Roller/></div>
 
         if (!this.state.loading) {
             render =
@@ -68,11 +71,11 @@ export class Favorite extends PageComponent {
 }
 
 export default connect(
-    (s, p) => {
+    ({favorites}, {match}) => {
         return {
-            data: s.favorites.get('favorites'),
-            errors: s.favorites.get('errors'),
-            id: Number(p.match.params.id)
+            data: favorites.get('favorites'),
+            errors: favorites.get('errors'),
+            id: Number(match.params.id)
         }
     },
     {dataLoader: getFavorites, updateFavorite}

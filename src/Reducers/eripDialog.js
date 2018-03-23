@@ -14,10 +14,8 @@ const ReducerState = Record({
     dialogBlocks: [],
     summary: null,
     mts_session: null,
-    fault: null,
-    uuid: null
+    fault: null
 })
-
 
 export default (state = new ReducerState(), action = {}) => {
     switch (action.type) {
@@ -46,7 +44,6 @@ export default (state = new ReducerState(), action = {}) => {
         case DIALOG + OVER:
             return state
                 .set('loading', false)
-                .set('uuid', action.payload.uuid)
         case DIALOG + FAIL:
             return state
                 .set('loading', false)

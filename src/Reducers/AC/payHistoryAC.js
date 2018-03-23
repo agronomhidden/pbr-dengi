@@ -1,5 +1,7 @@
 import {SET_HISTORY_ITEMS, SET_HISTORY_LIST, START, SUCCESS, API_REQUEST_ACTION} from "../../CONSTANTS"
 import * as msg from "../../Services/Api/Messages"
+import {SET_HISTORY_ITEMS, SET_HISTORY_LIST, START, SUCCESS, FAIL, API_REQUEST_ACTION} from "../../CONSTANTS"
+import * as msg from "../../Services/Api/Messages"
 import {logoutCurrentUser} from "./authAC"
 
 
@@ -9,6 +11,11 @@ export const loadPaymentsHistoryItems = () => ({
 
 export const paymentsHistoryItemsLoaded = response => ({
     type: SET_HISTORY_ITEMS + SUCCESS,
+    payload: response
+})
+
+export const paymentsHistoryItemsFail = response => ({
+    type: SET_HISTORY_ITEMS + FAIL,
     payload: response
 })
 
@@ -37,5 +44,5 @@ export const getHistoryItems = params => ({
     payload: params,
     beforeAC: (paramsContainer) => loadPaymentsHistoryItems(),
     successAC: paymentsHistoryItemsLoaded,
-    forbiddenErrorAC: logoutCurrentUser
+    badRequestAC: paymentsHistoryItemsFail
 })

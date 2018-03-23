@@ -10,13 +10,13 @@ export default (Component) => class PageDataLoader extends PageComponent {
         entitiesLoader: PropTypes.func.isRequired,
         entities: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
         searchFunc: PropTypes.func,
-        loading: PropTypes.bool
+        loading: PropTypes.bool.isRequired
     }
 
     componentDidMount() {
-        const {loading, history, entities} = this.props;
-        if (!loading && (history.location.state || !entities.length)) {
-            history.location.state = ''
+        const {entities, history, loading} = this.props;
+        if (!loading && !entities.length) {
+            history.location.state = null;
             this._getEntities(this.props)
         }
     }
@@ -24,7 +24,7 @@ export default (Component) => class PageDataLoader extends PageComponent {
     componentWillReceiveProps(nextProps) {
         const {history} = this.props
         if (!nextProps.loading && history.location.state) {
-            history.location.state = ''
+            history.location.state = null;
             this._getEntities(nextProps)
         }
     }

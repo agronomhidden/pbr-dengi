@@ -12,4 +12,8 @@ export default class ParamsValidator {
     static isEmpty(value) {
         return is.empty(value)
     }
+
+    static isExist(value) {
+        return is.existy(value)
+    }
 }

@@ -83,3 +83,34 @@ export const FavoritesRecord = Record({
     category_name: null,
     service_id: null
 })
+
+export const DocumentRecord = Record({
+    title: null,
+    text: null
+})
+
+export const AssistTextPayParams = Record({
+    sum: null,
+    need: null,
+    balance: null,
+    res: null,
+    currency: null
+})
+
+export const AssistRecord = Record({
+    order_number: null,
+    sum: null,
+    currency: null,
+    billnumber: null,
+    orderdate: null,
+    approvalcode: null,
+    cardholder: null,
+    meannumber: null,
+    meantypename: null,
+    firstname: null,
+    lastname: null,
+    orderstate: null,
+    message: null
+
+})
+
