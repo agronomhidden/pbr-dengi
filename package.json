@@ -1,6 +1,6 @@
 {
   "name": "pbr-wifc-dengi-mts-by",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -9,8 +9,9 @@
     "test:coverage": "jest --coverage",
     "testMocha": "mocha \"./Tests/functTest.js\" --require babel-core/register",
     "build": "set NODE_ENV=production && webpack -p",
+    "server-build": "set NODE_ENV=production && webpack --config ./webpack.server.config.js",
     "dev": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host 0.0.0.0",
-    "nodemon": "set NODE_ENV=development && nodemon app.js"
+    "nodemon": "set NODE_ENV=development && nodemon devel-app.js"
   },
   "jest": {
     "setupFiles": [
@@ -79,6 +80,7 @@
     "babel-cli": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.3.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.8",
@@ -89,6 +91,7 @@
     "file-loader": "^1.1.6",
     "html-loader": "^0.5.4",
     "identity-obj-proxy": "^3.0.0",
+    "ignore-loader": "^0.1.2",
     "jest": "^22.1.2",
     "jsdom": "^11.5.1",
     "json-loader": "^0.5.7",
