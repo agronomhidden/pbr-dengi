@@ -14,10 +14,11 @@ import logger from "./express/logger"
 
 const app = express();
 const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '')) || 'production';
-const PORT = process.env.PORT || (mode === 'production' ? 8080 : 3003);
 
 let appConf = new Config('./config/', mode);
 appConf.exportToGlobalEnv();
+
+const PORT = process.env.PORT || (mode === 'production' ? 8080 : 3003);
 
 LayoutFactory.setManifest(manifest).setProd(mode === 'production');
 
