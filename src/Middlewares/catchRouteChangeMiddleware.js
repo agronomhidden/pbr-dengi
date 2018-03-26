@@ -46,5 +46,6 @@ export default history => store => next => action => {
             history.location.state = history.location.pathname;
             break
     }
+
     return next(action)
 }

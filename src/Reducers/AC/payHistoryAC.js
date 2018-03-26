@@ -1,6 +1,4 @@
-import {SET_HISTORY_ITEMS, SET_HISTORY_LIST, START, SUCCESS, API_REQUEST_ACTION} from "../../CONSTANTS"
-import * as msg from "../../Services/Api/Messages"
-import {SET_HISTORY_ITEMS, SET_HISTORY_LIST, START, SUCCESS, FAIL, API_REQUEST_ACTION} from "../../CONSTANTS"
+import {SET_HISTORY_ITEMS, SET_HISTORY_LIST, START, SUCCESS,FAIL, API_REQUEST_ACTION} from "../../CONSTANTS"
 import * as msg from "../../Services/Api/Messages"
 import {logoutCurrentUser} from "./authAC"
 
