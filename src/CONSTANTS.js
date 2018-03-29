@@ -15,9 +15,8 @@ export const REAL_IP = 'X-Real-IP'
 export const MOBILE = 'mobile'
 export const BROWSER = 'browser'
 export const API_REQUEST_ACTION = 'API_REQUEST_ACTION'
-
+export const CURRENCY = 'BYN'
 export const SEND_MAIL = 'SEND_MAIL'
-
 
 export const SERVER_POST_URL = '/api/post_request'
 
@@ -77,7 +76,11 @@ export const ACCOUNTS_USER_DATA_LOADED = 0b00010
 export const ACCOUNTS_INVOICES_LOADED = 0b00100
 
 /** Ассист */
-export const GET_RECHARGE_REQUIREMENT = 'GET_RECHARGE_REQUIREMENT'
 export const RECHARGE = 'RECHARGE'
 export const RECHARGE_INFO = 'RECHARGE_INFO'
 export const SET_ASSIST_PARAMS = 'SET_ASSIST_PARAMS'
+export const GET_RECHARGE_DIALOG = 'GET_RECHARGE_DIALOG'
+
+/** Счета*/
+export const GET_RECHARGE_REQUIREMENT = 'GET_RECHARGE_REQUIREMENT'
+export const PAY_INVOICE = 'PAY_INVOICE'

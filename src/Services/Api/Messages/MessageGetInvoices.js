@@ -7,12 +7,13 @@ export default class MessageGetInvoices extends AbstractMessage {
 
     /**
      * @param {string} access_token
+     * @param {int} active // Флаг, что-бы достать только активные транзакции
      */
-    constructor(access_token) {
+    constructor(access_token, active = 1) {
         super()
         if (Validator.isNull(access_token)) {
             throw new Error('access_token, must not be NULL')
         }
-        this.args = {access_token}
+        this.args = {access_token, active}
     }
 }

@@ -24,6 +24,7 @@ const router = express.Router();
 
 
 router.get('*', (req, res) => {
+
     const {url} = req;
     const ParamsContainer = new ServerApiParamsContainer(process.env.API_URL, req);
     const store = getStore(apiCallerMiddleware(ParamsContainer));

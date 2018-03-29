@@ -1,43 +1,14 @@
 import {
-    GET_RECHARGE_REQUIREMENT,
-    RECHARGE,
-    RECHARGE_INFO,
-    SET_ASSIST_PARAMS,
+    RECHARGE, RECHARGE_INFO, SET_ASSIST_PARAMS, GET_RECHARGE_REQUIREMENT,
     SUCCESS,
     START,
     FAIL,
+    FAILED,
     API_REQUEST_ACTION
 } from "../../CONSTANTS"
 
-import * as creator from "../../Services/Api/Messages/messagesClassStorage";
+import * as msg from "../../Services/Api/Messages";
 import {logoutCurrentUser} from "./authAC"
-
-export const rechargeRequirementStart = () => ({
-    type: GET_RECHARGE_REQUIREMENT + START,
-})
-
-export const rechargeRequirementLoaded = response => ({
-    type: GET_RECHARGE_REQUIREMENT + SUCCESS,
-    payload: response
-})
-
-export const setRechargeError = response => ({
-    type: RECHARGE + FAIL,
-    payload: {fields: response.result, msg: response.message}
-})
-
-
-export const getRechargeRequirement = params => ({
-    type: API_REQUEST_ACTION,
-    method: creator.MessageGetRequirement.METHOD,
-    payload: params,
-    beforeAC: (paramsContainer) => rechargeRequirementStart(),
-    successAC: rechargeRequirementLoaded,
-    forbiddenErrorAC: logoutCurrentUser,
-    dataLoadErrorAC: setRechargeError,
-    serverErrorAC: setRechargeError
-})
-
 
 export const rechargeStart = () => ({
     type: RECHARGE + START,
@@ -46,6 +17,28 @@ export const rechargeStart = () => ({
 export const rechargeSetAssistParams = response => ({
     type: SET_ASSIST_PARAMS,
     payload: response
+})
+
+export const rechargeFieldError = response => ({
+    type: RECHARGE + FAIL,
+    payload: {fields: response.result, msg: response.message}
+})
+
+export const rechargeServerError = ({message, error}, defaultError = 'Ошибка получения данных') => ({
+    type: RECHARGE + FAILED,
+    payload: message || error || defaultError
+})
+
+
+export const recharge = params => ({
+    type: API_REQUEST_ACTION,
+    method: msg.MessageRecharge.METHOD,
+    payload: params,
+    beforeAC: (paramsContainer) => rechargeStart(),
+    successAC: rechargeSetAssistParams,
+    forbiddenErrorAC: logoutCurrentUser,
+    fieldErrorAC: rechargeFieldError,
+    serverErrorAC: rechargeServerError
 })
 
 export const getRechargeInfoStart = (status, orderNumber) => ({
@@ -59,32 +52,19 @@ export const getRechargeInfoSuccess = response => ({
     payload: response
 })
 
-export const getRechargeInfoFail = response => ({
+export const getRechargeInfoFail = () => ({
     type: RECHARGE_INFO + FAIL
-})
-
-
-export const recharge = params => ({
-    type: API_REQUEST_ACTION,
-    method: creator.MessageRecharge.METHOD,
-    payload: params,
-    beforeAC: (paramsContainer) => rechargeStart(),
-    successAC: rechargeSetAssistParams,
-    forbiddenErrorAC: logoutCurrentUser,
-    fieldErrorAC: setRechargeError,
-    dataLoadErrorAC: setRechargeError,
-    serverErrorAC: setRechargeError
 })
 
 export const getRechargeInfo = (params, status = true) => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageRechargeInfo.METHOD,
+    method: msg.MessageRechargeInfo.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => getRechargeInfoStart(status, params.ordernumber),
     successAC: getRechargeInfoSuccess,
     forbiddenErrorAC: logoutCurrentUser,
     dataLoadErrorAC: getRechargeInfoFail,
-    serverErrorAC: setRechargeError
+    serverErrorAC: getRechargeInfoFail
 })
 
 

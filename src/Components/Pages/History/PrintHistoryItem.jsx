@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PrintHistoryItem = ({historyItem: {category_name, service_name, date_pay, sum, total_sum, commission, fields, erip_data, currency, server_time , user}}) => {
+export const PrintHistoryItem = ({historyItem: {category_name, service_name, date_pay, sum, total_sum, commission, fields, erip_data = {}, currency, server_time, user}}) => {
 
     const style = {
         invoiceHeader: {fontSize: '22px', color: '#F44336'},
@@ -18,7 +18,6 @@ export const PrintHistoryItem = ({historyItem: {category_name, service_name, dat
             </div>
         }
     })
-
     return (
         <div>
             <div style={style.invoiceHeader}>Ваш счет</div>
@@ -26,22 +25,26 @@ export const PrintHistoryItem = ({historyItem: {category_name, service_name, dat
                 <div style={style.invoiceLine}>Дата платежа:
                     <span style={style['-align-right']}>{date_pay}</span>
                 </div>
-                {erip_data.eripResult &&
-                <div style={style.invoiceLine}>Номер плательщика ЕРИП: {erip_data.eripResult.eripPayerCode}
+                {erip_data && erip_data.eripResult &&
+                <div style={style.invoiceLine}>
+                    Номер плательщика ЕРИП: {erip_data.eripResult.eripPayerCode}
                 </div>}
-                <div style={style.invoiceLine}>Номер абонента МТС: {user.phone}
-                </div>
-                <div style={style.invoiceLine}> Время сервера: {server_time}</div>
-                {erip_data.paymentInfo.sender &&
-                <div style={style.invoiceLine}>Отправитель платежа: {erip_data.paymentInfo.sender}</div>}
-                {erip_data.paymentInfo.receiver &&
-                <div style={style.invoiceLine}>Получатель платежа: {erip_data.paymentInfo.receiver}</div>}
+                {user &&
+                <div style={style.invoiceLine}>
+                    Номер абонента МТС: {user.phone}
+                </div>}
+                <div style={style.invoiceLine}>
+                    Время сервера: {server_time}</div>
+                {erip_data && erip_data.paymentInfo.sender &&
+                <div style={style.invoiceLine}>
+                    Отправитель платежа: {erip_data.paymentInfo.sender}</div>}
+                {erip_data && erip_data.paymentInfo.receiver &&
+                <div style={style.invoiceLine}>
+                    Получатель платежа: {erip_data.paymentInfo.receiver}</div>}
                 <div style={Object.assign(Object.create(style.invoiceLine), style['-align-center'])}>
                     {category_name} {service_name}
                 </div>
-
                 {getFields(fields)}
-
                 <div style={style.invoiceLine}>Сумма:
                     <span style={style['-align-right']}>{`${sum} ${currency}`}</span>
                 </div>
@@ -51,7 +54,7 @@ export const PrintHistoryItem = ({historyItem: {category_name, service_name, dat
                 <div style={Object.assign(Object.create(style.invoiceLine), style['-margin-bottom'])}>Сумма всего:
                     <span style={style['-align-right']}>{`${total_sum} ${currency}`}</span>
                 </div>
-                {erip_data.eripResult &&
+                {erip_data && erip_data.eripResult &&
                 <div style={style.invoiceLine}>ПN операции в ЕРИП: {erip_data.eripResult.eripOperationNumber}</div>}
                 <div style={style.invoiceLine}>Тел. ЕРИП для справок: 141</div>
             </div>

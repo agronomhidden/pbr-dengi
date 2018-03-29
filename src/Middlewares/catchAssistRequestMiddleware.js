@@ -4,14 +4,14 @@ import is from 'is_js';
 
 export default history => store => next => action => {
     switch (action.type) {
-        case GET_RECHARGE_REQUIREMENT + START :
-            const {transaction_uuids} = history.match.params;
-            const params = {
-                transaction_uuids,
-                withNew: 1
-            }
-            store.dispatch(getHistoryItems(params))
-            break
+        // case GET_RECHARGE_REQUIREMENT + START :
+        //     const {transaction_uuids} = history.match.params;
+        //     const params = {
+        //         transaction_uuids,
+        //         withNew: 1
+        //     }
+        //     store.dispatch(getHistoryItems(params))
+        //     break
         case SET_ASSIST_PARAMS:
             if (is.not.undefined(document)) {
                 const form = document.createElement('form');

@@ -42,9 +42,7 @@ class Accounts extends PageComponent {
         if (this.props.userDataLoaded === false) {
             this.props.loadUserData()
         }
-        if (this.props.invoicesLoaded === false) {
-            this.props.loadInvoices()
-        }
+        this.props.loadInvoices()
     }
 
     renderPopup() {

@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux"
-
-import PageLayout from "../../Decorators/PageLayout"
-import FormGroup from "../Partials/FormGroup"
-
 import PropTypes from 'prop-types';
+
+import FormGroup from "../Partials/FormGroup"
 import {mapToArr} from "pbr-lib-front-utils/dist/dateManipulation"
 import FieldsAttributesRecord from "../../../Reducers/Entities/FieldsAttributesRecord"
 import {updateStateFromAssoc} from "pbr-lib-front-utils/dist/reactStateHelper"
@@ -13,18 +11,16 @@ import PageComponent from "../../App/PageComponent"
 import TeaserRecord from "../../../Reducers/Entities/TeaserRecord"
 import {MapFormGroup} from "../Partials"
 import {recharge} from "../../../Reducers/AC/assistAC"
-import {Roller} from "../../Loading"
 
 
-export class RechargeDialog extends PageComponent {
-
+export class Recharge extends PageComponent {
 
     static propTypes = {
         fields: PropTypes.array.isRequired,
         user: PropTypes.object.isRequired,
         teaser: PropTypes.instanceOf(TeaserRecord),
-        loading: PropTypes.bool.isRequired,
-        loaded: PropTypes.bool.isRequired
+        uuids: PropTypes.string.isRequired,
+        errors: PropTypes.object,
     }
 
     state = {
@@ -69,13 +65,13 @@ export class RechargeDialog extends PageComponent {
         let infoBlock;
         if (ValidSum) {
             infoBlock = SuggestedSum.reverse().map((value, i) => {
-                const amount = i === 1 ? (+Params.get('sum') + value).toFixed(2) : Params.get('sum')
+                value = value.toFixed(2)
                 return <FormGroup key={i}
                                   name='sum'
                                   type='radio'
-                                  label={amount}
-                                  value={amount}
-                                  checked={this.state.sum === amount}
+                                  label={value}
+                                  value={value}
+                                  checked={this.state.sum === value}
                                   onChange={this._onChange}/>
             })
         } else {
@@ -86,26 +82,30 @@ export class RechargeDialog extends PageComponent {
     }
 
     render() {
-        return <div>{this.props.loaded ?
+        return <div>
+            <div style={{color:'red'}}>{this.props.servError}</div>
             <form onSubmit={this._onSubmit} onInvalid={this._onInValid}>
                 <MapFormGroup fields={this.props.fields} state={this.state} onChange={this._onChange}/>
                 {this.teaser()}
-                <button>Выполнить</button>
-            </form> :
-            <Roller/>
-        }</div>
+                <button disabled={this.props.loading}>Выполнить</button>
+            </form>
+        </div>
     }
 }
 
 
 export default connect(
-    ({assist, auth}) => ({
-        fields: mapToArr(assist.get('fields'), FieldsAttributesRecord),
-        user: auth.get('user'),
-        teaser: new TeaserRecord(assist.get('teaser')),
-        loading: assist.get('loading'),
-        loaded: assist.get('loaded'),
-        uuids: assist.get('uuids'),
-        errors: assist.get('errors')
-    }), {recharge}
-)(PageLayout(RechargeDialog));
+    ({payInvoices, auth, assist}) => {
+
+        return {
+            fields: mapToArr(payInvoices.get('fields'), FieldsAttributesRecord),
+            teaser: new TeaserRecord(payInvoices.get('teaser')),
+            uuids: payInvoices.get('transactionUuids'),
+            loading: assist.get('rechargeLoading'),
+            user: auth.get('user'),
+            errors: assist.get('fieldErrors'),
+            servError: assist.get('error')
+        }
+
+    }, {recharge}
+)(Recharge);

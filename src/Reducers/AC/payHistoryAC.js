@@ -2,7 +2,6 @@ import {SET_HISTORY_ITEMS, SET_HISTORY_LIST, START, SUCCESS,FAIL, API_REQUEST_AC
 import * as msg from "../../Services/Api/Messages"
 import {logoutCurrentUser} from "./authAC"
 
-
 export const loadPaymentsHistoryItems = () => ({
     type: SET_HISTORY_ITEMS + START
 })
@@ -27,11 +26,11 @@ export const getPaymentsHistorySuccess = response => ({
     payload: response
 })
 
-export const getHistoryList = data => ({
+export const getHistoryList = params => ({
     type: API_REQUEST_ACTION,
     method: msg.MessageGetHistory.METHOD,
-    payload: {date_to: data && data.date_to || null, date_from: data && data.date_from || null},
-    beforeAC: (paramsContainer) => getPaymentsHistoryStart(data),
+    payload: params || {},
+    beforeAC: (paramsContainer) => getPaymentsHistoryStart(params),
     successAC: getPaymentsHistorySuccess,
     forbiddenErrorAC: logoutCurrentUser
 })

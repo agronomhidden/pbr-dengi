@@ -10,6 +10,7 @@ import help from './Reducers/help'
 import accounts from './Reducers/accounts'
 import assist from './Reducers/assist'
 import favorites from './Reducers/favorites'
+import payInvoices from './Reducers/payInvoices'
 
 
 export default combineReducers({
@@ -23,5 +24,6 @@ export default combineReducers({
     help,
     favorites,
     accounts,
-    assist
+    assist,
+    payInvoices
 });

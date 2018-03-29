@@ -1,9 +1,9 @@
 import AbstractMessage from "./AbstractMessage"
 import Validator from "../ParamsValidator"
 
-export default class MessageGetRequirement extends AbstractMessage {
+export default class MessagePayInvoice extends AbstractMessage {
 
-    static METHOD = 'user/recharge-requirement';
+    static METHOD = 'invoices/pay-invoice';
 
     /**
      * @param {string} transaction_uuids

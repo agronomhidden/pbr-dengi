@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {RechargeInfoView} from '.';
 import {AssistRecord} from "../../../Reducers/entities"
@@ -8,7 +8,6 @@ import PageComponent from "../../App/PageComponent"
 import {Roller} from "../../Loading"
 
 export class RechargeInfo extends PageComponent {
-
 
     componentWillMount() {
         const {orderNumber, status, loaded, getRechargeInfo} = this.props;
@@ -37,8 +36,8 @@ export default connect(
     ({assist}) => ({
         status: assist.get('status'),
         model: new AssistRecord(assist.get('model')),
-        loading: assist.get('loading'),
-        loaded: assist.get('loaded'),
+        loading: assist.get('rechargeInfoLoading'),
+        loaded: assist.get('rechargeInfoLoaded'),
         payServicesResult: assist.get('payServicesResult'),
         withServices: assist.get('withServices'),
         orderNumber: assist.get('orderNumber')

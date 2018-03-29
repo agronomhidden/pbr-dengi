@@ -8,9 +8,8 @@ export default class MessageGetHistoryItems extends AbstractMessage {
     /**
      * @param {string} transaction_uuids
      * @param {int} advanced
-     * @param {int} with_new
      */
-    constructor(transaction_uuids, with_new = 0, advanced = 1) {
+    constructor(transaction_uuids, advanced = 0) {
         super()
         if (Validator.isNull(transaction_uuids)) {
             throw new TypeError('transaction_uuids must not be NULL')

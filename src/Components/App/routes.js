@@ -1,9 +1,9 @@
 import Error from '../Pages/Error/Error';
 import {Categories, CurrentCategories} from "../Pages/Categories"
 import Accounts from '../Pages/Accounts'
-import {Payments} from "../Pages/Payments"
+import {Payments, RechargeDialog} from "../Pages/Payments"
 import Tools from "../Pages/Tools/Tools"
-import {RechargeDialog, RechargeInfo} from '../Pages/Assist'
+import {RechargeInfo} from '../Pages/Assist'
 import {getCategories, categoriesSearch} from "../../Reducers/AC/categoriesAC"
 import {getHistoryItems, getHistoryList} from "../../Reducers/AC/payHistoryAC"
 import {getUserAgreement} from "../../Reducers/AC/settingsAC"
@@ -15,6 +15,7 @@ import {History, HistoryDetailItem} from "../Pages/History"
 import {Favorites, Favorite} from "../Pages/Favorites"
 import {loadBanners, loadUserData, loadInvoices} from '../../Reducers/AC/accountsAC'
 import {getRechargeInfo} from "../../Reducers/AC/assistAC"
+import {PayInvoices} from "../Pages/Invoices"
 
 export default [
     {
@@ -94,7 +95,7 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData, loadInvoices]
+        fetchData: [loadBanners, loadUserData]
     },
     {
         path: '/accounts/:parent_id(\\d+)\?/:search(.*)',
@@ -102,7 +103,7 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData, loadInvoices]
+        fetchData: [loadBanners, loadUserData]
     },
     {
         path: '/accounts',
@@ -110,7 +111,7 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData, loadInvoices]
+        fetchData: [loadBanners, loadUserData]
     },
     {
         path: '/favorites',
@@ -143,12 +144,20 @@ export default [
         fetchData: getRechargeInfo
     },
     {
-        path: '/recharge-no',
+        path: '/recharge-no*',
         exact: true,
         needAuth: true,
         component: RechargeInfo,
         title: 'Результат платежа',
         fetchData: params => getRechargeInfo(params, false)
+    },
+    {
+        path: '/pay-invoices/:transaction_uuids',
+        exact: true,
+        needAuth: true,
+        component: PayInvoices,
+        title: 'Оплата счета',
+        fetchData: loadInvoices
     },
     {
         path: '*',

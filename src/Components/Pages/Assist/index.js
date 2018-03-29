@@ -1,9 +1,9 @@
-import RechargeDialog from './RechargeDialog';
+import Recharge from './Recharge';
 import RechargeInfoView from './RechargeInfoView';
 import RechargeInfo from './RechargeInfo';
 
 export {
-    RechargeDialog,
+    Recharge,
     RechargeInfoView,
     RechargeInfo
 }

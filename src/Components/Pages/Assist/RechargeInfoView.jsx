@@ -27,8 +27,11 @@ export default class RechargeInfoView extends Component {
     render() {
         const {status, model, loaded} = this.props;
 
+        let info;
+
+
         if (status && (model.with_services && model.pay_services_result)) {
-            const info = <div className="status-page_footer_text">
+            info = <div className="status-page_footer_text">
                 Чтобы посмотреть квитанцию об оплате, нажмите «Продолжить»*
             </div>
         }
@@ -58,29 +61,29 @@ export default class RechargeInfoView extends Component {
                        data-show-text="Скрыть детали">Дополнительные Детали</a>
                 </div>
                 <hr/>
-                <div className="payment-result">
+                <div>
                     <div className="payment-result_item -w-37">
-                        <h5 className="-pb3">Код авторизации</h5>
+                        <h5 className="-pb3">Код авторизации:</h5>
                         <h3>{model.approvalmodel}</h3>
                     </div>
                     <div className="payment-result_item -w-37">
-                        <h5 className="-pb3">Держатель карты</h5>
+                        <h5 className="-pb3">Держатель карты:</h5>
                         <h3>{model.cardholder}</h3>
                     </div>
                     <div className="payment-result_item -w-26">
-                        <h5 className="-pb3">Платежное средство</h5>
+                        <h5 className="-pb3">Платежное средство:</h5>
                         <h3>{model.meannumber} {model.meantypename}</h3>
                     </div>
                     <div className="payment-result_item -w-37">
-                        <h5 className="-pb3">Номер транзакции</h5>
+                        <h5 className="-pb3">Номер транзакции:</h5>
                         <h3>{model.order_number}</h3>
                     </div>
                     <div className="payment-result_item -w-37">
-                        <h5 className="-pb3">Покупатель</h5>
+                        <h5 className="-pb3">Покупатель:</h5>
                         <h3>{model.firstname} {model.lastname}</h3>
                     </div>
                     <div className="payment-result_item -w-26">
-                        <h5 className="-pb3">Детали платежа</h5>
+                        <h5 className="-pb3">Детали платежа:</h5>
                         <h3>{model.message}</h3>
                     </div>
                 </div>

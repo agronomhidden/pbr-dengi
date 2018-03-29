@@ -29,6 +29,7 @@ import MessageGetInvoices from './MessageGetInvoices';
 import MessageGetRequirement from './MessageGetRequirement';
 import MessageRecharge from './MessageRecharge';
 import MessageRechargeInfo from './MessageRechargeInfo';
+import MessagePayInvoice from './MessagePayInvoice';
 
 export {
     MessageSearchAutoCompleteCategories,
@@ -61,6 +62,6 @@ export {
     MessageGetRequirement,
     MessageRecharge,
     MessageRechargeInfo,
-    MessageGetFavoriteItem,
-    MessageGetInvoices
+    MessageGetInvoices,
+    MessagePayInvoice
 }

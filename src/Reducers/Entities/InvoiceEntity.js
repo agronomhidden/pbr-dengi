@@ -4,6 +4,7 @@ import ServiceEntity from './ServiceEntity'
 const defaultFields = {
     transaction_uuid: '',
     item_name: '',
+    category_name: '',
     service: null,
     total_sum: 0,
     sum: 0,
@@ -28,6 +29,13 @@ export default class InvoiceEntity extends Record(defaultFields) {
      */
     getName() {
         return this.item_name
+    }
+
+    /**
+     * @return {string}
+     */
+    getCategoryName() {
+        return this.category_name
     }
 
     /**

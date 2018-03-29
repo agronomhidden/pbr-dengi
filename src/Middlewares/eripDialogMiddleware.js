@@ -1,8 +1,7 @@
 import {DIALOG_DISTRIBUTOR, DIALOG, START} from '../CONSTANTS'
 import {queryStringToState} from "pbr-lib-front-utils/dist/queryStringHelper"
 import {getFavoriteItem} from "../Reducers/AC/favoritesAC"
-import {rechargeRequirementLoaded} from "../Reducers/AC/assistAC"
-
+import {rechargeDialog} from "../Reducers/AC/payIvoicesAC"
 
 export default ({push, location}) => ({dispatch}) => next => action => {
     switch (action.type) {
@@ -20,7 +19,7 @@ export default ({push, location}) => ({dispatch}) => next => action => {
             if (action.payload.advanced && action.overAC) {
                 next(action.overAC())
                 if (action.payload.advanced.direct_pay === false) {
-                    dispatch(rechargeRequirementLoaded(action.payload))
+                    dispatch(rechargeDialog(action.payload))
                     push(`/recharge-dialog`)
                 } else {
                     push(`/history-items/${action.payload.uuid}`)
