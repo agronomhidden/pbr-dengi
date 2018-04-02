@@ -18,7 +18,7 @@ const mode = (process.env.NODE_ENV && process.env.NODE_ENV.replace(/[^A-Z]/ig, '
 let appConf = new Config('./config/', mode);
 appConf.exportToGlobalEnv();
 
-const PORT = process.env.PORT || (mode === 'production' ? 8080 : 3003);
+const PORT = process.env.PORT || (mode === 'production' ? 3333 : 3003);
 
 LayoutFactory.setManifest(manifest).setProd(mode === 'production');
 
