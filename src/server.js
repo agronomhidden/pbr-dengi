@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(logger(process.env.LOG_FILE));
 
 // Сжимаем файлы
-//app.use(compress());
+app.use(compress());
 
 // Настраиваем путь для статичных файлов:
 app.use(express.static('public', {
