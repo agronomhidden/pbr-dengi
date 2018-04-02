@@ -2,6 +2,7 @@ import {REAL_IP} from "../../CONSTANTS";
 import BaseApiCaller from './BaseApiCaller';
 import * as msg from './Messages';
 import MessagePayInvoice from "./Messages/MessagePayInvoice"
+import MessageGetRechargeModel from "./Messages/MessageGetRechargeModel"
 
 export default class ApiCaller extends BaseApiCaller {
 
@@ -120,7 +121,12 @@ export default class ApiCaller extends BaseApiCaller {
 
             case msg.MessagePayInvoice.METHOD:
                 return new msg.MessagePayInvoice(container.getToken(), params.transaction_uuids).getMessage()
-                
+
+            case msg.MessageGetBalance.METHOD:
+                return new msg.MessageGetBalance(container.getToken()).getMessage()
+
+            case msg.MessageGetRechargeModel.METHOD:
+                return new msg.MessageGetRechargeModel(container.getToken()).getMessage()
 
             default:
                 throw Error('Message for method ' + method + ' was not found')

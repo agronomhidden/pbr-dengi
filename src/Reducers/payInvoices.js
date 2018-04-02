@@ -1,4 +1,12 @@
-import {GET_RECHARGE_REQUIREMENT, GET_RECHARGE_DIALOG, PAY_INVOICE, START, SUCCESS, FAIL} from "../CONSTANTS"
+import {
+    GET_RECHARGE_REQUIREMENT,
+    GET_RECHARGE_MODEL,
+    GET_RECHARGE_DIALOG,
+    PAY_INVOICE,
+    START,
+    SUCCESS,
+    FAIL
+} from "../CONSTANTS"
 import {OrderedMap, Record} from 'immutable'
 import {arrToMap} from "pbr-lib-front-utils/dist/dateManipulation"
 import {fieldsRechargeConverter} from "../Utils/helper"
@@ -15,7 +23,10 @@ export const payInvoiceState = Record({
 
     payInvoiceLoading: false,
     payInvoiceError: null,
-    transactionsResult: null
+    transactionsResult: null,
+
+    rechargeModelLoading: false,
+    rechargeModelError: null
 })
 
 const rechargeDialog = OrderedMap({
@@ -23,6 +34,14 @@ const rechargeDialog = OrderedMap({
     last_name: new FieldsAttributesRecord,
     email: new FieldsAttributesRecord
 });
+
+const rechargePhone = OrderedMap({
+    first_name: new FieldsAttributesRecord,
+    last_name: new FieldsAttributesRecord,
+    email: new FieldsAttributesRecord,
+    sum: new FieldsAttributesRecord
+});
+
 
 export default (state = new payInvoiceState(), action = {}) => {
 
@@ -63,13 +82,28 @@ export default (state = new payInvoiceState(), action = {}) => {
 
         case PAY_INVOICE + SUCCESS:
             return state
-                .set('payInvoiceLoading', true)
+                .set('payInvoiceLoading', false)
                 .set('transactionsResult', action.payload.transactions)
 
         case PAY_INVOICE + FAIL:
             return state
                 .set('payInvoiceLoading', false)
                 .set('payInvoiceError', action.payload)
+
+        case GET_RECHARGE_MODEL + START:
+            return state
+                .set('rechargeModelLoading', true)
+                .set('rechargeModelError', null)
+
+        case GET_RECHARGE_MODEL + SUCCESS:
+            return state
+                .set('rechargeModelLoading', false)
+                .set('fields', arrToMap(fieldsRechargeConverter(rechargePhone, action.payload.fields)))
+
+        case GET_RECHARGE_MODEL + FAIL:
+            return state
+                .set('rechargeModelLoading', false)
+                .set('rechargeModelError', action.payload)
 
         default:
             return state;

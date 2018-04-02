@@ -13,7 +13,7 @@ export default class MessageGetRequirement extends AbstractMessage {
      * @param {string} sum
      * @param {string} transaction_uuids
      */
-    constructor(access_token, first_name, last_name, email, sum, transaction_uuids) {
+    constructor(access_token, first_name, last_name, email, sum, transaction_uuids = '') {
         super()
 
         if (Validator.isNull(access_token)) {
@@ -31,11 +31,8 @@ export default class MessageGetRequirement extends AbstractMessage {
         if (Validator.isNull(sum) && !Validator.isInt(sum)) {
             throw new TypeError('sum must not be NULL && sum must be integer')
         }
-        if (Validator.isNull(transaction_uuids)) {
-            throw new TypeError('transaction_uuids must not be NULL')
-        }
 
-        transaction_uuids = transaction_uuids.split(',')
+        transaction_uuids = transaction_uuids && transaction_uuids.split(',') || null
 
         this.args = {access_token, first_name, last_name, email, sum, transaction_uuids}
     }

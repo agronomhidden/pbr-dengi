@@ -1,4 +1,4 @@
-import {TOKEN, SUCCESS, LOGIN_USER, LOGOUT_CURRENT_USER, LOCATION_ID} from '../CONSTANTS'
+import {TOKEN, SUCCESS, LOGIN_USER, LOGOUT_CURRENT_USER} from '../CONSTANTS'
 import {changeLocation} from "../Reducers/AC/locationAC"
 
 export default (history, CookieManager) => store => next => action => {

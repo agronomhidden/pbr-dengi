@@ -1,24 +1,23 @@
 import {
-    START, SUCCESS, FAIL, ERROR,
-    SET_CURRENT_USER,
-    LOGIN_USER,
-    LOGOUT_CURRENT_USER
+    SET_CURRENT_USER, LOGIN_USER, LOGOUT_CURRENT_USER, GET_BALANCE,
+    START, SUCCESS, FAIL,
 } from "../CONSTANTS"
 
 import {Record} from 'immutable'
 
-
-const ReducerState = Record({
+const userState = Record({
     user: null,
     errors: null,
-    loading: false
+    loading: false,
+    balance: null
 })
 
-export default (state = new ReducerState(), action = {}) => {
+export default (state = new userState(), action = {}) => {
     switch (action.type) {
         case SET_CURRENT_USER:
             return state
                 .set('user', action.payload)
+
         case LOGIN_USER + START:
             return state
                 .set('loading', true)
@@ -31,9 +30,23 @@ export default (state = new ReducerState(), action = {}) => {
             return state
                 .set('loading', false)
                 .set('errors', action.payload)
+
         case LOGOUT_CURRENT_USER:
             return state
                 .set('user', null)
+
+        case GET_BALANCE + START:
+            return state
+                .set('loading', true)
+                .set('errors', null)
+        case GET_BALANCE + SUCCESS:
+            return state
+                .set('loading', false)
+                .set('balance', action.payload.value)
+        case GET_BALANCE + FAIL:
+            return state
+                .set('loading', false)
+                .set('errors', action.payload)
         default:
             return state;
     }

@@ -67,7 +67,7 @@ export default (state = new assistState(), action = {}) => {
 
         case RECHARGE + FAILED:
             return state
-                .set('rechargeLoading', true)
+                .set('rechargeLoading', false)
                 .set('error', action.payload)
 
         default:

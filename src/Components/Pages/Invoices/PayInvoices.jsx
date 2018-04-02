@@ -7,7 +7,7 @@ import PageLayout from "../../Decorators/PageLayout"
 import {Invoice, Pay} from './';
 import InvoiceEntity from "../../../Reducers/Entities/InvoiceEntity"
 import {loadInvoices} from "../../../Reducers/AC/accountsAC"
-import {Recharge} from "../Assist"
+import {RechargeWithTeaser} from "../Assist"
 import {Roller} from "../../Loading"
 import {getRechargeRequirement} from "../../../Reducers/AC/payIvoicesAC"
 
@@ -31,7 +31,7 @@ export class PayInvoices extends PageComponent {
             render = <div>
                 <h1>Оплатить счета</h1>
                 {this.getHistoryBlocks()}
-                {directPay === false && <Recharge/>}
+                {directPay === false && <RechargeWithTeaser/>}
                 {directPay === true && <Pay invoices={data}/>}
             </div>
         }

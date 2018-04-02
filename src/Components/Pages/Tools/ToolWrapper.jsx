@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from "prop-types"
 
-export default class ToolWrapper extends Component {
+export default class ToolWrapper extends PureComponent {
 
     static propTypes = {
         onClick: PropTypes.func.isRequired,
@@ -18,8 +18,12 @@ export default class ToolWrapper extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({successMsg: nextProps.successMsg})
         setTimeout(() => {
-            this.setState({successMsg: null})
+            this.state.successMsg && this.setState({successMsg: null})
         }, 5000)
+    }
+
+    componentWillUnmount() {
+        this.state.successMsg = null
     }
 
     render = () => <div className="settings-item">

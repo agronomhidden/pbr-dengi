@@ -19,8 +19,8 @@ export default class FormGroup extends Component {
         inputModifier: PropTypes.string,
         maxLength: PropTypes.number,
         minLength: PropTypes.number,
-        max: PropTypes.number,
-        min: PropTypes.number,
+        max: PropTypes.string,
+        min: PropTypes.string,
         /** Mask*/
         mask: PropTypes.string,
         maskChar: PropTypes.string,

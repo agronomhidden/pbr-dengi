@@ -1,10 +1,6 @@
 import {
-    GET_RECHARGE_REQUIREMENT,
-    GET_RECHARGE_DIALOG,
-    PAY_INVOICE,
-    SUCCESS,
-    START,
-    FAIL,
+    GET_RECHARGE_REQUIREMENT, GET_RECHARGE_MODEL, GET_RECHARGE_DIALOG, PAY_INVOICE,
+    SUCCESS, START, FAIL,
     API_REQUEST_ACTION,
 } from "../../CONSTANTS"
 
@@ -64,4 +60,29 @@ export const payInvoice = params => ({
     forbiddenErrorAC: logoutCurrentUser,
     dataLoadErrorAC: payInvoiceFail,
     serverErrorAC: payInvoiceFail
+})
+
+export const getRechargeModelStart = () => ({
+    type: GET_RECHARGE_MODEL + START,
+})
+
+export const getRechargeModelSuccess = response => ({
+    type: GET_RECHARGE_MODEL + SUCCESS,
+    payload: response
+})
+
+export const getRechargeModelFail = ({message, error}, defaultError = 'Ошибка получения данных') => ({
+    type: GET_RECHARGE_MODEL + FAIL,
+    payload: message || error || defaultError
+})
+
+
+
+export const getRechargeModel  = () => ({
+    type: API_REQUEST_ACTION,
+    method: msg.MessageGetRechargeModel.METHOD,
+    beforeAC: (paramsContainer) => getRechargeModelStart(),
+    successAC: getRechargeModelSuccess,
+    forbiddenErrorAC: logoutCurrentUser,
+    serverErrorAC: getRechargeModelFail
 })

@@ -1,22 +1,6 @@
-import React, {Component} from 'react';
-import propTypes from 'prop-types';
+import React from 'react';
 import {UserInfo, NavMenu} from './index';
+import  './UserUnit.styl';
 
+export const UserUnit = ({user}) => [<UserInfo key={1} user={user}/>, <NavMenu key={2}/>]
 
-export default class UserUnit extends Component {
-
-    static propTypes = {
-        user: propTypes.object.isRequired
-    }
-
-    render = () => {
-        return (
-            <div>
-                <UserInfo user={this.props.user}/>
-                <NavMenu/>
-            </div>
-        )
-    }
-
-
-}

@@ -16,6 +16,8 @@ import {Favorites, Favorite} from "../Pages/Favorites"
 import {loadBanners, loadUserData, loadInvoices} from '../../Reducers/AC/accountsAC'
 import {getRechargeInfo} from "../../Reducers/AC/assistAC"
 import {PayInvoices} from "../Pages/Invoices"
+import {RechargePhone} from "../Pages/Assist"
+import {getRechargeModel} from "../../Reducers/AC/payIvoicesAC"
 
 export default [
     {
@@ -158,6 +160,14 @@ export default [
         component: PayInvoices,
         title: 'Оплата счета',
         fetchData: loadInvoices
+    },
+    {
+        path: '/recharge-phone*',
+        exact: true,
+        needAuth: true,
+        component: RechargePhone,
+        title: 'Пополнение баланса мобильного телефона',
+        fetchData: getRechargeModel
     },
     {
         path: '*',
