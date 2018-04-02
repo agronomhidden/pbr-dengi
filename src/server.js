@@ -43,4 +43,5 @@ app.use('/', Router);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);
+    console.log(`log file is: ${process.env.LOG_FILE}`)
 });
