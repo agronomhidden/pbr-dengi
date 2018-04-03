@@ -25,9 +25,11 @@ export class Payments extends PageComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {entities, errors, favorite} = nextProps;
+        const {entities, errors, favorite, invoice} = nextProps;
 
         favorite && DialogDefaultValueFactory.setFavoriteProps(favorite);
+
+        invoice && DialogDefaultValueFactory.setInvoiceProps(invoice)
 
         const currentDialogEntities = entities.slice(this.props.entities.size);
 
@@ -90,14 +92,15 @@ export class Payments extends PageComponent {
 }
 
 export default connect(
-    (s => ({
-        entities: s.eripDialog.get('dialogBlocks'),
-        loading: s.eripDialog.get('loading'),
-        mts_session: s.eripDialog.get('mts_session'),
-        fault: s.eripDialog.get('fault'),
-        errors: s.eripDialog.get('errors'),
-        favorite: s.favorites.get('favorite')
-    })),
+    ({eripDialog, favorites, accounts}) => ({
+        entities: eripDialog.get('dialogBlocks'),
+        loading: eripDialog.get('loading'),
+        mts_session: eripDialog.get('mts_session'),
+        fault: eripDialog.get('fault'),
+        errors: eripDialog.get('errors'),
+        favorite: favorites.get('favorite'),
+        invoice: accounts.get('invoiceUserData')
+    }),
     {
         entitiesLoader: initDialog,
         requestInDialog,

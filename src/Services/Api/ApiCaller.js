@@ -3,6 +3,7 @@ import BaseApiCaller from './BaseApiCaller';
 import * as msg from './Messages';
 import MessagePayInvoice from "./Messages/MessagePayInvoice"
 import MessageGetRechargeModel from "./Messages/MessageGetRechargeModel"
+import MessageGetSocial from "./Messages/MessageGetSocial"
 
 export default class ApiCaller extends BaseApiCaller {
 
@@ -127,6 +128,12 @@ export default class ApiCaller extends BaseApiCaller {
 
             case msg.MessageGetRechargeModel.METHOD:
                 return new msg.MessageGetRechargeModel(container.getToken()).getMessage()
+
+            case msg.MessageGetSocial.METHOD:
+                return new msg.MessageGetSocial().getMessage()
+
+            case msg.MessageGetInvoiceUserData.METHOD:
+                return new msg.MessageGetInvoiceUserData(container.getToken(), params.invoiceId).getMessage()
 
             default:
                 throw Error('Message for method ' + method + ' was not found')

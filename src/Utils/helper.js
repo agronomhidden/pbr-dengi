@@ -39,20 +39,6 @@ export function fieldsRechargeConverter(Map = OrderedMap({}), fieldsObject = {})
             }
         }
     }
+    console.log(Map);
     return Map;
-}
-
-export function prepareParamsToRout(params) {
-    let queryObject = {}
-
-    for (let key in params) {
-        let param = decodeURIComponent(params[key])
-
-        if (key === '0') {
-            queryObject = qs.parse(param, {ignoreQueryPrefix: true}) || {}
-        } else {
-            queryObject[key] = param
-        }
-    }
-    return queryObject
 }

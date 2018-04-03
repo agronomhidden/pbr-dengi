@@ -7,12 +7,13 @@ import {Provider} from 'react-redux'
 import {getStore} from './serverStore'
 import LayoutFactory from '../../Services/Factories/LayoutFactory'
 import routes from './routes'
-import {prepareParamsToRout} from "../../Utils/helper"
+
 import {getUserByToken} from '../../Reducers/AC/authAC'
 import {getLocations} from '../../Reducers/AC/locationAC'
 
 import apiCallerMiddleware from "../../Middlewares/apiCallerMiddleware"
 import ServerApiParamsContainer from '../../Services/Api/ServerApiParamsContainer'
+import {prepareParamsToRout} from "pbr-lib-front-utils/dist/queryStringHelper"
 
 const router = express.Router();
 

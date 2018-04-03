@@ -3,7 +3,7 @@ import SetProfile from './SetProfile'
 import {BankingAgreement} from './BankingAgreement';
 import ToolWrapper from './ToolWrapper';
 import TotalLogout from './TotalLogout';
-import UserAgreement from './UserAgreement';
+import UserAgreement from '../Help/UserAgreement';
 import DeleteSubscription from './DeleteSubscription';
 export {
     ChangePassword,

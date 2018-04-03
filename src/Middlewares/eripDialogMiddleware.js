@@ -2,14 +2,17 @@ import {DIALOG_DISTRIBUTOR, DIALOG, START} from '../CONSTANTS'
 import {queryStringToState} from "pbr-lib-front-utils/dist/queryStringHelper"
 import {getFavoriteItem} from "../Reducers/AC/favoritesAC"
 import {rechargeDialog} from "../Reducers/AC/payIvoicesAC"
+import {getInvoiceUserData} from "../Reducers/AC/accountsAC"
 
-export default ({push, location}) => ({dispatch}) => next => action => {
+export default history => ({dispatch}) => next => action => {
     switch (action.type) {
         case DIALOG + START:
-            const {favId} = queryStringToState(location.search)
-            if (favId) {
-                dispatch(getFavoriteItem(params))
-            }
+            const {favId, invoiceId} = queryStringToState(history.location.search)
+            console.log(invoiceId);
+            console.log(favId);
+            favId && dispatch(getFavoriteItem({favId}))
+
+            invoiceId && dispatch(getInvoiceUserData({invoiceId}))
             break
         case DIALOG_DISTRIBUTOR:
             if (action.payload.status === 'fail' && action.failAC) {
@@ -20,9 +23,9 @@ export default ({push, location}) => ({dispatch}) => next => action => {
                 next(action.overAC())
                 if (action.payload.advanced.direct_pay === false) {
                     dispatch(rechargeDialog(action.payload))
-                    push(`/recharge-dialog`)
+                    history.push(`/recharge-dialog`)
                 } else {
-                    push(`/history-items/${action.payload.uuid}`)
+                    history.push(`/history-items/${action.payload.uuid}`)
                 }
                 break
             }

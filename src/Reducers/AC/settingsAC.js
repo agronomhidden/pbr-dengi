@@ -46,23 +46,6 @@ export const setProfile = data => ({
     forbiddenErrorAC: logoutCurrentUser
 })
 
-export const getAgreementStart = () => ({
-    type: USER_AGREEMENT + START,
-})
-
-export const getAgreementSuccess = response => ({
-    type: USER_AGREEMENT + SUCCESS,
-    payload: response
-})
-
-export const getUserAgreement = () => ({
-    type: API_REQUEST_ACTION,
-    method: msg.MessageUserAgreement.METHOD,
-    payload: {},
-    beforeAC: (paramsContainer) => getAgreementStart(),
-    successAC: getAgreementSuccess,
-})
-
 export const totalLogoutStart = () => ({
     type: TOTAL_LOGOUT + START
 })

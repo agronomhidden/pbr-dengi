@@ -3,7 +3,7 @@ import {
     START, SUCCESS, FAIL
 } from "../CONSTANTS"
 
-import {Record, OrderedMap} from 'immutable'
+import {Record} from 'immutable'
 import {arrToMap} from "pbr-lib-front-utils/dateManipulation"
 import {FavoritesRecord} from "./entities"
 
