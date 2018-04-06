@@ -6,13 +6,14 @@ import {
 
 import {Record, List, Map} from 'immutable'
 import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
-import {DialogFieldsRecord} from "./entities"
+import {DialogFieldsRecord, SubscriptionRecord} from "./entities"
 
 const ReducerState = Record({
     errors: null,
     loading: false,
-    dialogBlocks: [],
+    dialogBlocks: new List(),
     summary: null,
+    subscription: new Map(),
     mts_session: null,
     fault: null
 })
@@ -26,13 +27,14 @@ export default (state = new ReducerState(), action = {}) => {
                 .set('errors', null)
                 .set('fault', null)
                 .set('mts_session', null)
-                .set('dialogBlocks', List([]))
+                .set('subscription', new Map())
+                .set('dialogBlocks', new List())
         case DIALOG + RESET:
             return state
                 .set('loading', true)
                 .set('errors', null)
         case DIALOG + SUCCESS:
-            const {mts_session, fields, summary} = action.payload;
+            const {mts_session, fields, summary, subscription} = action.payload;
             return state
                 .set('mts_session', mts_session)
                 .set('loading', false)
@@ -41,6 +43,7 @@ export default (state = new ReducerState(), action = {}) => {
                         fields: arrToMap(fields, DialogFieldsRecord, item => item.name),
                         summary: summary
                     })))
+                .set('subscription', new SubscriptionRecord(subscription))
         case DIALOG + OVER:
             return state
                 .set('loading', false)

@@ -1,6 +1,8 @@
 import is from 'is_js';
 import {OrderedMap} from "immutable"
-import qs from "qs"
+
+import {ANDROID, IOS} from "../CONSTANTS"
+import MobileDetectedFactory from "../Services/Factories/MobileDetectedFactory"
 /**
  * удаляет префикс для eRip
  * @param phone string
@@ -42,3 +44,6 @@ export function fieldsRechargeConverter(Map = OrderedMap({}), fieldsObject = {})
     console.log(Map);
     return Map;
 }
+
+
+

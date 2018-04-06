@@ -3,7 +3,7 @@ import AbstractMessage from "./AbstractMessage"
 
 export default class MessageGetFavoriteItem extends AbstractMessage {
 
-    static METHOD = 'invoices/get-invoice-user-data';
+    static METHOD = 'invoices/get-user-data-item';
 
     /**
      * @param {string} access_token
@@ -11,9 +11,6 @@ export default class MessageGetFavoriteItem extends AbstractMessage {
      */
     constructor(access_token, id) {
         super()
-        if (!access_token) {
-            throw new Error('access_token do not must be NULL')
-        }
         if (!id || !Validator.isInt(id)) {
             throw new TypeError('id must be integer')
         }

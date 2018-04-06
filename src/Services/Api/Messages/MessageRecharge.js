@@ -16,9 +16,6 @@ export default class MessageGetRequirement extends AbstractMessage {
     constructor(access_token, first_name, last_name, email, sum, transaction_uuids = '') {
         super()
 
-        if (Validator.isNull(access_token)) {
-            throw new TypeError('access_token, do not must be NULL')
-        }
         if (Validator.isNull(first_name)) {
             throw new TypeError('first_name, do not must be NULL')
         }

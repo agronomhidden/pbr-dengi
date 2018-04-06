@@ -1,5 +1,4 @@
 import AbstractMessage from "./AbstractMessage"
-import Validator from "../ParamsValidator"
 
 export default class MessageGetRechargeModel extends AbstractMessage {
 
@@ -10,9 +9,6 @@ export default class MessageGetRechargeModel extends AbstractMessage {
      */
     constructor(access_token) {
         super()
-        if (!Validator.isExist(access_token)) {
-            throw new Error('access_token, don\'t must be NULL or undefined')
-        }
         this.args = {access_token}
     }
 }

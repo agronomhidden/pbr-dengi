@@ -27,7 +27,6 @@ export class RechargePhone extends Recharge {
             {this.props.rechargeModelLoading ? <Roller width="50px"/> : [
                 <div key="1" style={{color: 'red'}}>{this.props.servError}</div>,
                 <form key="2" onSubmit={this._onSubmit} onInvalid={this._onInValid}>
-                    {console.log(this.props.data)}
                     <MapFormGroup fields={this.props.data} state={this.state} onChange={this._onChange}/>
                     <button disabled={this.props.loading}>Продолжить</button>
                 </form>

@@ -1,6 +1,6 @@
 import {
     SET_CURRENT_USER, LOGOUT_CURRENT_USER, LOGIN_USER, GET_BALANCE,
-    API_REQUEST_ACTION,
+    API_REQUEST_ACTION, SET_USER_DEVICE,CLOSED_TEASER,
     SUCCESS, START, FAIL
 } from "../../CONSTANTS"
 import * as creator from "../../Services/Api/Messages";
@@ -66,4 +66,14 @@ export const getBalance = () => ({
     successAC: getBalanceSuccess,
     forbiddenErrorAC: logoutCurrentUser,
     serverErrorAC: getBalanceFail
+})
+
+export const setUserDevice = device => ({
+    type: SET_USER_DEVICE,
+    payload: device
+})
+
+export const setClosedTeaser = device => ({
+    type: CLOSED_TEASER,
+    payload: device
 })

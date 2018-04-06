@@ -10,6 +10,7 @@ import DialogFieldPreparer from "../../../Services/Dialog/DialogFieldPreparer"
 import PageComponent from "../../App/PageComponent"
 import DialogPrepareRenderFields from "../../../Services/Dialog/DialogPrepareRenderFields"
 import DialogDefaultValueFactory from "../../../Services/Dialog/DialogDefaultValueFactory"
+import ContinueDialog from "./ContinueDialog"
 
 export class Payments extends PageComponent {
 
@@ -48,8 +49,8 @@ export class Payments extends PageComponent {
         this.setState({[name]: Number(checked)})
     }
 
-    _onSubmit = (e) => {
-        e.preventDefault();
+    _onSubmit = () => {
+
         const {mts_session, requestInDialog, entities, match: {params: {id}}} = this.props
 
         const prepareFields = new DialogFieldPreparer(this.state, entities);
@@ -74,21 +75,22 @@ export class Payments extends PageComponent {
         }
     }
 
-    render = () =>
-        <div>
-            <h3>Заголовок платежа</h3>
-            {this.props.fault ?
-                <h3 style={{backgroundColor: 'red'}}>{this.props.fault}</h3>
-                :
-                <form method="POST" onSubmit={this._onSubmit} onInvalid={this._onInValid}>
-                    <DialogMap {...this.props} payState={this.state} onChange={this._onChange} onCheck={this._onCheck}/>
-                    {this.props.loading ?
-                        <Roller parentClass="form-group_field-loading" width={'15px'}/> :
-                        !!this.props.entities.size && <button disabled={this.props.success}>Отправить</button>
-                    }
-                </form>
-            }
-        </div>
+    render = () => {
+        return (
+            <div>
+                <h3>Заголовок платежа</h3>
+                {this.props.fault ?
+                    <h3 style={{backgroundColor: 'red'}}>{this.props.fault}</h3>
+                    :
+                    <form onInvalid={this._onInValid}>
+                        <DialogMap {...this.props} payState={this.state} onChange={this._onChange}
+                                   onCheck={this._onCheck}/>
+                        <ContinueDialog showButt={!!this.props.entities.size} onSubmit={this._onSubmit}
+                                        subscription={this.props.subscription} loading={this.props.loading}/>
+                    </form>
+                }
+            </div>)
+    }
 }
 
 export default connect(
@@ -99,7 +101,8 @@ export default connect(
         fault: eripDialog.get('fault'),
         errors: eripDialog.get('errors'),
         favorite: favorites.get('favorite'),
-        invoice: accounts.get('invoiceUserData')
+        invoice: accounts.get('invoiceUserData'),
+        subscription: eripDialog.get('subscription')
     }),
     {
         entitiesLoader: initDialog,

@@ -10,8 +10,10 @@ export const ERROR = 'ERROR'
 export const TOKEN = 'access_token'
 export const LOCATION_ID = 'location_id'
 export const REAL_IP = 'X-Real-IP'
-export const MOBILE = 'mobile'
-export const BROWSER = 'browser'
+
+export const IOS = 'iOS'
+export const ANDROID = 'AndroidOS'
+
 export const API_REQUEST_ACTION = 'API_REQUEST_ACTION'
 export const CURRENCY = 'BYN'
 export const SEND_MAIL = 'SEND_MAIL'
@@ -23,11 +25,13 @@ export const CHANGE_ROUTE = '@@router/LOCATION_CHANGE'
 export const TOUCH_LOCATION = 'TOUCH_LOCATION'
 /** Поиск */
 export const SEARCH_EVENT = 'SEARCH_EVENT'
-/** Вход пользователя*/
+/** Пользователь*/
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER'
 export const GET_BALANCE = 'GET_BALANCE'
+export const SET_USER_DEVICE = 'SET_USER_DEVICE'
+export const CLOSED_TEASER = 'CLOSED_TEASER'
 /** Категории */
 export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'

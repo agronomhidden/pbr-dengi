@@ -8,8 +8,6 @@ export default history => ({dispatch}) => next => action => {
     switch (action.type) {
         case DIALOG + START:
             const {favId, invoiceId} = queryStringToState(history.location.search)
-            console.log(invoiceId);
-            console.log(favId);
             favId && dispatch(getFavoriteItem({favId}))
 
             invoiceId && dispatch(getInvoiceUserData({invoiceId}))

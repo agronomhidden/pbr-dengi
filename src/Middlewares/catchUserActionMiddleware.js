@@ -1,4 +1,4 @@
-import {TOKEN, SUCCESS, LOGIN_USER, LOGOUT_CURRENT_USER} from '../CONSTANTS'
+import {TOKEN, SUCCESS, LOGIN_USER, LOGOUT_CURRENT_USER, CLOSED_TEASER} from '../CONSTANTS'
 import {changeLocation} from "../Reducers/AC/locationAC"
 
 export default (history, CookieManager) => store => next => action => {
@@ -14,6 +14,9 @@ export default (history, CookieManager) => store => next => action => {
         case LOGOUT_CURRENT_USER:
             CookieManager.remove(TOKEN)
             history.go('/')
+            break
+        case CLOSED_TEASER:
+            CookieManager.set('removeTeaser', action.payload, {expires: 1})
             break
     }
 

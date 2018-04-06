@@ -22,13 +22,13 @@ import catchAssistRequestMiddleware from "../../Middlewares/catchAssistRequestMi
 export default () => {
     const url = location.protocol + '//' + location.host + SERVER_POST_URL;
     const ParamsContainer = new ClientApiParamsContainer(url, cookies);
-    history.location.state = []
+
     const store = getStore(
         fromJSON(window.__INITIAL_STATE__),
         catchLocationChange(cookies),
         apiCallerMiddleware(ParamsContainer),
         catchUserActionMiddleware(history, cookies),
-        catchAssistRequestMiddleware(history),
+        catchAssistRequestMiddleware,
         eripDialogMiddleware(history),
         settingMiddleware,
         catchAddFavorite,

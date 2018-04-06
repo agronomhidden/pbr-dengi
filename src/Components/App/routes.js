@@ -9,7 +9,7 @@ import {getHistoryItems, getHistoryList} from "../../Reducers/AC/payHistoryAC"
 import {getUserAgreement} from "../../Reducers/AC/helpAC"
 import {getFavorites} from "../../Reducers/AC/favoritesAC"
 import ServiceDescription from "../Pages/Help/ServiceDescription"
-import UserAgreement from "../Pages/Help/UserAgreement"
+import UserAgreementInTempl from "../Pages/Help/UserAgreementInTempl"
 import {getDescription, getSocial} from "../../Reducers/AC/helpAC"
 import {History, HistoryDetailItem} from "../Pages/History"
 import {Favorites, Favorite} from "../Pages/Favorites"
@@ -80,7 +80,7 @@ export default [
     {
         path: '/help/user-agreement',
         exact: true,
-        component: UserAgreement,
+        component: UserAgreementInTempl,
         title: 'Пользовательское соглашение',
         fetchData: getUserAgreement
     },

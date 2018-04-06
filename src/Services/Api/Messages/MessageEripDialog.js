@@ -8,9 +8,9 @@ export default class MessageEripDialog extends AbstractMessage {
     /**
      * @param {string} access_token
      * @param {integer} serviceCode
-     * @param {{}|null} fields
+     * @param {null} fields
      * @param {{}} otherFields
-     * @param {string|null} mts_session
+     * @param {null} mts_session
      */
     constructor(access_token, serviceCode, mts_session = null, fields = null, otherFields = {}) {
         super()
