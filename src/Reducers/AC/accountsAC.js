@@ -6,16 +6,18 @@ import {
     GET_USER_DATA,
     GET_INVOICES,
     DELETE_USER_DATA,
+    GET_INVOICE_USER_DATA,
     EDIT_USER_DATA,
     USER_DATA_SEARCH,
     FOCUS_SERVICE,
     START,
     FAIL,
     API_REQUEST_ACTION,
-    RESET
+    RESET,
 } from "../../CONSTANTS"
 
 import * as msg from "../../Services/Api/Messages";
+import {logoutCurrentUser} from "./authAC"
 
 
 export function setBanners(result) {
@@ -147,6 +149,7 @@ export function focusService(serviceId) {
         payload: serviceId
     }
 }
+
 /** ************** Create User Data ************ */
 
 export function createUserDataInit() {
@@ -261,3 +264,30 @@ export function loadInvoices() {
         successAC: loadInvoicesComplete
     }
 }
+
+/** ************** Invoice User Data By ID ************ */
+
+export const getInvoiceStart = () => ({
+    type: GET_INVOICE_USER_DATA + START,
+})
+
+export const getInvoiceSuccess = response => ({
+    type: GET_INVOICE_USER_DATA + SUCCESS,
+    payload: response
+})
+
+export const getInvoiceFail = ({message, error}, defaultError = 'Ошибка получения данных') => ({
+    type: GET_INVOICE_USER_DATA + FAIL,
+    payload: message || error || defaultError
+})
+
+export const getInvoiceUserData = (params) => ({
+    type: API_REQUEST_ACTION,
+    method: msg.MessageGetInvoiceUserData.METHOD,
+    payload: params,
+    beforeAC: (paramsContainer) => getInvoiceStart(),
+    successAC: getInvoiceSuccess,
+    forbiddenErrorAC: logoutCurrentUser,
+    dataLoadErrorAC: getInvoiceFail,
+})
+

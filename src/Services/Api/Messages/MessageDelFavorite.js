@@ -12,14 +12,9 @@ export default class MessageDelFavorite extends AbstractMessage {
     constructor(access_token, id) {
         super()
 
-        if (Validator.isNull(access_token) || Validator.isNull(id) ) {
-            throw new Error('arguments(access_token,id) do not must be NULL')
+        if (Validator.isNull(id)  || !Validator.isInt(id)) {
+            throw new TypeError('id must be integer, don\'t must be null')
         }
-
-        if (!Validator.isInt(id)) {
-            throw new TypeError('id must be integer')
-        }
-
         this.args = {access_token, id}
     }
 }

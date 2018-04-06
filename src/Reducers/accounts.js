@@ -4,8 +4,9 @@ import {arrToMap} from 'pbr-lib-front-utils/dateManipulation'
 import {
     FOCUS_SERVICE, CREATE_USER_DATA, GET_INVOICES, GET_BANNERS, CREATE_USER_DATA_WITH_BANNER, GET_USER_DATA,
     START, SUCCESS, FAIL, RESET, USER_DATA_SEARCH,
-    ACCOUNTS_SLIDER_LOADED, ACCOUNTS_USER_DATA_LOADED, ACCOUNTS_INVOICES_LOADED
+    ACCOUNTS_SLIDER_LOADED, ACCOUNTS_USER_DATA_LOADED, ACCOUNTS_INVOICES_LOADED, GET_INVOICE_USER_DATA
 } from "../CONSTANTS";
+import UserDataServiceEntity from "./Entities/UserDataServiceEntity"
 
 const ReducerState = Record({
     slider: new OrderedMap({}),
@@ -26,7 +27,9 @@ const ReducerState = Record({
     createUserDataError: null,
     createUserDataLoading: false,
 
-    invoices: new OrderedMap({})
+    invoices: new OrderedMap({}),
+
+    invoiceUserData: null
 })
 
 export default (state = new ReducerState(), action = {}) => {
@@ -81,6 +84,12 @@ export default (state = new ReducerState(), action = {}) => {
             return state
         case GET_INVOICES + SUCCESS:
             return state.set('invoices', arrToMap(action.payload.invoices)).set('allDivLoaded', state.get('allDivLoaded') | ACCOUNTS_INVOICES_LOADED)
+
+        case GET_INVOICE_USER_DATA + START:
+            return state.set('invoiceUserData', null)
+        case GET_INVOICE_USER_DATA + SUCCESS:
+            return state.set('invoiceUserData', new UserDataServiceEntity(action.payload))
+
     }
     return state
 }

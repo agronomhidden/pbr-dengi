@@ -28,7 +28,7 @@ export default class DialogInput extends Component {
     _getInput() {
 
         const {
-            name, type, min, max, required, disabled, nominal, payState, placeholder, mask,
+            name, type, min, max, required, disabled, nominal, payState, placeholder, mask, isSum,
             value, hint, editable, format, onCheck, onChange
         } = this.props;
 
@@ -47,6 +47,11 @@ export default class DialogInput extends Component {
 
         switch (type) {
             case 'R':
+
+                component = <Input type={'number'} min={min} max={max}
+                                   step={nominal || (isSum && '0.01') || 'any'} {...attributes}
+                                   value={payState[name]} placeholder={placeholder} onChange={onChange}/>
+                break
             case 'I':
                 if (mask) {
                     component = <InputMask mask={mask.prefix + ' ' + mask.mask + ' ' + mask.postfix}
@@ -54,8 +59,8 @@ export default class DialogInput extends Component {
                                            onChange={onChange} {...attributes}/>
                     break
                 }
-                component = <Input type={'number'} min={min} max={max} step={nominal || min} {...attributes}
-                                   value={payState[name]} placeholder={placeholder} onChange={onChange} />
+                component = <Input type={'number'} min={min} max={max} step="1" {...attributes}
+                                   value={payState[name]} placeholder={placeholder} onChange={onChange}/>
                 break
             case 'S':
                 component = <Input type={'text'} value={payState[name]} placeholder={placeholder}

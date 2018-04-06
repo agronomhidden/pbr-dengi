@@ -1,12 +1,14 @@
 import AbstractMessage from './AbstractMessage';
-import {TOKEN} from "../../../CONSTANTS"
 
 export default class MessageGetUser extends AbstractMessage {
 
     static METHOD = 'user/get';
 
-    constructor(token) {
+    /**
+     * @param access_token
+     */
+    constructor(access_token) {
         super()
-        this.args = {[TOKEN]: token}
+        this.args = {access_token}
     }
 }

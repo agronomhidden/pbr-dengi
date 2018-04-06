@@ -12,9 +12,6 @@ export default class MessageGetFavorites extends AbstractMessage {
     constructor(access_token, advanced = 1) {
         super()
 
-        if (Validator.isNull(access_token)) {
-            throw new Error('access_token, do not must be NULL')
-        }
         if (!Validator.isInt(advanced)) {
             throw new Error('advanced must be integer')
         }

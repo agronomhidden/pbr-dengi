@@ -6,7 +6,6 @@ export default class MessageSendMail extends AbstractMessage {
     static METHOD = 'invoices/get-slider';
 
     /**
-     *
      * @param {string} access_token
      * @param {integer} location_id
      */

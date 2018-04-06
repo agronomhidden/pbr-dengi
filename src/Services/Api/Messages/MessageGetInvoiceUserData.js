@@ -3,7 +3,7 @@ import AbstractMessage from "./AbstractMessage"
 
 export default class MessageGetFavoriteItem extends AbstractMessage {
 
-    static METHOD = 'payments/favorite-item';
+    static METHOD = 'invoices/get-user-data-item';
 
     /**
      * @param {string} access_token

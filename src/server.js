@@ -10,6 +10,7 @@ import proxy from 'express-http-proxy'
 import {SERVER_POST_URL} from './CONSTANTS'
 import nocache from './express/nocache'
 import catchUrl from "./express/catchUrl"
+import mobileDetected from "./express/mobileDetected"
 import logger from "./express/logger"
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(express.static('public', {
 app.use(SERVER_POST_URL, proxy(process.env.API_URL, {
     proxyReqPathResolver: () => SERVER_POST_URL
 }));
+app.use('*', mobileDetected);
 app.use('/payments/pay', catchUrl);
 app.use('*', nocache);
 app.use('/', Router);

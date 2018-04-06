@@ -7,12 +7,11 @@ export default class MessageChangePassword extends AbstractMessage {
 
     /**
      * @param {string} access_token
-     * @param {string|null} password
-     * @param {string|null} passwordRepeat
+     * @param {null} password
+     * @param {null} passwordRepeat
      */
     constructor(access_token, password = null, passwordRepeat = null) {
         super()
-
         if (Validator.isNull(access_token)) {
             throw new Error('access_token, do not must be NULL')
         }

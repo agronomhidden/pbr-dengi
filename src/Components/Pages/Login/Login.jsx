@@ -44,12 +44,14 @@ class Login extends Component {
             <div className="admin-login">
                 <header className="admin-login_header">Авт{<img src={favicon()} alt="МТС"/>}ризуйся же!</header>
                 <form className="form-group -form-simple -login-form" method="POST" onSubmit={this.onSubmit}>
-                    <fieldset disabled={loading}>
+                    <fieldset disabled={loading} style={{width:'85%'}}>
                         <FormGroup name="phone" label="Номер телефона" value={this.state.phone}
+                                   wrapperModifier="-login-wrapper"
                                    maskChar='*' labelModifier='-login-label'
                                    alwaysShowMask={true} mask="+375\ (99) 999 - 9999"
                                    onChange={this.onChange} errors={errors}/>
                         <FormGroup name="password" type="password" label="Пароль"
+                                   wrapperModifier="-login-wrapper"
                                    value={this.state.password} labelModifier='-login-label'
                                    onChange={this.onChange} errors={errors}/>
                         <div className="admin-login-buttons">

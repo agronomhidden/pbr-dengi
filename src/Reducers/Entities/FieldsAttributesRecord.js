@@ -8,7 +8,8 @@ const defaultFields = {
     min: null,
     max: null,
     min_length: null,
-    max_length: null
+    max_length: null,
+    step: '0.01'
 }
 
 export default class FieldsAttributesRecord extends Record(defaultFields) {
@@ -65,6 +66,10 @@ export default class FieldsAttributesRecord extends Record(defaultFields) {
 
     get MaxLength() {
         return this.max_length
+    }
+
+    get Step() {
+        return  this.Name === 'sum' ? this.step : null
     }
 
 }

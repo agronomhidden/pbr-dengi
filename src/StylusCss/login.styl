@@ -1,13 +1,13 @@
 .admin-login {
-  width: 350px;
-  margin: 275px auto 0;
-  padding: 30px 20px 10px;
-  box-shadow: 0 0 1px #000;
-  background: #fff;
+  width: 375px;
+  margin: 275px auto;
+  box-shadow: 0 0 100px #000;
+  border-radius 5px
 }
 
 .admin-login_header {
-  margin-bottom: 22px;
+  padding-top: 15px;
+  margin-bottom: 10px;
   text-align: center;
   font-size: 1.3em;
   color: #757575;
@@ -19,16 +19,17 @@
   }
 }
 
-.admin-login-buttons {
-  position: relative;
-  overflow: hidden;
-}
+.-login-wrapper
+  display: block !important
 
 .-login-label
-  width 115px !important
+  min-height 0 !important
 
-.-login-form
-  margin-left -30px !important
+.admin-login-buttons-left
+  width: 150px
+  float: left
+  margin-left: 17px
 
-
-
+.admin-login-buttons-right
+  float: right
+  margin-right: 53px

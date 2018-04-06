@@ -5,7 +5,6 @@ export default class MessageSendMail extends AbstractMessage {
     static METHOD = 'payments/send-invoice';
 
     /**
-     *
      * @param {string} recipient
      * @param {string} key
      */

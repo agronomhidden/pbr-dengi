@@ -1,5 +1,5 @@
 import {
-    SET_CURRENT_USER, LOGIN_USER, LOGOUT_CURRENT_USER, GET_BALANCE,
+    SET_CURRENT_USER, LOGIN_USER, LOGOUT_CURRENT_USER, GET_BALANCE, SET_USER_DEVICE,
     START, SUCCESS, FAIL,
 } from "../CONSTANTS"
 
@@ -9,7 +9,8 @@ const userState = Record({
     user: null,
     errors: null,
     loading: false,
-    balance: null
+    balance: null,
+    device: null
 })
 
 export default (state = new userState(), action = {}) => {
@@ -47,6 +48,9 @@ export default (state = new userState(), action = {}) => {
             return state
                 .set('loading', false)
                 .set('errors', action.payload)
+        case SET_USER_DEVICE:
+            return state
+                .set('device', action.payload)
         default:
             return state;
     }

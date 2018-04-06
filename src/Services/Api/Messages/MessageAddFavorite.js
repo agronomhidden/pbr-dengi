@@ -12,9 +12,6 @@ export default class MessageAddFavorite extends AbstractMessage {
      */
     constructor(access_token, key, name = null) {
         super()
-        if (!access_token) {
-            throw new Error('access_token do not must be NULL')
-        }
         if (!key) {
             throw new Error('key do not must be NULL')
         }

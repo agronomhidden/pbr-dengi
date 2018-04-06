@@ -5,15 +5,15 @@ export const PROCESS = '_PROCESS'
 export const RESET = '_RESET'
 export const FAILED = '_FAILED'
 export const OVER = '_OVER'
-
-
 export const ERROR = 'ERROR'
 
 export const TOKEN = 'access_token'
 export const LOCATION_ID = 'location_id'
 export const REAL_IP = 'X-Real-IP'
-export const MOBILE = 'mobile'
-export const BROWSER = 'browser'
+
+export const IOS = 'iOS'
+export const ANDROID = 'AndroidOS'
+
 export const API_REQUEST_ACTION = 'API_REQUEST_ACTION'
 export const CURRENCY = 'BYN'
 export const SEND_MAIL = 'SEND_MAIL'
@@ -25,11 +25,13 @@ export const CHANGE_ROUTE = '@@router/LOCATION_CHANGE'
 export const TOUCH_LOCATION = 'TOUCH_LOCATION'
 /** Поиск */
 export const SEARCH_EVENT = 'SEARCH_EVENT'
-/** Вход пользователя*/
+/** Пользователь*/
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER'
 export const GET_BALANCE = 'GET_BALANCE'
+export const SET_USER_DEVICE = 'SET_USER_DEVICE'
+export const CLOSED_TEASER = 'CLOSED_TEASER'
 /** Категории */
 export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'
@@ -52,6 +54,7 @@ export const SETTINGS_FIELDS_ERROR = 'SETTINGS_FIELDS_ERROR'
 export const SETTINGS_DISTRIBUTOR = 'SETTINGS_DISTRIBUTOR'
 /** Правила сервиса*/
 export const SERVICE_DESCRIPTION = 'SERVICE_DESCRIPTION'
+export const SOCIAL_RULES = 'SOCIAL_RULES'
 /** Избранное*/
 export const GET_FAVORITES = 'GET_FAVORITES'
 export const ADD_FAVORITE = 'ADD_FAVORITE'
@@ -70,18 +73,16 @@ export const USER_DATA_SEARCH = 'USER_DATA_SEARCH'
 export const FOCUS_SERVICE = 'FOCUS_SERVICE'
 export const DELETE_USER_DATA = 'DELETE_USER_DATA'
 export const EDIT_USER_DATA = 'EDIT_USER_DATA'
-
+export const GET_INVOICE_USER_DATA = 'GET_INVOICE_USER_DATA'
 /** флаги */
 export const ACCOUNTS_SLIDER_LOADED = 0b00001
 export const ACCOUNTS_USER_DATA_LOADED = 0b00010
 export const ACCOUNTS_INVOICES_LOADED = 0b00100
-
 /** Ассист */
 export const RECHARGE = 'RECHARGE'
 export const RECHARGE_INFO = 'RECHARGE_INFO'
 export const SET_ASSIST_PARAMS = 'SET_ASSIST_PARAMS'
 export const GET_RECHARGE_DIALOG = 'GET_RECHARGE_DIALOG'
-
 /** Счета*/
 export const GET_RECHARGE_REQUIREMENT = 'GET_RECHARGE_REQUIREMENT'
 export const GET_RECHARGE_MODEL = 'GET_RECHARGE_MODEL'

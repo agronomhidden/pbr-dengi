@@ -26,7 +26,6 @@ export function setUserLocations() {
     return {
         type: API_REQUEST_ACTION,
         method: MessageSetLocation.METHOD,
-        payload: {},
     }
 }
 
@@ -34,7 +33,6 @@ export function getLocations() {
     return {
         type: API_REQUEST_ACTION,
         method: MessageGetLocation.METHOD,
-        payload: {},
         beforeAC: (paramsContainer) => loadLocation(paramsContainer.getLocationId()),
         successAC: locationLoaded
     }

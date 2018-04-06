@@ -4,9 +4,11 @@ import {TOKEN} from "../../../CONSTANTS"
 export default class MessageGetUserData extends AbstractMessage {
 
     static METHOD = 'invoices/get-user-data';
-
-    constructor(token) {
+    /**
+     * @param access_token
+     */
+    constructor(access_token) {
         super()
-        this.args = {[TOKEN]: token}
+        this.args = {access_token}
     }
 }

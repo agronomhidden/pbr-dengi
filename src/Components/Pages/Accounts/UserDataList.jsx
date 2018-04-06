@@ -43,6 +43,7 @@ class UserDataList extends Component {
             <li key={service.getId()}>
                 <Link to={`/accounts/edit/${item.getId()}/${service.getId()}`}>{this.getLink(service)}</Link>
                 {this.getDesc(service)} <i>№{service.getIdentifier()}</i>
+                <Link to={`/payments/${service.getService().getId()}?invoiceId=${service.getId()}`}>ОПЛАТИТЬ</Link>
                 [ <a href="#" onClick={this.delete(service.getId())}>Удалить</a> ]
             </li>
         ))

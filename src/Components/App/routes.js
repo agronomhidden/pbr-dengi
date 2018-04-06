@@ -6,11 +6,11 @@ import Tools from "../Pages/Tools/Tools"
 import {RechargeInfo} from '../Pages/Assist'
 import {getCategories, categoriesSearch} from "../../Reducers/AC/categoriesAC"
 import {getHistoryItems, getHistoryList} from "../../Reducers/AC/payHistoryAC"
-import {getUserAgreement} from "../../Reducers/AC/settingsAC"
+import {getUserAgreement} from "../../Reducers/AC/helpAC"
 import {getFavorites} from "../../Reducers/AC/favoritesAC"
 import ServiceDescription from "../Pages/Help/ServiceDescription"
-import UserAgreement from "../Pages/Help/UserAgreement"
-import {getDescription} from "../../Reducers/AC/helpAC"
+import UserAgreementInTempl from "../Pages/Help/UserAgreementInTempl"
+import {getDescription, getSocial} from "../../Reducers/AC/helpAC"
 import {History, HistoryDetailItem} from "../Pages/History"
 import {Favorites, Favorite} from "../Pages/Favorites"
 import {loadBanners, loadUserData, loadInvoices} from '../../Reducers/AC/accountsAC'
@@ -18,6 +18,7 @@ import {getRechargeInfo} from "../../Reducers/AC/assistAC"
 import {PayInvoices} from "../Pages/Invoices"
 import {RechargePhone} from "../Pages/Assist"
 import {getRechargeModel} from "../../Reducers/AC/payIvoicesAC"
+import Social from "../Pages/Help/Social"
 
 export default [
     {
@@ -79,9 +80,15 @@ export default [
     {
         path: '/help/user-agreement',
         exact: true,
-        component: UserAgreement,
+        component: UserAgreementInTempl,
         title: 'Пользовательское соглашение',
         fetchData: getUserAgreement
+    },
+    {
+        path: '/help/social',
+        exact: true,
+        component: Social,
+        fetchData: getSocial
     },
     {
         path: '/settings',

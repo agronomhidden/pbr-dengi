@@ -5,7 +5,6 @@ export default class MessageEditUserData extends AbstractMessage {
     static METHOD = 'invoices/edit-user-data';
 
     /**
-     *
      * @param {string} access_token
      * @param {integer} id
      * @param {string} identifier

@@ -9,13 +9,13 @@ export default class Input extends Component {
         type: PropTypes.string.isRequired,
         min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        step:PropTypes.number,
+        step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         placeholder: PropTypes.string,
         required: PropTypes.bool,
         disabled: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
     }
 
-    render = ()  => <input {...this.props}/>
+    render = () => <input {...this.props}/>
 
 }

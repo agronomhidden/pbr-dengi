@@ -111,6 +111,12 @@ export const AssistRecord = Record({
     lastname: null,
     orderstate: null,
     message: null
-
 })
 
+export const SubscriptionRecord = Record({
+    uuid: null,
+    status: null,
+    info: null,
+    agreement_required: false
+
+})

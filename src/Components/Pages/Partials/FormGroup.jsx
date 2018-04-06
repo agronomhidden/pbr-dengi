@@ -21,6 +21,7 @@ export default class FormGroup extends Component {
         minLength: PropTypes.number,
         max: PropTypes.string,
         min: PropTypes.string,
+        step: PropTypes.string,
         /** Mask*/
         mask: PropTypes.string,
         maskChar: PropTypes.string,
@@ -41,9 +42,8 @@ export default class FormGroup extends Component {
     getInput() {
         const {
             mask, name, value, onChange, placeholder, type = 'text', checked, disabled, required,
-            isNotForm, inputModifier, maskChar, alwaysShowMask, maxLength, minLength, max, min
+            isNotForm, inputModifier, maskChar, alwaysShowMask, maxLength, minLength, max, min, step
         } = this.props;
-
         const inputClass = {
             'form-group_control': !isNotForm,
             'danger': getFieldError(name, this.props)
@@ -52,7 +52,7 @@ export default class FormGroup extends Component {
         inputClass[inputModifier] = !!inputModifier;
 
         const inputAttr = {
-            id: name, className: classNames(inputClass), name, type, placeholder,
+            id: name, className: classNames(inputClass), name, type, placeholder, step,
             value, onChange, disabled, maxLength, minLength, checked, required, max, min
         }
 
