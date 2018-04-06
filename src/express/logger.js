@@ -1,3 +1,4 @@
+import fs from 'fs'
 import path from 'path'
 import morgan from 'morgan'
 import rfs from 'rotating-file-stream'

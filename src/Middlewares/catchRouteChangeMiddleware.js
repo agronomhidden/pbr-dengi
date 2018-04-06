@@ -43,6 +43,7 @@ export default history => store => next => action => {
             break
         case CHANGE_ROUTE:
             doLoadAccountSearch(store, action.payload.location.pathname)
+            scroll(action.payload.action)
             history.location.state = history.location.pathname;
             break
     }

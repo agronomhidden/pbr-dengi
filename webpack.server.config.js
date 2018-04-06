@@ -33,6 +33,7 @@ module.exports = {
         loaders: [
             {test: /\.jsx?$/, loader: 'babel-loader', exclude: [/node_modules/]},
             {test: /\.css$/, loader: 'ignore-loader'},
+            {test: /\.styl$/, loader: 'ignore-loader'},
             {test: /\.json$/, loader: 'json-loader'}
         ]
     },
