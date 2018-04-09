@@ -36,6 +36,9 @@ export default class ApiCaller extends BaseApiCaller {
             case msg.MessageSearchCategories.METHOD:
                 return (new msg.MessageSearchCategories(params.searchQuery, params.id, container.getLocationId())).getMessage()
 
+            case msg.MessageSendPassword.METHOD:
+                return (new msg.MessageSendPassword(container.getToken(), params.phone)).getMessage()
+
             case msg.MessageSearchAutoCompleteCategories.METHOD:
                 return (new msg.MessageSearchAutoCompleteCategories(params.value, params.category_id, container.getLocationId())).getMessage()
 

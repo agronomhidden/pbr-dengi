@@ -34,6 +34,7 @@ import MessageGetBalance from './MessageGetBalance';
 import MessageGetRechargeModel from './MessageGetRechargeModel';
 import MessageGetSocial from './MessageGetSocial';
 import MessageGetInvoiceUserData from './MessageGetInvoiceUserData';
+import MessageSendPassword from './MessageSendPassword';
 
 export {
     MessageSearchAutoCompleteCategories,
@@ -71,5 +72,6 @@ export {
     MessageGetBalance,
     MessageGetRechargeModel,
     MessageGetSocial,
-    MessageGetInvoiceUserData
+    MessageGetInvoiceUserData,
+    MessageSendPassword
 }

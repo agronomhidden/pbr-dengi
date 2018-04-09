@@ -1,6 +1,6 @@
 import {
     SET_CURRENT_USER, LOGOUT_CURRENT_USER, LOGIN_USER, GET_BALANCE,
-    API_REQUEST_ACTION, SET_USER_DEVICE,CLOSED_TEASER,
+    API_REQUEST_ACTION, SET_USER_DEVICE, CLOSED_TEASER, SEND_CODE,
     SUCCESS, START, FAIL
 } from "../../CONSTANTS"
 import * as creator from "../../Services/Api/Messages";
@@ -66,6 +66,29 @@ export const getBalance = () => ({
     successAC: getBalanceSuccess,
     forbiddenErrorAC: logoutCurrentUser,
     serverErrorAC: getBalanceFail
+})
+
+export const sendCodeInit = () => ({
+    type: SEND_CODE + START
+})
+
+export const sendCodeComplete = response => ({
+    type: SEND_CODE + SUCCESS,
+    payload: response
+})
+
+export const sendCodeFail = response => ({
+    type: SEND_CODE + FAIL,
+    payload: {fields: response.result, msg: response.message}
+})
+
+export const sendCode = phone => ({
+    type: API_REQUEST_ACTION,
+    method: creator.MessageSendPassword.METHOD,
+    payload: {phone},
+    beforeAC: (paramsContainer) => sendCodeInit(),
+    successAC: sendCodeComplete,
+    fieldErrorAC: sendCodeFail
 })
 
 export const setUserDevice = device => ({

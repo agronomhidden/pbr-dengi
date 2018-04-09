@@ -32,6 +32,8 @@ export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER'
 export const GET_BALANCE = 'GET_BALANCE'
 export const SET_USER_DEVICE = 'SET_USER_DEVICE'
 export const CLOSED_TEASER = 'CLOSED_TEASER'
+export const SEND_CODE = 'SEND_CODE'
+
 /** Категории */
 export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE'

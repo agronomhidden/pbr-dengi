@@ -13,7 +13,7 @@ export default class MessageAddFavorite extends AbstractMessage {
     constructor(access_token, key, name = null) {
         super()
         if (!key) {
-            throw new Error('key do not must be NULL')
+            throw new Error('key must not be NULL')
         }
 
         this.args = {access_token, key, name}

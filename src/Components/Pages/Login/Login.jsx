@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {FormGroup} from '../Partials'
 import {Roller} from '../../Loading'
 import {setFieldError} from 'pbr-lib-front-utils/dist/MtsMoneyApi/formatHelper'
-import {userLogin} from "../../../Reducers/AC/authAC"
+import {userLogin, sendCode} from "../../../Reducers/AC/authAC"
 import {getFavicon as favicon} from '../../../resourcePaths';
 
 class Login extends Component {
@@ -28,6 +28,11 @@ class Login extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.isValid() && this.props.userLogin(this.state);
+    }
+
+    onCodeSend = (e) => {
+        e.preventDefault();
+        this.isValid() && this.props.sendCode(this.state.phone);
     }
 
     isValid() {
@@ -65,16 +70,31 @@ class Login extends Component {
                         </div>
                     </fieldset>
                 </form>
+                <form className="form-group -form-simple -login-form" method="POST" onSubmit={this.onCodeSend}>
+                    <fieldset disabled={loading} style={{width:'85%'}}>
+                        <FormGroup name="phone" label="Номер телефона" value={this.state.phone}
+                                   wrapperModifier="-login-wrapper"
+                                   maskChar='*' labelModifier='-login-label'
+                                   alwaysShowMask={true} mask="+375\ (99) 999 - 9999"
+                                   onChange={this.onChange} errors={errors}/>
+                        <div className="admin-login-buttons">
+                            <div className="admin-login-buttons-right">
+                                {loading && <Roller width="38px" parentClass={'login-loading'}/>}
+                                <button className="danger">Выслать код для входа</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         );
     }
 }
 
 export default connect(
-    (s => ({
-        loading: s.auth.get('loading'),
-        errors: s.auth.get('errors'),
+    (({auth}) => ({
+        loading: auth.get('loading'),
+        errors: auth.get('errors'),
     })),
-    {userLogin}
+    {userLogin, sendCode}
 )(Login);
 

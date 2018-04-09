@@ -1,5 +1,5 @@
 import {
-    SET_CURRENT_USER, LOGIN_USER, LOGOUT_CURRENT_USER, GET_BALANCE, SET_USER_DEVICE,
+    SET_CURRENT_USER, LOGIN_USER, LOGOUT_CURRENT_USER, GET_BALANCE, SET_USER_DEVICE, SEND_CODE,
     START, SUCCESS, FAIL,
 } from "../CONSTANTS"
 
@@ -20,6 +20,7 @@ export default (state = new userState(), action = {}) => {
                 .set('user', action.payload)
 
         case LOGIN_USER + START:
+        case SEND_CODE + START:
             return state
                 .set('loading', true)
                 .set('errors', null)
@@ -31,6 +32,9 @@ export default (state = new userState(), action = {}) => {
             return state
                 .set('loading', false)
                 .set('errors', action.payload)
+
+        case SEND_CODE + SUCCESS:
+            return state.set('loading', false)
 
         case LOGOUT_CURRENT_USER:
             return state
