@@ -54,6 +54,8 @@ export const categoriesSearch = params => ({
     dataLoadErrorAC: categoriesLoadingError
 })
 
+export const fetchCategories = params => (params.searchQuery ? categoriesSearch(params) : getCategories(params))
+
 export const autoCompleteSearch = (value, category_id) => ({
     type: API_REQUEST_ACTION,
     method: creator.MessageSearchAutoCompleteCategories.METHOD,

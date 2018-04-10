@@ -4,7 +4,7 @@ import Accounts from '../Pages/Accounts'
 import {Payments, RechargeDialog} from "../Pages/Payments"
 import Tools from "../Pages/Tools/Tools"
 import {RechargeInfo} from '../Pages/Assist'
-import {getCategories, categoriesSearch} from "../../Reducers/AC/categoriesAC"
+import {fetchCategories} from "../../Reducers/AC/categoriesAC"
 import {getHistoryItems, getHistoryList} from "../../Reducers/AC/payHistoryAC"
 import {getUserAgreement} from "../../Reducers/AC/helpAC"
 import {getFavorites} from "../../Reducers/AC/favoritesAC"
@@ -22,32 +22,18 @@ import Social from "../Pages/Help/Social"
 
 export default [
     {
-        path: '/',
+        path: ['/', '/\?(.+)'],
         exact: true,
         component: Categories,
         title: 'Главная страница',
-        fetchData: getCategories
+        fetchData: fetchCategories
     },
     {
-        path: '/\?(.+)',
-        exact: true,
-        component: Categories,
-        title: 'Главная страница',
-        fetchData: categoriesSearch
-    },
-    {
-        path: '/categories/:id(\\d+)',
+        path: ['/categories/:id(\\d+)', '/categories/:id(\\d+)\?(.+)'],
         exact: true,
         component: CurrentCategories,
         title: 'Категории',
-        fetchData: getCategories
-    },
-    {
-        path: '/categories/:id(\\d+)\?(.+)',
-        exact: true,
-        component: CurrentCategories,
-        title: 'Категории',
-        fetchData: categoriesSearch
+        fetchData: fetchCategories
     },
     {
         path: '/payments-history',
@@ -99,23 +85,7 @@ export default [
         fetchData: getUserAgreement
     },
     {
-        path: '/accounts/edit/:div_id(\\d+)/:user_data_id(\\d+)',
-        exact: true,
-        needAuth: true,
-        component: Accounts,
-        title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData]
-    },
-    {
-        path: '/accounts/:parent_id(\\d+)\?/:search(.*)',
-        exact: true,
-        needAuth: true,
-        component: Accounts,
-        title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData]
-    },
-    {
-        path: '/accounts',
+        path: ['/accounts/edit/:div_id(\\d+)/:user_data_id(\\d+)', '/accounts/:parent_id(\\d+)\?/:search(.*)', '/accounts'],
         exact: true,
         needAuth: true,
         component: Accounts,
@@ -182,5 +152,3 @@ export default [
         title: 'Ошибка 404. Страница не найдена',
     }
 ];
-
-
