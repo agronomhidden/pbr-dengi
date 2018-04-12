@@ -1,6 +1,6 @@
 import {CHANGE_LOCATION, LOCATION_ID} from '../CONSTANTS'
 import {loadLocation} from '../Reducers/AC/locationAC'
-import {getCategories, categoriesSearch} from '../Reducers/AC/categoriesAC'
+import {fetchCategories} from '../Reducers/AC/categoriesAC'
 import {setUserLocations} from '../Reducers/AC/locationAC'
 
 /**
@@ -30,19 +30,15 @@ export default CookieManager => store => next => action => {
         next(loadLocation(action.payload));
 
         const params = getParams(store);
-        if (params.searchQuery) {
-            promises.push(next(categoriesSearch(params)))
-        } else {
-            promises.push(next(getCategories(params)))
-        }
+
+        promises.push( next(fetchCategories(params)) )
+
         if (hasUser(store)) {
-            promises.push( next(setUserLocations()))
+            promises.push( next(setUserLocations()) )
         }
     }
 
-    Promise.all(promises).then(() => {
-        next(action);
-    }).catch(() => {
+    Promise.all(promises).finally(() => {
         next(action);
     })
 }

@@ -14,6 +14,7 @@ import {getDescription, getSocial} from "../../Reducers/AC/helpAC"
 import {History, HistoryDetailItem} from "../Pages/History"
 import {Favorites, Favorite} from "../Pages/Favorites"
 import {loadBanners, loadUserData, loadInvoices} from '../../Reducers/AC/accountsAC'
+import {initDialog} from '../../Reducers/AC/eripDialogAC'
 import {getRechargeInfo} from "../../Reducers/AC/assistAC"
 import {PayInvoices} from "../Pages/Invoices"
 import {RechargePhone} from "../Pages/Assist"
@@ -56,6 +57,8 @@ export default [
         path: '/payments/:id(\\d{11})',
         exact: true,
         component: Payments,
+        onInitFetch: initDialog,
+        onRouteChangeFetch: initDialog,
         title: 'Платежи'
     },
     {

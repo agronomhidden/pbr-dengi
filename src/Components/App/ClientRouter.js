@@ -20,6 +20,7 @@ import eripDialogMiddleware from "../../Middlewares/eripDialogMiddleware"
 import catchFavorite from "../../Middlewares/catchFavorite"
 import catchAddFavorite from "../../Middlewares/catchAddFavorite"
 import catchAssistRequestMiddleware from "../../Middlewares/catchAssistRequestMiddleware"
+import { initApp } from '../../Reducers/AC/commonAC'
 
 const routeManager = new RouteManager(routes);
 /** @todo теперь routeManager можно передавать в миделвару и работать с путями */
@@ -40,6 +41,8 @@ export default () => {
         catchAddFavorite,
         catchFavorite,
         accountMiddleware)
+
+    store.dispatch(initApp(location));
 
     return (
         <Provider store={store}>

@@ -22,6 +22,10 @@ export default class Route {
         return this.data.route.onRouteChangeFetch || null;
     }
 
+    getFetchFunctionOnInit() {
+        return this.data.route.onInitFetch || null;
+    }
+
     getParams() {
         return this.data.match.params || {};
     }
@@ -50,6 +54,10 @@ export default class Route {
 
     executeOnRouteChangeFetchData(closures = []) {
         return this.executeFetchActions(this.getFetchFunctionOnRouteChange(), closures)
+    }
+
+    executeOnInitFetchData(closures = []) {
+        return this.executeFetchActions(this.getFetchFunctionOnInit(), closures)
     }
 }
 

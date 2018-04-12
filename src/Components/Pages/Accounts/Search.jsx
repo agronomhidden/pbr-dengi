@@ -10,7 +10,7 @@ import {mapToArr} from "pbr-lib-front-utils/dateManipulation";
 import ServiceEntity from '../../../Reducers/Entities/ServiceEntity'
 import CategoryEntity from '../../../Reducers/Entities/CategoryEntity'
 import { getCategories, categoriesSearch, focusService, createUserData } from '../../../Reducers/AC/accountsAC'
-import { touchLocation, pushLocation } from '../../../Reducers/AC/commonAC'
+import { pushLocation } from '../../../Reducers/AC/commonAC'
 
 /**
  * @property {Array<ServiceEntity>} props.services
@@ -105,10 +105,6 @@ class Search extends Component {
             {this.renderContent()}
         </div>
     }
-
-    componentWillMount() {
-        this.props.touchLocation(this.props.location)
-    }
 }
 
 export default connect(
@@ -120,6 +116,6 @@ export default connect(
         focusedService: accounts.get('focusedService') ? new ServiceEntity(accounts.get('focusedService')) : null
     }),
     {
-        categoriesSearch, getCategories, touchLocation, pushLocation, focusService, createUserData
+        categoriesSearch, getCategories, pushLocation, focusService, createUserData
     }
 )(Search)
