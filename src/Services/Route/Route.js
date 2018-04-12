@@ -18,17 +18,20 @@ export default class Route {
         return this.data.route.fetchData || [];
     }
 
+    getFetchFunctionOnRouteChange() {
+        return this.data.route.onRouteChangeFetch || null;
+    }
+
     getParams() {
         return this.data.match.params || {};
     }
 
     /**
+     * @param {Function|Array} fetchData
      * @param {Array} closures
      * @return {*}
      */
-    *executeFetchActions(closures = []) {
-        const fetchData = this.getFetchFunctions();
-
+    *executeFetchActions(fetchData, closures = []) {
         if (fetchData instanceof Function) {
             yield fetchData(closures.reduce((result, closure) => closure(result), this.getParams()))
         }
@@ -39,6 +42,14 @@ export default class Route {
                 }
             }
         }
+    }
+
+    executeFetchData(closures = []) {
+        return this.executeFetchActions(this.getFetchFunctions(), closures)
+    }
+
+    executeOnRouteChangeFetchData(closures = []) {
+        return this.executeFetchActions(this.getFetchFunctionOnRouteChange(), closures)
     }
 }
 

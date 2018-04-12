@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux'
 import auth from './Reducers/auth'
+import common from './Reducers/common'
 import categories from './Reducers/categories'
 import eripDialog from './Reducers/eripDialog'
 import location from './Reducers/location'
@@ -25,5 +26,6 @@ export default combineReducers({
     favorites,
     accounts,
     assist,
-    payInvoices
+    payInvoices,
+    common
 });

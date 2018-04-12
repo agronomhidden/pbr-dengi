@@ -1,5 +1,5 @@
 import {CREATE_USER_DATA_WITH_BANNER, CREATE_USER_DATA, EDIT_USER_DATA, SUCCESS, DELETE_USER_DATA} from '../CONSTANTS'
-import { pushLocation } from "../Reducers/AC/commonAC"
+import { pushLocation, mixHotReload } from "../Reducers/AC/commonAC"
 import { loadUserData, loadInvoices } from '../Reducers/AC/accountsAC'
 
 export default store => next => action => {
@@ -10,8 +10,7 @@ export default store => next => action => {
 
         case DELETE_USER_DATA + SUCCESS:
         case CREATE_USER_DATA_WITH_BANNER + SUCCESS:
-            store.dispatch(loadUserData())
-            store.dispatch(loadInvoices())
+            store.dispatch(mixHotReload(loadUserData()))
     }
 
     return next(action);

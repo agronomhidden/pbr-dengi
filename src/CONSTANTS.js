@@ -23,6 +23,10 @@ export const SERVER_POST_URL = '/api/post_request'
 /** Роутер */
 export const CHANGE_ROUTE = '@@router/LOCATION_CHANGE'
 export const TOUCH_LOCATION = 'TOUCH_LOCATION'
+
+/** Наблюдатель */
+export const SET_OBSERVED = 'SET_OBSERVED'
+
 /** Поиск */
 export const SEARCH_EVENT = 'SEARCH_EVENT'
 /** Пользователь*/

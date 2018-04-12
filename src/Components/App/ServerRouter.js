@@ -44,7 +44,7 @@ router.get('*', (req, res) => {
         promises.push(store.dispatch(getLocations()))
         promises.push(store.dispatch(setUserDevice(MobileDetectedFactory.getOs())))
 
-        for (let action of Route.executeFetchActions([prepareParamsToRout])) {
+        for (let action of Route.executeFetchData([prepareParamsToRout])) {
             promises.push(store.dispatch(action))
         }
 

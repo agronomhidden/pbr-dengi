@@ -6,6 +6,7 @@ import {fromJSON} from 'transit-immutable-js';
 import {getStore, history} from './clientStore';
 import routes from './routes';
 import RouteManager from '../../Services/Route/RouteManager'
+import catchRouteChangeMiddleware from "../../Middlewares/catchRouteChangeMiddleware"
 
 import {SERVER_POST_URL} from "../../CONSTANTS"
 import cookies from "js-cookie"
@@ -29,6 +30,7 @@ export default () => {
 
     const store = getStore(
         fromJSON(window.__INITIAL_STATE__),
+        catchRouteChangeMiddleware(routeManager, history),
         catchLocationChange(cookies),
         apiCallerMiddleware(ParamsContainer),
         catchUserActionMiddleware(history, cookies),

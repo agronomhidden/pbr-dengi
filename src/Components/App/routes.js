@@ -26,6 +26,7 @@ export default [
         exact: true,
         component: Categories,
         title: 'Главная страница',
+        onRouteChangeFetch: fetchCategories,
         fetchData: fetchCategories
     },
     {
@@ -33,6 +34,7 @@ export default [
         exact: true,
         component: CurrentCategories,
         title: 'Категории',
+        onRouteChangeFetch: fetchCategories,
         fetchData: fetchCategories
     },
     {
@@ -90,7 +92,8 @@ export default [
         needAuth: true,
         component: Accounts,
         title: 'Мои счета',
-        fetchData: [loadBanners, loadUserData]
+        onRouteChangeFetch: [loadBanners, loadUserData, loadInvoices],
+        fetchData: [loadBanners, loadUserData, loadInvoices]
     },
     {
         path: '/favorites',

@@ -35,26 +35,16 @@ export const resetAutoComplete = searchQuery => ({
     searchQuery
 })
 
-export const getCategories = params => ({
+export const fetchCategories = params => ({
     type: API_REQUEST_ACTION,
-    method: creator.MessageGetCategories.METHOD,
+    method: params.searchQuery ? creator.MessageSearchCategories.METHOD : creator.MessageGetCategories.METHOD,
     payload: params,
     beforeAC: (paramsContainer) => loadCategories(params.searchQuery || ''),
     successAC: categoriesLoaded,
     dataLoadErrorAC: categoriesLoadingError,
-    forbiddenErrorAC: logoutCurrentUser
+    forbiddenErrorAC: logoutCurrentUser,
+    observedAs: SET_CATEGORIES
 })
-
-export const categoriesSearch = params => ({
-    type: API_REQUEST_ACTION,
-    method: creator.MessageSearchCategories.METHOD,
-    payload: params,
-    beforeAC: (paramsContainer) => loadCategories(params.searchQuery || ''),
-    successAC: categoriesLoaded,
-    dataLoadErrorAC: categoriesLoadingError
-})
-
-export const fetchCategories = params => (params.searchQuery ? categoriesSearch(params) : getCategories(params))
 
 export const autoCompleteSearch = (value, category_id) => ({
     type: API_REQUEST_ACTION,

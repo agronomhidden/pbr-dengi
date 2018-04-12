@@ -13,7 +13,7 @@ import Search from './Search'
 import Invoices from './Invoices'
 
 import {ACCOUNTS_SLIDER_LOADED, ACCOUNTS_USER_DATA_LOADED, ACCOUNTS_INVOICES_LOADED} from "../../../CONSTANTS";
-import {loadBanners, loadUserData, editUserData, loadInvoices} from '../../../Reducers/AC/accountsAC'
+import { editUserData } from '../../../Reducers/AC/accountsAC'
 import UserDataServiceEntity from '../../../Reducers/Entities/UserDataServiceEntity'
 
 /**
@@ -33,16 +33,6 @@ class Accounts extends PageComponent {
 
     editUserData = id => (identifier, description) => {
         this.props.editUserData(id, identifier, description)
-    }
-
-    componentDidMount() {
-        if (this.props.sliderLoaded === false) {
-            this.props.loadBanners()
-        }
-        if (this.props.userDataLoaded === false) {
-            this.props.loadUserData()
-        }
-        this.props.loadInvoices()
     }
 
     renderPopup() {
@@ -103,7 +93,5 @@ export default connect(
             userDataLoaded: !!(accounts.get('allDivLoaded') & ACCOUNTS_USER_DATA_LOADED),
             invoicesLoaded: !!(accounts.get('allDivLoaded') & ACCOUNTS_INVOICES_LOADED),
     }},
-    {
-        loadBanners, loadUserData, editUserData, loadInvoices
-    }
+    { editUserData }
 )(PageLayout(Accounts));

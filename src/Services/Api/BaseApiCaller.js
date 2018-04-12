@@ -15,4 +15,11 @@ export default class BaseApiCaller {
         return axios.post(this.url, this.message, this.config)
     }
 
+    /**
+     *
+     * @return {Object}
+     */
+    getMessage() {
+        return this.message;
+    }
 }

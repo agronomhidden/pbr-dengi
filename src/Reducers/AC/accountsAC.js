@@ -33,6 +33,7 @@ export function loadBanners() {
         method: msg.MessageGetSlider.METHOD,
         payload: {},
         successAC: setBanners,
+        observedAs: GET_BANNERS
     }
 }
 
@@ -98,6 +99,7 @@ export function loadUserData() {
         payload: null,
         beforeAC: (paramsContainer) => loadUserDataInit(),
         successAC: loadUserDataComplete,
+        observedAs: GET_USER_DATA
     }
 }
 

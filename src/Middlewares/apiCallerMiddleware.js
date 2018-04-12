@@ -1,5 +1,7 @@
 import {API_REQUEST_ACTION} from '../CONSTANTS';
 import ApiCaller from '../Services/Api/ApiCaller';
+import Observer from '../Services/Api/Observer'
+import { setObserved } from '../Reducers/AC/commonAC'
 
 function getActionOnError(xhr, action) {
     if (xhr.response) {
@@ -32,16 +34,25 @@ export default paramsContainer => store => next => action => {
         if (paramsContainer.hasStore() === false) {
             paramsContainer.setStore(store);
         }
-        action.beforeAC && next(action.beforeAC(paramsContainer))
-
+        const observer = new Observer(store, action.observedAs, action.hotReload)
         const apiCaller = new ApiCaller(action.method, action.payload, paramsContainer)
 
-        return apiCaller.call()
-            .then(res => res && res.data && action.successAC && next(action.successAC(res.data.result)))
-            .catch(xhr => {
-                const ac = getActionOnError(xhr, action);
-                ac && next(ac);
-            })
+        if ( observer.isNeedLoad(apiCaller.getMessage()) ) {
+
+            action.beforeAC && next(action.beforeAC(paramsContainer))
+
+            return apiCaller.call()
+                .then(res => {
+                    if (res && res.data) {
+                        action.successAC && next(action.successAC(res.data.result))
+                        observer.saveCurrentConstrains(setObserved)
+                    }
+                })
+                .catch(xhr => {
+                    const ac = getActionOnError(xhr, action);
+                    ac && next(ac);
+                })
+        }
     }
 
     return next(action)

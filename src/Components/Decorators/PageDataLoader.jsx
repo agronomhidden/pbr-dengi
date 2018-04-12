@@ -14,19 +14,19 @@ export default (Component) => class PageDataLoader extends PageComponent {
     }
 
     componentDidMount() {
-        const {entities, history, loading} = this.props;
-        if (!loading && !entities.length) {
-            history.location.state = null;
-            this._getEntities(this.props)
-        }
+        //const {entities, history, loading} = this.props;
+        //if (!loading && !entities.length) {
+        //    history.location.state = null;
+        //    this._getEntities(this.props)
+        //}
     }
 
     componentWillReceiveProps(nextProps) {
-        const {history} = this.props
-        if (!nextProps.loading && history.location.state) {
-            history.location.state = null;
-            this._getEntities(nextProps)
-        }
+        //const {history} = this.props
+        //if (!nextProps.loading && history.location.state) {
+        //    history.location.state = null;
+        //    this._getEntities(nextProps)
+        //}
     }
 
     _getEntities(props) {
