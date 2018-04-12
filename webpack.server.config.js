@@ -19,6 +19,7 @@ const plugins = [
 
 module.exports = {
     entry: [
+        'babel-polyfill',
         './src/server.js'
     ],
 
